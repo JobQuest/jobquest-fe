@@ -4,7 +4,7 @@ import './index.scss';
 import App from './modules/App';
 import { BrowserRouter } from 'react-router-dom';
 
-const router = <BrowserRouter>
+const router = <BrowserRouter basename="/user/">
   <App />
 </BrowserRouter>
 
