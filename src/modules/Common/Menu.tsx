@@ -5,11 +5,9 @@ import { Link } from 'react-router-dom'
 
 interface MenuProps {
   children?: object
-  toOne: string
-  toTwo: string
 }
 const Menu: React.FC<MenuProps> = (props) => {
-  const { toOne, toTwo, children, ...others } = props
+  const {children, ...others } = props
   //Here we list all the top menu tabs per side, this nav bar would hold them all
   //needs a condition, if we are on the left page the menuitems need to be on the left side
   //if the right page then we need to have menu items on the right side
@@ -20,8 +18,6 @@ const Menu: React.FC<MenuProps> = (props) => {
     style={{
       height: "4.5em",
       display: "flex"}}>
-      <MenuItem to={toOne}/>
-      <MenuItem to={toTwo}/>
       {children}
     </section>
   );

@@ -1,22 +1,17 @@
 import React from 'react';
 import './MenuItem.scss';
 import { Link } from 'react-router-dom';
-
-type LocationPath = 
-  | "/user/profile"
-  | "/user/quests-log"
-  | "/user/quests"
-  | "/user/current-quest";
-
 interface MenuItemProps {
-  to: string;
+  // onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  path: string
 }
 
+
 const MenuItem: React.FC<MenuItemProps> = (props) => {
-const { to } = props;
+  const { path } = props
 //This is a component of individual tab in the menu bar  
 return (
-    <Link to={to}>
+    <Link to={path}>
       <aside style={{
         width: "3em",
         height: "3em",
