@@ -1,0 +1,75 @@
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 75rem;
+  margin-right: auto;
+  margin-left: auto;
+  height: inherit;
+  border: 1px solid red;
+}
+
+.row.expanded {
+  max-width: none;
+}
+
+.flex-start {
+  justify-content: flex-start;
+}
+
+.center {
+  justify-content: center;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.column {
+  flex: 1 1 0px;
+  padding: 0.9375rem;
+  box-sizing: border-box;
+  border: 1px solid green;
+}
+
+.column > .row {
+  margin-left: -0.9375rem;
+  margin-right: -0.9375rem;
+}
+
+.sm-1 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.sm-2 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+@media screen and (min-width: 40em) {
+  .md-1 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .md-2 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
