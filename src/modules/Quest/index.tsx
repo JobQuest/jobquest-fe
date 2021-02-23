@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Grid from '../../ui/Grid/Grid'
+import {useParams} from 'react-router-dom'
 import ActionButton from '../../ui/ActionButton/ActionButton'
 //this is the component that has a current quest that hols all the information
 interface Quest {
@@ -9,6 +10,10 @@ interface Quest {
   description: string
   encounters: number
   type: string
+}
+
+interface QuestPath {
+  match: object
 }
 
 interface Encounter {
@@ -26,11 +31,13 @@ interface Action {
   title: string
 }
 
-type CurrentQuest = Quest & Encounter & Action
-
-const Quest = () => {
+// type CurrentQuest = Quest & Encounter & Action & QuestPath
+type CurrentQuest =  QuestPath
+const Quest: React.FC<CurrentQuest> = (props) => {
   const [currentQuest, setCurrentQuest] = useState<object>({})
+  const {match} = props
 
+  console.log(match)
   return (
     <section style={{border: "1px solid black",
     height: '90vh',
