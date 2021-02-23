@@ -20,7 +20,7 @@ type QuestProps = QuestList
 const QuestList: React.FC<QuestProps> = (props) => {
   const {match} = props
   const [currentQuest, setCurrentQuest] = useState<object>({})
-  // const id = [1, 2, 3]
+  
   return (
     <section style={{border: "1px solid black",
     height: '90vh',
@@ -30,7 +30,7 @@ const QuestList: React.FC<QuestProps> = (props) => {
     display: 'flex',
     flexDirection: "column",
     justifyContent: "center"}}>
-      <h2>Availabel Quests</h2>
+      <h2>Available Quests</h2>
       <Link to={`/quests/1`}>
         <div style={{
           height: "10em",
