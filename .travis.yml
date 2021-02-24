@@ -5,8 +5,10 @@ notifications:
   email: false
 deploy:
   provider: heroku
-  app: jobquest-fe
-  on: main
-  skip-cleanup: true
-  api_key:
+    api_key:
     secure: OGIyKM2IA0V007wCJUIMUfZzc7Ol0Ug+j8HVgu4GEHWqsNgxZrnltCLP5LTop2QNjvMSVkPcSEH1NqQPGIYE0hWjnX6eB9w0GWwXoG1y0IG0M+OLDKyMArLpFQ/4qMnvNrzk5Lzncgwwgi85M/fl04GEOLrqXCOjkqlkMwOfF1lEy5cPGqm8pjd4XtCzwh/07xjHKZhPVTfwCNlVRSgjPNMCzbGTwAbB3TwRZewdhFpJLi79DBC+1AZY1ElsFV1ojDbcNbPjCUrU9zQKXpveKqHvG+LR4VchCBx0SYxy8rG9bIlFXuwHZ6S95nbIcsRXkvqpt/yoU+0aAdWO9fveogL0Gmb9IEWcXp5YTR+YYecYhAw0H+Or4O6ETwvuqH6tAbmwAMz3l4hCsj/RYLKgdZE+XE+Ib11kkT9kPN5VESsHz++dODyJWT/pImP2XoCldXK1nZ4eA8xb4KiiNL104WXM58DBXaqOhnJrHQX+M09hsSkIqtXrlp9kuJWAWmP57fp8fllT7Ms98HR4/yT/sxle51jplhChGO5ngmmRRIwkNxqZTVFmzAGm9NBGWlrVrCAV42kbrvZUbAtf02AGQDLA6/vMKi+Crvuf2i2jHEJ8YH6OD8+DIjtmPtUvUiBUw1Yj+NrXe3wnLNL6dQ4idGkaYBStVB7dKcqN/D/mZ54=
+  app: jobquest-fe
+  on: 
+    repo: jobQuest/jobquest-fe
+    branch: main
+  skip-cleanup: true
