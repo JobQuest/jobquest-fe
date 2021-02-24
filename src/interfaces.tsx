@@ -11,30 +11,37 @@ export interface idObject {
 export interface Quest extends idObject {
   name: string 
   xp: number
-  encounters_req: number
+  encounter_req: number
   type: string
+  progress: number
 }
 
 export interface QuestInProgress extends Quest {
-  level: string
+  level: number
 }
 
 export interface CurrentQuests {
-  quests: Array<Quest>
+  quests: Array<QuestInProgress>
 }
 
 export interface ComponentPath {
-  match: object
+  match: Match
 }
 
-export interface Encounters extends idObject {
-  encounters: Array<Encounter>
+export interface Match {
+  path: string
+  url: string
+  params: Params
+}
+
+export interface Params{
+  id: string
 }
 
 export interface Encounter {
-  monsterImage: string
+  monster_image: string
   actions: Array<Action>
-  progres: number
+  progress: number
 }
 
 export interface Action extends idObject {
@@ -42,7 +49,8 @@ export interface Action extends idObject {
   description: string
 }
 
-export interface completeEncounterFunctoinality {
+export interface QuestEncounterFunctoinality {
   completeEncounter: (quest_id: number, progress: number) => void
-  
+  getQuest: (quest_id: number) => void
+  getEncounter: (propgressNum: number) => void
 }
