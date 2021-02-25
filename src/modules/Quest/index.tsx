@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
-import Grid from '../../ui/Grid/Grid'
-import {useParams} from 'react-router-dom'
+import './Quest.scss'
 import ActionButton from '../../ui/ActionButton/ActionButton'
 import { QuestInProgress, CurrentQuests, ComponentPath, Encounter, QuestEncounterFunctoinality } from '../../interfaces'
 import testData from '../test_assets/mock_data'
-import "./Quest.scss";
-//this is the component that has a current quest that hols all the information
 
 type CurrentQuest = ComponentPath & CurrentQuests | QuestEncounterFunctoinality
 
@@ -53,53 +50,28 @@ const Quest: React.FC<CurrentQuest> = (props) => {
 
   if(userQuest && currentEncounter) {
     return (
-    
-      <section style={{
-        border: "1px solid black",
-        height: '90vh',
-        marginTop: 'auto',
-        marginBottom: 'auto',
-        padding: '1em',
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      >
-        <h2>{userQuest.name}</h2>
+      <section data-cy="single-quest-container" className="single-quest-container">
+        <h2 className="component-title">{userQuest.name}</h2>
         {/* heart img */}
-        <div>
-          <img />
+        <div className="monster-health-container">
+          <img className="monster-health" alt="heart"/>
         </div>
         {/* box with the sprites for a monster and a hero */}
-        <div style={{
-          height: "30em",
-          width: "30em",
-          border: "1px solid green",
-          marginTop: "1em"
-        }
-        }>
-          <img/>
-          <img style={{width: "150px"}} src={currentEncounter.monster_image}/>
+        <div data-cy="encounter-story-container" className="encounter-story-container">
+          <img className="img-hero" alt="hero-pic"/>
+          <img className="img-monster" style={{width: "150px"}} src={currentEncounter.monster_image} alt="monster-pic"/>
         </div>
-        <div style={{
-          display: "flex", 
-          justifyContent:"space-around", 
-          marginTop: "1.5em", 
-          marginBottom: "1.5em"}}>
-          <h2>{userQuest.xp} XP</h2>
+        <div className="single-quest-details">
+          <h3 className="single-quest-details__title">Level {userQuest.level} XP</h3>
+          <h3 className="single-quest-details__title">{userQuest.xp} XP</h3>
         </div>
         {/* action buttons to fight the moster that moves you to the next encounter */}
-        <div style={{
-          height: '100%',
-          display: 'flex',
-          justifyContent: 'space-around'
-        }}>
-          <div>
-            <p>{currentEncounter.actions[0].description}</p>
+        <div data-cy="action-cards-container" className="encounter-details">
+          <div data-cy="action-card-left" className="encounter-details__action-card">
+            <p className="action-desc">{currentEncounter.actions[0].description}</p>
           </div>
-          <div>
-            <p>{currentEncounter.actions[1].description}</p>
+          <div data-cy="action-card-right" className="encounter-details__action-card">
+            <p className="action-desc">{currentEncounter.actions[1].description}</p>
           </div>
         </div>
       </section>

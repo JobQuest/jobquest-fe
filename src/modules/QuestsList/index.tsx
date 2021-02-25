@@ -12,7 +12,7 @@ const QuestList: React.FC<QuestProps> = (props) => {
 
   return (
     <section data-cy="quests-list-container" className="component-container page-quest-list">
-      <h2 className="quests-container-title">Available Quests</h2>
+      <h2 className="component-title">Available Quests</h2>
       <section className="quests-list-wrapper">
         {quests.length && 
           quests.map(quest => 

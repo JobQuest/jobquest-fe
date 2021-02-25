@@ -1,7 +1,58 @@
+@import "../../styles/mixins";
+
 .page-quest {
   background-image: url("../../assets/Backgrounds/Bkg_ActionView.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
   width: 100%;
+}
+
+.single-quest-container {
+  @include general-container;
+  align-items: center;
+}
+
+.single-quest-details {
+  display: flex; 
+  justify-content: space-between; 
+  margin-top: 1.5em; 
+  width: 30em;
+  margin-bottom: 1.5em;
+}
+
+.encounter-story-container {
+  height: 12em;
+  width: 30em;
+  border: 1px solid green;
+  margin-top: 1em;
+  display: flex; 
+  justify-content: space-between;
+}
+
+.encounter-details {
+  margin-top: 2em;
+  width: 30em;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &__action-card {
+    width: 10em;
+    height: inherit;
+    border: 1px solid purple;
+    cursor: pointer;
+  }
+}
+
+.monster-health-container {
+  width: 30em;
+}
+
+.monster-health {
+  float: right;
+}
+
+h3 {
+  margin: 1em;
 }
