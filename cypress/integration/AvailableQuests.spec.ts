@@ -25,5 +25,7 @@ describe('CRA', () => {
     .and('contain', "500 XP")
     .and('contain', "Encounters: 3")
     .and('contain', "Level 1")
+    .click()
+    cy.url().should("include", "/user/quests/3")
   })
 })

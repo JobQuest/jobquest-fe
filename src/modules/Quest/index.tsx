@@ -61,8 +61,8 @@ const Quest: React.FC<CurrentQuest> = (props) => {
           <img className="img-hero" alt="hero-pic"/>
           <img className="img-monster" style={{width: "150px"}} src={currentEncounter.monster_image} alt="monster-pic"/>
         </div>
-        <div className="single-quest-details">
-          <h3 className="single-quest-details__title">Level {userQuest.level} XP</h3>
+        <div  data-cy="quest-details" className="single-quest-details">
+          <h3 className="single-quest-details__title">Level {userQuest.level}</h3>
           <h3 className="single-quest-details__title">{userQuest.xp} XP</h3>
         </div>
         {/* action buttons to fight the moster that moves you to the next encounter */}
