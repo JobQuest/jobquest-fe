@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./Profile.scss";
-import Grid from "../../ui/Grid/Grid";
 
 interface Profile {
   name: string;
@@ -8,34 +7,20 @@ interface Profile {
   xp: number;
 }
 
+const userOne: Profile = {
+  name: "Tom",
+  email: "user@gmail.com",
+  xp: 1000,
+};
+
 const Profile = () => {
   const [user, setUser] = useState<object>({});
 
-  const userOne: Profile = {
-    name: "Tom",
-    email: "user@gmail.com",
-    xp: 1000,
-  };
   return (
-    <section
-      className="page-profile"
-      style={
-        {
-          // border: "1px solid black",
-          // marginTop: "auto",
-          // marginBottom: "auto",
-          // padding: "1em",
-        }
-      }
-    >
-      <h1
-        style={{
-          textAlign: "center",
-          border: "1px solid black",
-        }}
-      >
-        {userOne.name}
-      </h1>
+    <section className="page-profile">
+      <h1 className="user-page-title">{userOne.name}</h1>
+      <h2 className="user-xp">Current EXP:{userOne.xp}</h2>
+      <h3 className="user-email">E-mail:{userOne.email}</h3>
     </section>
   );
 };
