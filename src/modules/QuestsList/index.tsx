@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import userRoutes from '../../routes/user'
-import "./QuestList.scss";
+import "./QuestsList.scss";
 import { CurrentQuests, ComponentPath } from '../../interfaces'
 
 type QuestProps = CurrentQuests & ComponentPath
@@ -11,7 +11,7 @@ const QuestList: React.FC<QuestProps> = (props) => {
   const [currentQuest, setCurrentQuest] = useState<object>({})
 
   return (
-    <section data-cy="quests-list-container" className="component-container page-quest-list">
+    <section data-cy="quests-list-container" className="page-quest-list">
       <h2 className="component-title">Available Quests</h2>
       <section className="quests-list-wrapper">
         {quests.length && 
