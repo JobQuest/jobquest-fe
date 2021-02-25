@@ -1,0 +1,38 @@
+.quests-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quest-card-wrapper {
+  height: 10em;
+  width: 40em;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid red;
+  justify-content: space-around;
+  margin-top: 1em;
+
+  &__left-side {
+    width: 20em; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__right-side {
+    width: 20em; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.quests-card-title {
+  margin: 0.5em;
+  flex-wrap: wrap;
+}
+
+.quests-card-details {
+  margin: 0;
+}
