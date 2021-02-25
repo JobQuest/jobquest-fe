@@ -2,6 +2,7 @@ html,
 body,
 section {
   height: 100%;
+  margin: 0;
 }
 
 .App {
@@ -25,4 +26,8 @@ section {
 
 .App-link {
   color: #61dafb;
+}
+
+.component-container {
+  @include general-container;
 }

@@ -10,7 +10,33 @@ import userRoutes from "../../routes/user";
 import { Route, Switch, useParams } from "react-router-dom";
 import { apiCalls } from "../../apiCalls";
 import { useEffect, useState } from "react";
+import testData from '../test_assets/mock_data'
 
+const quests = testData.quests
+
+// make a promise for a current quest
+// const availableQuestst = [...quests, quests[0].encouters: testData.encounters]
+//const getQuestDetails = () => {
+//  Promise.all([apiCalls.getCurrentQuest(questId) , apiCalls.etQuestEncounter(questId, userProgress)]).then(
+//  (data) => {
+//    if (data[0]) {
+//      setUserQuest(data[0]);
+//      setCurrentEncounter(data[1]);
+//    }
+//  }
+//);
+//}
+
+//Make a promise for encounter
+//const getEncounterDetails = (action) => {
+//  Promise.all(apiCalls.etQuestEncounter(questId, userProgress)).then(
+//  (data) => {
+//    if (data[0]) {
+//      action(data[0]);
+//    }
+//  }
+//);
+//}
 const App = () => {
   const [user, setUser] = useState<any | null>(null);
   const [completedQuests, setCompletedQuests] = useState<any | null>(null);
@@ -52,12 +78,8 @@ const App = () => {
               )}
             />
           )}
-          <Route exact path={userRoutes.currentQuest.path} component={Quest} />
-          <Route
-            exact
-            path={userRoutes.availableQuests.path}
-            render={({ match }) => <QuestsList match={match} />}
-          />
+          <Route exact path={userRoutes.currentQuest.path} render={({match}) => <Quest quests={quests} match={match}/>}/>
+          <Route exact path={userRoutes.availableQuests.path} render={({match}) => <QuestsList quests={quests} match={match}/>} />
         </HomePage>
       </main>
     );
