@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
-import userRoutes from '../../routes/user'
 import "./QuestsList.scss";
-import { CurrentQuests, ComponentPath } from '../../interfaces'
+import { CurrentQuests, ComponentPath, CardTypeObj } from '../../interfaces'
 import questCardActive from '../../assets/Quest Cards/QuestCard_Active.png'
 import questCardActiveH from '../../assets/Quest Cards/QuestCard_Active_Hover.png'
 import questCardPassive from '../../assets/Quest Cards/QuestCard_Passive.png'
@@ -19,54 +18,56 @@ const QuestList: React.FC<QuestProps> = (props) => {
     passive: false,
     supportive: false
   })
+
   const [currentQuest, setCurrentQuest] = useState<object>({})
 
-interface CardTypeObj {
-  active: string[],
-  passive: string[],
-  supportive: string[]
-}
-const cardTypes: CardTypeObj  = {
-  active: [questCardActive, questCardActiveH],
-  passive: [questCardPassive, questCardPassiveH],
-  supportive: [questCardSupportive, questCardSupportiveH]
-} 
+  const cardTypes: CardTypeObj  = {
+    active: [questCardActive, questCardActiveH],
+    passive: [questCardPassive, questCardPassiveH],
+    supportive: [questCardSupportive, questCardSupportiveH]
+  } 
 
-// useEffect (() => console.log(typeof questCardPassive),[])
-
-  return (
-    <section data-cy="quests-list-container" className="page-quest-list">
-      <h2 className="component-title">Available Quests</h2>
-      <section className="quests-list-wrapper">
-        {quests.length && 
-          quests.map(quest => 
-            <Link 
-              onMouseOver={() => setQuestTypes({...questTypes, [quest.type]: true})}
-              onMouseOut={() => setQuestTypes({...questTypes, [quest.type]: false})}
-              style={{backgroundImage: `url(`+ `${questTypes[quest.type] ? cardTypes[quest.type][1] : cardTypes[quest.type][0]}`+`)`}} 
-              className="quest-card-wrapper" 
-              key={`quest-${quest.id}`} 
-              data-cy={`quest-${quest.type}`} 
-              to={`/quests/${quest.id}`}
-            >
-            <div className="quest-card-inner-wrapper"> 
-              <h2 className="quests-card-title">{quest.name}</h2>
-              <div className="quest-card-inner-box">
-                <div className="quest-card-wrapper__left-side">
-                  <p className="quests-card-details">{quest.xp} XP</p>
-                  <p className="quests-card-details">Encounters: {quest.encounter_req}</p>
-                </div>
-                <div className="quest-card-wrapper__right-side">
-                  <p className="quests-card-details">Level {quest.level}</p>
-                  <p className="quests-card-details">{quest.type}</p>
+  if(!quests.length) {
+    return (
+      <section data-cy="single-quest-container" className="single-quest-container">
+          <h2 className="component-title">Sorry, but this quest is unavailable</h2>
+      </section>
+    )
+  } else {
+    return (
+      <section data-cy="quests-list-container" className="page-quest-list">
+        <h2 className="component-title">Available Quests</h2>
+        <section className="quests-list-wrapper">
+          {quests.length && 
+            quests.map(quest => 
+              <Link 
+                onMouseOver={() => setQuestTypes({...questTypes, [quest.type]: true})}
+                onMouseOut={() => setQuestTypes({...questTypes, [quest.type]: false})}
+                style={{backgroundImage: `url(`+ `${questTypes[quest.type] ? cardTypes[quest.type][1] : cardTypes[quest.type][0]}`+`)`}} 
+                className="quest-card-wrapper" 
+                key={`quest-${quest.id}`} 
+                data-cy={`quest-${quest.type}`} 
+                to={`/quests/${quest.id}`}
+              >
+              <div className="quest-card-inner-wrapper"> 
+                <h2 className="quests-card-title">{quest.name}</h2>
+                <div className="quest-card-inner-box">
+                  <div className="quest-card-wrapper__left-side">
+                    <p className="quests-card-details">{quest.xp} XP</p>
+                    <p className="quests-card-details">Encounters: {quest.encounter_req}</p>
+                  </div>
+                  <div className="quest-card-wrapper__right-side">
+                    <p className="quests-card-details">Level {quest.level}</p>
+                    <p className="quests-card-details">{quest.type}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link> 
-        )}
+            </Link> 
+          )}
+        </section>
       </section>
-    </section>
-  );
+    );
+  }
 };
 
 export default QuestList;
