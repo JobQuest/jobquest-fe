@@ -72,7 +72,6 @@ It was created as a Module 3 project in the Turing Front End Engineering course.
 
 ---
 
-![homepage](https://media.giphy.com/media/5Wktpo7NO6Qv7MImpO/giphy-downsized.gif)
 
 
 <details>
