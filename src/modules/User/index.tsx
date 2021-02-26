@@ -22,6 +22,7 @@ interface ProfileObject {
 const Profile: React.FC<ProfileObject> = ({ user }) => {
   return (
     <section className="page-profile">
+      <img alt="Hero" src="../../assets/Extras/Hero.png"></img>
       <h1 className="user-page-title">{user.username}</h1>
       <h2 className="user-xp">Current EXP:{user.xp}</h2>
       <h3 className="user-email">E-mail:{user.email}</h3>
