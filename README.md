@@ -1,12 +1,15 @@
 # JobQuest
 
-### [Rotten Tomatillos Site](https://shawntru.github.io/Rotten-Tomatillos/)
+To view the production site, please visit the [JobQuest link](https://job-quest-fe.herokuapp.com).
+
+To view the other components of the application please visit the [Github Project Organization](https://github.com/JobQuest).
+
+
+### [Working](https://shawntru.github.io/Rotten-Tomatillos/)
 
 ### [Link To Our Repo](https://github.com/Shawntru/Rotten-Tomatillos)
 
 ---
-
-<img width="1053" alt="Screen Shot 2020-12-15 at 3 35 06 PM" src="https://user-images.githubusercontent.com/66269306/102280926-3c030680-3eeb-11eb-8458-07da35138b70.png">
 
 ## Table of Contents
 
@@ -30,18 +33,6 @@ It was created as a Module 3 project in the Turing Front End Engineering course.
 ## Features
 
 ---
-
-- **Random Film Previews on Load** - The site gets a random movie from the information pulled from the API and displays the films trailer and information to the user.
-
-- **Completely Searchable** - The site responds in real time to queries using the search bar and displays them to the user
-
-- **Detailed Movie Information** - Each movie can be clicked in order to preview details from the film, such as release date, budget, trailer, and overall rating.
-
-- **Fast and Responsive** - Using React, the site provides a quick and responsive user experience.
-
-- **Navigation and Bookmarking** - Router allows the user to navigate the site using common sense URLs, as well as allowing the ability to bookmark their favorite movies.
-
-- **Contains Robust Testing** - All functionality is complimented by a robust testing suite, enabling easy expansion of the code base.
 
 ## Technologies And Tools
 
