@@ -38,9 +38,7 @@ export const apiCalls = {
   },
 
   getQuests: (userId: string) => {
-    return getData(
-      `${baseUrl}/api/v1/users/${userId}/quests/completion_status=true`
-    );
+    return getData(`${baseUrl}/users/${userId}/quests?completion_status=true`);
   },
 
   // getCurrentQuest: (questId) => {
