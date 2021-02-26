@@ -51,6 +51,13 @@ export interface Action extends idObject {
 
 export interface QuestEncounterFunctoinality {
   completeEncounter: (quest_id: number, progress: number) => void
-  getQuest: (quest_id: number) => void
-  getEncounter: (propgressNum: number) => void
+  getQuest: (quest_id: string) => void
+  getEncounter: (questId: string, propgressLevel: number) => void
+  getQuestDetails: () => void
+}
+
+export interface CardTypeObj {
+  active: string[],
+  passive: string[],
+  supportive: string[]
 }
