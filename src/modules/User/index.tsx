@@ -1,7 +1,6 @@
 // import { promises } from "fs";
 // import { useEffect, useState } from "react";
 // import { apiCalls } from "../../apiCalls";
-import React from "react";
 import "./Profile.scss";
 
 interface UserProfile {

@@ -21,30 +21,42 @@ const App = () => {
     ).then((response) => setUser(response.data.attributes));
   };
 
+  const getCompletedQuests = () => {
+    Promise.resolve(apiCalls.getQuests("1")).then((response) =>
+      setCompletedQuests(response.data.attributes.quests)
+    );
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getUserInfo(), []);
 
-  return (
-    <main className="App">
-      <HomePage>
-        <Route
-          exact
-          path={userRoutes.profile.path}
-          render={() => <Profile user={user} />}
-        />
-        <Route
-          exact
-          path={userRoutes.userQuestLog.path}
-          component={UserQuestLog}
-        />
-        <Route exact path={userRoutes.currentQuest.path} component={Quest} />
-        <Route
-          exact
-          path={userRoutes.availableQuests.path}
-          render={({ match }) => <QuestsList match={match} />}
-        />
-      </HomePage>
-    </main>
-  );
+  if (user) {
+    getCompletedQuests();
+    return (
+      <main className="App">
+        <HomePage>
+          <Route
+            exact
+            path={userRoutes.profile.path}
+            render={() => <Profile user={user} />}
+          />
+          <Route
+            exact
+            path={userRoutes.userQuestLog.path}
+            component={UserQuestLog}
+          />
+          <Route exact path={userRoutes.currentQuest.path} component={Quest} />
+          <Route
+            exact
+            path={userRoutes.availableQuests.path}
+            render={({ match }) => <QuestsList match={match} />}
+          />
+        </HomePage>
+      </main>
+    );
+  } else {
+    return <h1>Loading</h1>;
+  }
 };
 
 export default App;
