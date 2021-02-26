@@ -1,10 +1,8 @@
-# Rotten Tomatillos - Turing Mod 3 Paired Project
+# JobQuest
 
 ### [Rotten Tomatillos Site](https://shawntru.github.io/Rotten-Tomatillos/)
 
 ### [Link To Our Repo](https://github.com/Shawntru/Rotten-Tomatillos)
-
-### [Original Project Spec](https://frontend.turing.io/projects/module-3/rancid-tomatillos-v3.html)
 
 ---
 
@@ -50,18 +48,20 @@ It was created as a Module 3 project in the Turing Front End Engineering course.
 ---
 
 - JavaScript (ES6)
+- TypeScript
 - HTML
 - CSS/Scss/Sass
 - React
 - Router
 - JSX
-- Jest
+- Cypress
 
 ## Challenges
 
 ---
 
-- Integrating async testing
+- Working with custom made assets
+- Learning a new language
 - Working with states of React components
 - Implementing HTML and JavaScript logic in React
 
@@ -69,7 +69,9 @@ It was created as a Module 3 project in the Turing Front End Engineering course.
 
 ---
 
-Creating a responsive website with multiple features.
+- Creating a responsive website with multiple features.
+- Working with a full-stack team
+- Deploying to Heroku with Continuous Intrigration with Travis CI
 
 ## ScreenShots and Demos
 
@@ -87,11 +89,7 @@ Creating a responsive website with multiple features.
 
 Homepage:
 
-<img width="33%" src="https://user-images.githubusercontent.com/68252181/102270764-a1e79200-3edb-11eb-9163-9926148ef3f1.png"></img>
-
-<img width="33%" src="https://user-images.githubusercontent.com/68252181/102270773-a3b15580-3edb-11eb-8949-ed70b9a7f81b.png"></img>
-
-Homepage is a landing page for users. As you open the website the first thing users will see is a randomly chosen trailer from the library that starts palying automatilly. The sound was disabled for this feature. The trailer conatainer has all necessary informmation about the movie such as: title, release date, genres, and time.
+Homepage is a landing page for users. 
 
 For displaying trailers we used [react-player](https://www.npmjs.com/package/react-player) component:
 
@@ -120,45 +118,18 @@ For displaying trailers we used [react-player](https://www.npmjs.com/package/rea
 />
 
 ```
-
-Under the trailer users will find the list of all available movies which are clickable. On click the website takes users to a single movie page that contains detailed information about a chosen movie.
-
-The navigation bar on top of the website includes a search bar that allos users to find a specific title of the movie, if the title is not found the page shows nothing.
-
-Search bar demo:
-
-![searchbar](https://media.giphy.com/media/AIPRhg2M9LLbRnYrEV/giphy.gif)
-
 </details>
 
 ---
 
-### Single Movie Page
+### Profile Page
 
 ---
 
-![gif-customer-bookings](https://media.giphy.com/media/Kw0eHerOWXhNObs6de/giphy.gif)
 
 <details>
   <summary>**Under the Hood**</summary>
 
-Movie Preview Page:
-
-Here the users will find the following information about the chosen movie:
-
-- Movie Poster
-- Rating
-- Release Date
-- Runtime
-- Budget
-- Revenue
-- Genres
-- Overview
-- Trailer
-
-<img width="33%" src="https://user-images.githubusercontent.com/68252181/102270776-a449ec00-3edb-11eb-9f2c-0da8d5758a2c.png"></img>
-
-Users are able to return to the homepage by pressing the closing button in the top right corner.
 
 </details>
 
@@ -170,23 +141,56 @@ Users are able to return to the homepage by pressing the closing button in the t
 
 Future additions to include:
 
-- Create alphabetical sorting for the home page movie view
-- Create user accounts with login
-- Add watchlist/save movie functionality linked to user accounts
+- Create Guilds
+- Create a Leaderboard
+- Add Chat functionality with other Users
 
 ## Credits
+
+These are the contributors with whom without their imagination, hardwork and dedication this project would not have happened. We are all really excited to talk more about our project with you! Feel free to reach out to us!
+
+<img src="https://avatars.githubusercontent.com/u/4582791?v=4v" alt="Shaunda Cunningham"
+ width="150" height="auto" />
+
+#### Shaunda Cunningham: [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/shaunda-cunningham/), [📬](mailto:shaunda.cunningham@gmail.com), [GitHub](https://github.com/smcunning)
+
+<img src="https://avatars.githubusercontent.com/u/62966396?v=4" alt="George Soderholm"
+ width="150" height="auto" />
+ 
+#### George Soderholm: [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/george-soderholm-05776947/), [📬](mailto:georgesoderholm@gmail.com), [GitHub](https://github.com/GeorgieGirl24)
 
 <img src="https://avatars0.githubusercontent.com/u/66269306?s=400&u=b59f8ccc1002269319d952aa028ee270629b2ead&v=4" alt="Olga Morgan"
  width="150" height="auto" />
 
-**Olga Morgan**
-[GitHub Profile](https://github.com/scripka)
+#### Olga Morgan: [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/olgamorgan/), [📬](mailto:olga.morgan17@gmail.com), [GitHub](https://github.com/scripka)
 
-<img src="https://avatars2.githubusercontent.com/u/68252181?s=460&u=0e706c67d754b36a877dbbc3d7750b32e1e06454&v=4" alt="Shawn Truesdale"
+<img src="https://avatars.githubusercontent.com/u/60531761?v=4" alt="Jake Heft"
  width="150" height="auto" />
 
-**Shawn Truesdale**
-[GitHub Profile](https://github.com/Shawntru)
+#### Jake Heft: [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/jakeheft/), [📬](mailto:Jakeheft@gmail.com), [GitHub](https://github.com/jakeheft)
+
+<img src="https://avatars.githubusercontent.com/u/36242106?v=4" alt="Caleb Cyphers"
+ width="150" height="auto" />
+
+#### Caleb Cyphers:  [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/caleb-cyphers/), [📬](mailto:caleb.j.cyphers@gmail.com), [GitHub](https://github.com/CalebCyphers)
+
+<img src="https://avatars.githubusercontent.com/u/60277914?v=4" alt="Curis Bartell"
+ width="150" height="auto" />
+
+#### Curtis Bartell: [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/curtis-bartell/), [📬](mailto:cbartell980@gmail.com), [GitHub](https://github.com/c-bartell)
+
+<img src="https://avatars.githubusercontent.com/u/65981543?v=4" alt="Carson Jardine"
+ width="150" height="auto" />
+
+#### Carson Jardine: [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/carson-jardine/), [📬](mailto:carsonjardine@gmail.com), [GitHub](https://github.com/carson-jardine)
+[![GitHubLogo][gitHub-sheild]](https://github.com/carson-jardine)
+
+<!-- MARKDOWN LINKS -->
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[gITHub-sheild]: https://image.flaticon.com/icons/png/512/25/25231.png
+[gitHub-sheild]: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+[github-shield]: https://www.google.com/url?sa=i&url=https%3A%2F%2Flogos-world.net%2Fgithub-logo%2F&psig=AOvVaw2iwK08oBZ-3qkYGs4YpZ1N&ust=1614092676032000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDrvPbh_e4CFQAAAAAdAAAAABAD
+
 
 # Getting Started with Create React App
 
