@@ -37,9 +37,11 @@ export const apiCalls = {
     return updateData(`${baseUrl}/users`, "POST", email);
   },
 
-  // getQuests: (userId) => {
-  //   return getData(`${baseUrl}/events`);
-  // },
+  getQuests: (userId: string) => {
+    return getData(
+      `${baseUrl}/api/v1/users/${userId}/quests/completion_status=true`
+    );
+  },
 
   // getCurrentQuest: (questId) => {
   //   return getData(`${baseUrl}/events/${id}`);
