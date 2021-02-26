@@ -1,83 +1,152 @@
 import { useEffect, useState } from 'react'
 import './Quest.scss'
-import ActionButton from '../../ui/ActionButton/ActionButton'
 import { QuestInProgress, CurrentQuests, ComponentPath, Encounter, QuestEncounterFunctoinality } from '../../interfaces'
 import testData from '../test_assets/mock_data'
+import { apiCalls } from '../../apiCalls'
+import HeroIdle from '../../assets/Hero/Hero_Idle.png'
+import HeartEmpty from '../../assets/Extras/Heart_Empty.png'
+import HeartFull from '../../assets/Extras/Heart_Full.png'
+import ActionStage from '../../assets/Extras/ActionStage.png'
+import MonsterAttack from '../../assets/Hero/Monster_Attack.png'
+import ActionCardOne from '../../assets/Action Cards/ActionCard_1.png'
+import ActionCardOneH from '../../assets/Action Cards/ActionCard_1_Hover.png'
+import ActionCardTwo from '../../assets/Action Cards/ActionCard_2.png'
+import ActionCardTwoH from '../../assets/Action Cards/ActionCard_2_Hover.png'
 
 type CurrentQuest = ComponentPath & CurrentQuests | QuestEncounterFunctoinality
 
 const Quest: React.FC<CurrentQuest> = (props) => {
 
-  const [userProgress, setProgress] = useState<number>(0)
+  const [userProgress, setUserProgress] = useState<number>(1)
   const [userQuest, setUserQuest] = useState<QuestInProgress | null>(null)
   const [currentEncounter, setCurrentEncounter] = useState<any | null>(null)
+  const [isQuestCompleted, setIsQuestCompleted] = useState<boolean | false>(false)
+  const [questCards, setQuestCards] = useState<any>({
+    cardOne: false,
+    cardTwo: false
+  })
+
+  interface ActionCards {
+    cardOne: string[],
+    cardTwo: string[]
+  }
+
+  const cardActions: ActionCards  = {
+    cardOne: [ActionCardOne, ActionCardOneH],
+    cardTwo: [ActionCardTwo, ActionCardTwoH]
+  } 
   const currentQuest: QuestInProgress = testData.quests[0]
 
   const {match} = props as ComponentPath
   const {quests} = props as CurrentQuests
-  const {getQuest, getEncounter, ...others} = props as QuestEncounterFunctoinality
+  const {getQuest, getEncounter, getQuestDetails, ...others} = props as QuestEncounterFunctoinality
   
   // const encounters = testData.allEncounters
-  const getQuestInfo: typeof getQuest = (id) => {
-    let newQuest = quests.find(quest => quest.id === id)
+  const getQuestInfo: typeof getQuest = async (id) => {
+    let newQuest = quests.find(quest => quest.id === parseInt(id))
     if(newQuest) {
       setUserQuest(newQuest)
-      setProgress(newQuest.progress)
+      setUserProgress(newQuest.progress)
+      getEncounterInfo(questId, userProgress)
     }
   }
 
-  const getEncounterInfo: typeof getEncounter = (progressId) => {
-    //will be an api call
-    let newEncounter = testData.allEncounters.find(encounter => encounter.progress === progressId)
-    if(newEncounter) {
-      setCurrentEncounter(newEncounter)
+  const getEncounterInfo: typeof getEncounter = async (questId: string, progressLevel: number) => {
+    return await Promise.resolve(apiCalls.getQuestEncounter(parseInt(questId), progressLevel))
+    .then((response) => {
+      console.log(response)
+      setCurrentEncounter(response.data.attributes)})
+  }
+
+  const switchProgressLevel = () => {
+    let currentEncounter = {
+      "quest_id": questId,
+      "progress": `${userProgress}`
+    }
+    console.log(currentEncounter)
+    console.log("hey I am working")
+    // apiCalls.patchUserQuest(currentEncounter)
+    // .then((response) => {
+    // setIsQuestCompleted(response.data.attributes.completion_status) 
+    //console.log(response)})
+    if(!setIsQuestCompleted) {
+      setUserProgress(userProgress + 1)
+
+      console.log("user didnt complete the quest")
+    } else {
+      console.log("user compelted the quest")
     }
   }
 
   const questId = match.params.id;
-  const switchEncounter = () => {
-    //will be a api patch request
-    //change progress
-    //update hearts 
-  }
 
-  useEffect(() => getQuestInfo(parseInt(questId)), [userQuest]);
-  useEffect(() => getEncounterInfo(userProgress), [userProgress]);
+  useEffect(() => {
+    getQuestInfo(questId)
+  }, [userProgress]);
 
-  console.log(match.params.id)
-  console.log(currentEncounter)
   console.log(userQuest)
 
-  if(userQuest && currentEncounter) {
+  if(!userQuest || !currentEncounter) {
     return (
       <section data-cy="single-quest-container" className="single-quest-container">
-        <h2 className="component-title">{userQuest.name}</h2>
-        {/* heart img */}
-        <div className="monster-health-container">
-          <img className="monster-health" alt="heart"/>
-        </div>
-        {/* box with the sprites for a monster and a hero */}
-        <div data-cy="encounter-story-container" className="encounter-story-container">
-          <img className="img-hero" alt="hero-pic"/>
-          <img className="img-monster" style={{width: "150px"}} src={currentEncounter.monster_image} alt="monster-pic"/>
-        </div>
-        <div  data-cy="quest-details" className="single-quest-details">
-          <h3 className="single-quest-details__title">Level {userQuest.level}</h3>
-          <h3 className="single-quest-details__title">{userQuest.xp} XP</h3>
-        </div>
-        {/* action buttons to fight the moster that moves you to the next encounter */}
-        <div data-cy="action-cards-container" className="encounter-details">
-          <div data-cy="action-card-left" className="encounter-details__action-card">
-            <p className="action-desc">{currentEncounter.actions[0].description}</p>
-          </div>
-          <div data-cy="action-card-right" className="encounter-details__action-card">
-            <p className="action-desc">{currentEncounter.actions[1].description}</p>
-          </div>
-        </div>
+          <h2 className="component-title">Sorry, but this quest is unavailable</h2>
       </section>
     )
-  } else return null
+  } else { return (
+      <section data-cy="single-quest-container" className="page-quest-list">
+        <h2 className="component-title">{userQuest.name}</h2>
+        {/* heart img */}
+        <section className="quest-wrapper">
+          <div className="monster-health-container">
+            <img className="monster-health" 
+            src={userProgress < 3 ? HeartFull : HeartEmpty} alt="heart-1"/>
+            <img className="monster-health" src={userProgress >= 2 ? HeartFull : HeartEmpty} alt="heart-2"/>
+            <img className="monster-health" src={userProgress === 1 ? HeartFull : HeartEmpty} alt="heart-3"/>
+          </div>
+          <div 
+            data-cy="encounter-story-container" 
+            className="encounter-story-container"
+            style={{backgroundImage: `url(`+ `${ActionStage}`+`)`}} 
+            >
+            <div className="img-hero" style={{backgroundImage: `url(`+ `${HeroIdle}`+`)`}}></div>
+            {/* <img className="img-monster" src={currentEncounter.monster_image} alt="monster-pic"/> */}
+            <div className="img-monster" style={{backgroundImage: `url(`+ `${MonsterAttack}`+`)`}}></div>
 
+          </div>
+          <div  data-cy="quest-details" className="single-quest-details">
+            <h3 className="single-quest-details__title">Level {userQuest.level}</h3>
+            <h3 className="single-quest-details__title">{userQuest.xp} XP</h3>
+          </div>
+          <div data-cy="action-cards-container" className="encounter-details">
+            <div 
+              data-cy="action-card-left" 
+              className="encounter-details__action-card"
+              style={{backgroundImage: `url(`+ `${questCards.cardOne ? cardActions.cardOne[1] : cardActions.cardOne[0]}`+`)`}} 
+              onMouseOver={() => setQuestCards({...questCards, cardOne: true})}
+              onMouseOut={() => setQuestCards({...questCards, cardOne: false})}
+              onClick={switchProgressLevel}
+              >
+              {currentEncounter.actions[0] &&
+              <p className="action-desc">{currentEncounter.actions[0].description}</p>
+              } 
+            </div>
+            <div 
+              data-cy="action-card-right" 
+              className="encounter-details__action-card"
+              onMouseOver={() => setQuestCards({...questCards, cardTwo: true})}
+              onMouseOut={() => setQuestCards({...questCards, cardTwo: false})}
+              onClick={switchProgressLevel}
+              style={{backgroundImage: `url(`+ `${questCards.cardTwo ? cardActions.cardTwo[1] : cardActions.cardTwo[0]}`+`)`}} 
+              >
+              {currentEncounter.actions[1] &&
+                <p className="action-desc">{currentEncounter.actions[1].description}</p>
+              } 
+            </div>
+          </div>
+        </section>
+      </section>
+    )
+  } 
 }
 
 export default Quest;
