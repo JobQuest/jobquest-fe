@@ -61,3 +61,16 @@ export interface CardTypeObj {
   passive: string[],
   supportive: string[]
 }
+
+export interface ActionCards {
+  cardOne: string[],
+  cardTwo: string[]
+}
+
+export interface MenuProps {
+  children?: object
+}
+
+export interface MenuItemProps {
+  path: string
+}

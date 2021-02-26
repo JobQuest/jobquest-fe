@@ -12,18 +12,9 @@ import testData from '../test_assets/mock_data'
 import { QuestInProgress } from '../../interfaces'
 import { apiCalls } from '../../apiCalls'
 
+//mock data
 const quests = testData.quests
 
-//Make a promise for encounter
-//const getEncounterDetails = (action) => {
-//  Promise.all(apiCalls.etQuestEncounter(questId, userProgress)).then(
-//  (data) => {
-//    if (data[0]) {
-//      action(data[0]);
-//    }
-//  }
-//);
-//}
 const App = () => {
   const [user, setUser] = useState<any | null>(null);
   const [completedQuests, setCompletedQuests] = useState<any | null>(null);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './Quest.scss'
-import { QuestInProgress, CurrentQuests, ComponentPath, Encounter, QuestEncounterFunctoinality } from '../../interfaces'
+import { QuestInProgress, CurrentQuests, ComponentPath, ActionCards, QuestEncounterFunctoinality } from '../../interfaces'
 import testData from '../test_assets/mock_data'
 import { apiCalls } from '../../apiCalls'
 import HeroIdle from '../../assets/Hero/Hero_Idle.png'
@@ -25,11 +25,6 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     cardOne: false,
     cardTwo: false
   })
-
-  interface ActionCards {
-    cardOne: string[],
-    cardTwo: string[]
-  }
 
   const cardActions: ActionCards  = {
     cardOne: [ActionCardOne, ActionCardOneH],
@@ -63,18 +58,15 @@ const Quest: React.FC<CurrentQuest> = (props) => {
       "quest_id": questId,
       "progress": `${userProgress}`
     }
-    console.log(currentEncounter)
-    console.log("hey I am working")
-    // apiCalls.patchUserQuest(currentEncounter)
-    // .then((response) => {
-    // setIsQuestCompleted(response.data.attributes.completion_status) 
-    //console.log(response)})
+    apiCalls.patchUserQuest(currentEncounter)
+    .then((response) => {
+    setIsQuestCompleted(response.data.attributes.completion_status) 
+    console.log(response)})
     if(!setIsQuestCompleted) {
       setUserProgress(userProgress + 1)
-
-      console.log("user didnt complete the quest")
     } else {
-      console.log("user compelted the quest")
+      console.log("User did not complete the quest")
+      //here we will add a comletion compoenent/message
     }
   }
 
@@ -109,7 +101,8 @@ const Quest: React.FC<CurrentQuest> = (props) => {
             style={{backgroundImage: `url(`+ `${ActionStage}`+`)`}} 
             >
             <div className="img-hero" style={{backgroundImage: `url(`+ `${HeroIdle}`+`)`}}></div>
-            {/* <img className="img-monster" src={currentEncounter.monster_image} alt="monster-pic"/> */}
+            {/* <img className="img-monster" src={currentEncounter.monster_image} alt="monster-pic"/> 
+            needs an image to render, will be uncommented when we get full data*/}
             <div className="img-monster" style={{backgroundImage: `url(`+ `${MonsterAttack}`+`)`}}></div>
 
           </div>

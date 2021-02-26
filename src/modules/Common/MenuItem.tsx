@@ -1,10 +1,8 @@
 import React from 'react';
 import './MenuItem.scss';
 import { Link } from 'react-router-dom';
-interface MenuItemProps {
-  // onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  path: string
-}
+import { MenuItemProps } from '../../interfaces'
+
 
 
 const MenuItem: React.FC<MenuItemProps> = (props) => {
