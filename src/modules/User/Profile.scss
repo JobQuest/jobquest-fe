@@ -4,6 +4,7 @@
   font-family: "Press Start 2P", cursive;
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-image: url("../../assets/Backgrounds/Bkg_UserProfile.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -11,8 +12,18 @@
   width: 100%;
 }
 
+.hero-image {
+  height: 240px;
+  width: 192px;
+  text-align: center;
+}
+
+.user-xp {
+  margin-top: 4em;
+}
+
 .user-page-title {
   font-size: xx-large;
-  margin-top: 1.5em;
+  margin-top: 3em;
   text-align: center;
 }
