@@ -20,6 +20,15 @@
   margin-top: 1em;
 }
 
+.quest-record-display-bkg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 77%;
+  width: 60%;
+  background-color: #c59258;
+}
+
 .quest-record-info-wrapper {
   height: 100%;
 }

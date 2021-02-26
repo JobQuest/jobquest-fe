@@ -21,7 +21,7 @@ interface CompletedQuests {
 
 type UserQuestLogProps = Quest;
 
-const quests = [
+const DUMMYquests = [
   {
     id: 1,
     type: "active",
@@ -40,30 +40,30 @@ const quests = [
   },
 ];
 
-const UserQuestLog = () => {
-  const [completedQuests, setCompletedQuests] = useState<any | null>(null);
-
-  // setCompletedQuests(quests);
-
-  // if (completedQuests) {
-  return (
-    <section className="page-questlog">
-      <h2 className="quest-log-page-title">
-        My Quest <br />
-        Log
-      </h2>
-      {quests.map((quest: Quest) => (
-        <div className="quest-record">
-          <div className="quest-record-info-wrapper">
-            <h2>{quest.name}</h2>
-            <p>Exp earned:{quest.xp}</p>
-            <p>Type:{quest.type}</p>
-          </div>
-        </div>
-      ))}
-    </section>
-  );
-  // }
+const UserQuestLog: React.FC<CompletedQuests> = ({ completedQuests }) => {
+  if (completedQuests) {
+    return (
+      <section className="page-questlog">
+        <h2 className="quest-log-page-title">
+          My Quest <br />
+          Log
+        </h2>
+        <section className="quest-record-display-bkg">
+          {completedQuests.map((individualQuest: Quest) => (
+            <div className="quest-record">
+              <div className="quest-record-info-wrapper">
+                <h2>{individualQuest.name}</h2>
+                <p>Exp earned:{individualQuest.xp}</p>
+                <p>Type:{individualQuest.type}</p>
+              </div>
+            </div>
+          ))}
+        </section>
+      </section>
+    );
+  } else {
+    return <h1>Loading...</h1>;
+  }
 };
 
 export default UserQuestLog;

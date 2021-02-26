@@ -16,22 +16,25 @@ const App = () => {
   const [completedQuests, setCompletedQuests] = useState<any | null>(null);
 
   const getUserInfo = () => {
-    Promise.resolve(
-      apiCalls.getUser({ email: "olga@example.com" })
-    ).then((response) => setUser(response.data.attributes));
+    Promise.resolve(apiCalls.getUser({ email: "olga@example.com" }))
+      .then((response) => setUser(response.data.attributes))
+      .then((response) => getCompletedQuests());
   };
 
   const getCompletedQuests = () => {
     Promise.resolve(apiCalls.getQuests("1")).then((response) =>
-      setCompletedQuests(response.data.attributes.quests)
+      setCompletedQuests(questCleaner(response.data.attributes.quests))
     );
+  };
+
+  const questCleaner = (badQuests: Array<object>) => {
+    return badQuests.map((badQuest) => Object.values(badQuest)[0]);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getUserInfo(), []);
 
   if (user) {
-    getCompletedQuests();
     return (
       <main className="App">
         <HomePage>
@@ -40,11 +43,15 @@ const App = () => {
             path={userRoutes.profile.path}
             render={() => <Profile user={user} />}
           />
-          <Route
-            exact
-            path={userRoutes.userQuestLog.path}
-            component={UserQuestLog}
-          />
+          {completedQuests && (
+            <Route
+              exact
+              path={userRoutes.userQuestLog.path}
+              component={() => (
+                <UserQuestLog completedQuests={completedQuests} />
+              )}
+            />
+          )}
           <Route exact path={userRoutes.currentQuest.path} component={Quest} />
           <Route
             exact
