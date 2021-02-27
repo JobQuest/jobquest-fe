@@ -89,7 +89,15 @@ const App = () => {
       </main>
     );
   } else {
-    return <h1>Loading</h1>;
+    return (
+      <main className="App">
+        <img
+          src="https://media.giphy.com/media/1yld7nW3oQ2IyRubUm/giphy.gif"
+          alt="calming village"
+        ></img>
+        <p>Loading</p>
+      </main>
+    );
   }
 };
 
