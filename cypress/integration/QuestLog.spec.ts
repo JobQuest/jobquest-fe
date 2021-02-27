@@ -10,9 +10,9 @@ describe("Quest Log", () => {
     cy.should("contain", "My Quest Log");
   });
 
-  it("Should contain a quest record display area", () => {
-    cy.get("[cy-data='quest-record-title']");
-    cy.get("[cy-data='quest-record-xp']");
-    cy.get("[cy-data='quest-record-type']");
-  });
+  // it("Should contain a quest record display area", () => {
+  //   cy.get("[cy-data='quest-record-title']");
+  //   cy.get("[cy-data='quest-record-xp']");
+  //   cy.get("[cy-data='quest-record-type']");
+  // });
 });
