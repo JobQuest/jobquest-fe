@@ -40,14 +40,14 @@ export const apiCalls = {
     return getData(`${baseUrl}/users/${userId}/quests?completion_status=${questState}`);
   },
 
-  // getCurrentQuest: (questId) => {
-  //   return getData(`${baseUrl}/events/${id}`);
-  // },
+  getQuestEncounter: (questId: number, progressLevel: number) => {
+    console.log(questId, progressLevel)
+    return getData(`${baseUrl}/quests/${questId}/encounters?progress=${progressLevel}`);
+  },
 
-  // getQuestEncounter: (questId) => {
-  //   return getData(`${baseUrl}/events/${id}`);
-  // },
-
+  patchUserQuest: (userProgress: object) => {
+    return updateData(`${baseUrl}/users/1/quests`, "PATCH", userProgress);
+  }
   // patchUserQuest: () => {
   //   return updateData(`${baseUrl}`);
   // }
