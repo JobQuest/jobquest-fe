@@ -1,22 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 .page-questlog {
-  border: "1px solid black";
-  height: "90vh";
-  margin-top: "auto";
-  margin-bottom: "auto";
-  padding: "1em";
-  display: "flex";
-  flex-direction: "column";
-  justify-content: "center";
+  font-family: "Press Start 2P", cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-image: url("../../assets/Backgrounds/Bkg_QuestLog.png");
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100%;
+  width: 100%;
 }
 
-.divone {
-  height: "8em";
-  width: "100%";
-  display: "flex";
-  flex-direction: "column";
-  border: "1px solid red";
-  margin-top: "1em";
+.quest-record {
+  height: 8em;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+}
+
+.quest-record-display-bkg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 77%;
+  width: 60%;
+  background-color: #c59258;
+}
+
+.quest-record-info-wrapper {
+  height: 100%;
+}
+
+.quest-log-page-title {
+  font-size: xx-large;
+  margin-top: 1.5em;
+  text-align: center;
 }

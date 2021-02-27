@@ -1,41 +1,33 @@
-import { useEffect, useState } from "react";
+// import { promises } from "fs";
+// import { useEffect, useState } from "react";
+// import { apiCalls } from "../../apiCalls";
+import heroImage from "../../assets/Extras/Hero.png";
 import "./Profile.scss";
-import Grid from "../../ui/Grid/Grid";
 
-interface Profile {
-  name: string;
+interface UserProfile {
+  username: string;
   email: string;
   xp: number;
 }
 
-const Profile = () => {
-  const [user, setUser] = useState<object>({});
+interface ProfileObject {
+  user: UserProfile;
+}
 
-  const userOne: Profile = {
-    name: "Tom",
-    email: "user@gmail.com",
-    xp: 1000,
-  };
+// const userOne: UserProfile = {
+//   username: "Tom",
+//   email: "user@gmail.com",
+//   xp: 1000,
+// };
+
+const Profile: React.FC<ProfileObject> = ({ user }) => {
   return (
-    <section
-      className="page-profile"
-      style={
-        {
-          // border: "1px solid black",
-          // marginTop: "auto",
-          // marginBottom: "auto",
-          // padding: "1em",
-        }
-      }
-    >
-      <h1
-        style={{
-          textAlign: "center",
-          border: "1px solid black",
-        }}
-      >
-        {userOne.name}
-      </h1>
+    <section className="page-profile">
+      <h1 className="user-page-title">My Profile</h1>
+      <h1 className="user-page-title">{user.username}</h1>
+      <img alt="hero" src={heroImage} className="hero-image"></img>
+      <h2 className="user-xp">Current EXP:{user.xp}</h2>
+      <h3 className="user-email">E-mail:{user.email}</h3>
     </section>
   );
 };
