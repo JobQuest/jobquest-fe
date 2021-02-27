@@ -7,7 +7,7 @@
   align-items: center;
   background-image: url("../../assets/Backgrounds/Bkg_QuestLog.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
   height: 100%;
   width: 100%;
 }
@@ -24,9 +24,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 77%;
+  height: 70%;
   width: 60%;
   background-color: #c59258;
+  overflow: scroll;
 }
 
 .quest-record-info-wrapper {
