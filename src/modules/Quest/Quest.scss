@@ -1,7 +1,115 @@
+@import "../../styles/mixins";
+
 .page-quest {
   background-image: url("../../assets/Backgrounds/Bkg_ActionView.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
   width: 100%;
+}
+
+.single-quest-container {
+  @include general-container;
+  align-items: center;
+}
+
+.single-quest-details {
+  display: flex; 
+  justify-content: space-between; 
+  margin-top: 2em; 
+  width: 30em;
+  margin-bottom: 1.5em;
+}
+
+.quest-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 85%;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.encounter-story-container {
+  height: 13em;
+  width: 30em;
+  display: flex; 
+  justify-content: space-around;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+}
+
+.encounter-details {
+  height: 34em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
+  &__action-card {
+    width: 19em;
+    height: 12em;
+    cursor: pointer;
+    background-size: 100%;
+    margin: 2em;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+}
+
+.encounter-details__action-card:hover .action-desc {
+  font-size: 0.3em;
+}
+.action-desc {
+  width: 85%;
+  padding: 3.5em 3.5em;
+  font-size: 0.4em;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  line-height: 4em;
+  height: 92%;
+  flex-wrap: wrap;
+}
+
+.monster-health-container {
+  width: 30em;
+  height: 20px;
+  position: absolute;
+  top: 16em;
+  right: 14em;
+  float: right;
+}
+
+.monster-health {
+  float: right;
+  height: 20px;
+  margin-left: 0.4em;
+}
+
+h3 {
+  margin: 1em;
+}
+
+.img-monster {
+  height: 180px;
+  width: 180px;
+  position: absolute;
+  background-position: -155px -145px;
+  right: 1em;
+  top: 0.5em;
+}
+
+.img-hero {
+  height: 180px;
+  width: 180px;
+  background-position: -155px -145px;
+  position: absolute;
+  left: 1em;
+  top: 0.5em;
 }

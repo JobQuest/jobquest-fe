@@ -1,110 +1,73 @@
-import { useEffect, useState } from "react";
-import Grid from "../../ui/Grid/Grid";
-import { Link } from "react-router-dom";
-import "./QuestList.scss";
-import userRoutes from "../../routes/user";
-//this is a component where user can see available quests that can be accepted
-interface QuestList {
-  // id: number
-  // name: string
-  // points: number
-  // description: string
-  // encounters: number
-  // type: string
-  match: object;
-}
+import { useEffect, useState } from 'react'
+import {Link} from 'react-router-dom'
+import "./QuestsList.scss";
+import { CurrentQuests, ComponentPath, CardTypeObj } from '../../interfaces'
+import questCardActive from '../../assets/Quest Cards/QuestCard_Active.png'
+import questCardActiveH from '../../assets/Quest Cards/QuestCard_Active_Hover.png'
+import questCardPassive from '../../assets/Quest Cards/QuestCard_Passive.png'
+import questCardPassiveH from '../../assets/Quest Cards/QuestCard_Passive_Hover.png'
+import questCardSupportive from '../../assets/Quest Cards/QuestCard_Supportive.png'
+import questCardSupportiveH from '../../assets/Quest Cards/QuestCard_Supportive_Hover.png'
 
-type QuestProps = QuestList;
+type QuestProps = CurrentQuests & ComponentPath
 
 const QuestList: React.FC<QuestProps> = (props) => {
-  const { match } = props;
-  const [currentQuest, setCurrentQuest] = useState<object>({});
+  const {match, quests} = props
+  const [questTypes, setQuestTypes] = useState<object>({
+    active: false,
+    passive: false,
+    supportive: false
+  })
 
-  return (
-    <section
-      className="page-quest-list"
-      style={
-        {
-          // border: "1px solid black",
-          // height: "90vh",
-          // marginTop: "auto",
-          // marginBottom: "auto",
-          // padding: "1em",
-          // display: "flex",
-          // flexDirection: "column",
-          // justifyContent: "center",
-        }
-      }
-    >
-      <h2>Available Quests</h2>
-      <Link to={`/quests/1`}>
-        <div
-          style={{
-            height: "10em",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            border: "1px solid red",
-            marginTop: "1em",
-          }}
-        >
-          <div>
-            <h2>Name of The Quest 1</h2>
-            <img />
-            <p>Type</p>
-          </div>
-        </div>
-      </Link>
-      <div
-        style={{
-          height: "10em",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          border: "1px solid red",
-          marginTop: "1em",
-        }}
-      >
-        <div>
-          <h2>Name of The Quest 1</h2>
-          <img />
-          <p>Type</p>
-        </div>
-      </div>
-      <div
-        style={{
-          height: "10em",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          border: "1px solid red",
-          marginTop: "1em",
-        }}
-      >
-        <div>
-          <h2>Name of The Quest 2</h2>
-          <img />
-          <p>Type</p>
-        </div>
-      </div>
-      <div
-        style={{
-          height: "10em",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          border: "1px solid red",
-          marginTop: "1em",
-        }}
-      >
-        <div>
-          <h2>Name of The Quest 3</h2>
-          <img />
-          <p>Type</p>
-        </div>
-      </div>
-    </section>
-  );
+  const [currentQuest, setCurrentQuest] = useState<object>({})
+
+  const cardTypes: CardTypeObj  = {
+    active: [questCardActive, questCardActiveH],
+    passive: [questCardPassive, questCardPassiveH],
+    supportive: [questCardSupportive, questCardSupportiveH]
+  } 
+
+  if(!quests.length) {
+    return (
+      <section data-cy="single-quest-container" className="single-quest-container">
+          <h2 className="component-title">Sorry, but this quest is unavailable</h2>
+      </section>
+    )
+  } else {
+    return (
+      <section data-cy="quests-list-container" className="page-quest-list">
+        <h2 className="component-title">Available Quests</h2>
+        <section className="quests-list-wrapper">
+          {quests.length && 
+            quests.map(quest => 
+              <Link 
+                onMouseOver={() => setQuestTypes({...questTypes, [quest.type]: true})}
+                onMouseOut={() => setQuestTypes({...questTypes, [quest.type]: false})}
+                style={{backgroundImage: `url(`+ `${questTypes[quest.type] ? cardTypes[quest.type][1] : cardTypes[quest.type][0]}`+`)`}} 
+                className="quest-card-wrapper" 
+                key={`quest-${quest.id}`} 
+                data-cy={`quest-${quest.type}`} 
+                to={`/quests/${quest.id}`}
+              >
+              <div className="quest-card-inner-wrapper"> 
+                <h2 className="quests-card-title">{quest.name}</h2>
+                <div className="quest-card-inner-box">
+                  <div className="quest-card-wrapper__left-side">
+                    <p className="quests-card-details">{quest.xp} XP</p>
+                    <p className="quests-card-details">Encounters: {quest.encounter_req}</p>
+                  </div>
+                  <div className="quest-card-wrapper__right-side">
+                    <p className="quests-card-details">Level {quest.level}</p>
+                    <p className="quests-card-details">{quest.type}</p>
+                  </div>
+                </div>
+              </div>
+            </Link> 
+          )}
+        </section>
+      </section>
+    );
+  }
 };
 
 export default QuestList;

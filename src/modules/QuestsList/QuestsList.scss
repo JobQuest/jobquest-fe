@@ -1,0 +1,83 @@
+.page-quest-list {
+  background-image: url("../../assets/Backgrounds/Bkg_NewQuests.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.component-title {
+  margin-top: 4em;
+  font-size: 1.5em;
+}
+
+.quests-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 70%;
+  justify-content: center;
+  margin-bottom: 5em;
+  text-decoration: none;
+}
+
+.quest-card-inner-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 25em;
+  float: left;
+  margin: 2em 12em 2em 4em;
+  text-align: left;
+
+  &:hover {
+    font-size: 0.4;
+  }
+}
+
+.quest-card-wrapper {
+  height: 14em;
+  width: 40em;
+  padding: 0;
+  display: flex;
+  margin-top: 2em;
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-decoration: none;
+  color: black;
+
+  &__left-side {
+    width: 50%; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__right-side {
+    width: 50%; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.quest-card-inner-box {
+  display: flex;
+}
+
+.quests-card-title {
+  flex-wrap: wrap;
+  font-size: 1em;
+  margin-top: 0;
+}
+
+.quests-card-details {
+  margin-bottom: 0.5em;
+  font-size: 0.7em;
+}
+
+.quest-card-wrapper:hover .quests-card-title, .quests-card-details{
+    font-size: 0.8em;
+}

@@ -1,0 +1,10 @@
+@mixin general-container {
+  border: 1px solid black;
+  height: 90vh;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
