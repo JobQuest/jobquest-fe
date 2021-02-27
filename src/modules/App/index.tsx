@@ -8,8 +8,6 @@ import HomePage from "../HomePage";
 import QuestsList from "../QuestsList";
 import userRoutes from "../../routes/user";
 import { Route, Switch, useParams } from "react-router-dom";
-import { apiCalls } from "../../apiCalls";
-import { useEffect, useState } from "react";
 import testData from '../test_assets/mock_data'
 import { QuestInProgress } from '../../interfaces'
 import { apiCalls } from '../../apiCalls'
@@ -44,7 +42,7 @@ const App = () => {
   };
 
   const getQuestDetails = () => {
-    Promise.resolve(apiCalls.getQuests("1", false))
+    Promise.resolve(apiCalls.getQuests("3", false))
     .then((response) => setAvailableQuests(response.data.attributes.quests))
   }
 
@@ -74,10 +72,10 @@ const App = () => {
               )}
             />
           )}
-          <Route exact path={userRoutes.currentQuest.path} render={({match}) => <Quest quests={quests} match={match}/>}/>
-          {availableQuests &&
-            <Route exact path={userRoutes.availableQuests.path} render={({match}) => <QuestsList quests={quests} match={match}/>} />
-          }
+          <Route exact path={userRoutes.currentQuest.path} render={({match}) => <Quest getQuestDetails={getQuestDetails} quests={quests} match={match}/>}/>
+        {!!availableQuests.length &&
+          <Route exact path={userRoutes.availableQuests.path} render={({match}) => <QuestsList quests={quests} match={match}/>} />
+        }
         </HomePage>
       </main>
     );
