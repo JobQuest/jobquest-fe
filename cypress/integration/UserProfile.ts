@@ -14,7 +14,7 @@ describe("User Profile Page", () => {
   });
 
   it("Should display a username", () => {
-    cy.get(".username");
+    cy.get("[data-cy=username]");
   });
 
   it("Should display an image", () => {
