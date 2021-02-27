@@ -25,7 +25,7 @@ const UserQuestLog: React.FC<CompletedQuests> = ({ completedQuests }) => {
           Log
         </h2>
         <section className="quest-record-display-bkg">
-          {completedQuests &&
+          {completedQuests[0] &&
             completedQuests.map((questRecord: Quest) => (
               <div key={questRecord.id} className="quest-record">
                 <div className="quest-record-info-wrapper">
@@ -35,12 +35,12 @@ const UserQuestLog: React.FC<CompletedQuests> = ({ completedQuests }) => {
                 </div>
               </div>
             ))}
-          {!completedQuests && (
+          {!completedQuests[0] && (
             <div className="quest-record-info-wrapper">
-              <h2>
+              <p className="quest-record-error">
                 Records of your completed quests will display here. Go complete
                 some quests!
-              </h2>
+              </p>
             </div>
           )}
         </section>
