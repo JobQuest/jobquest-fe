@@ -26,7 +26,7 @@ const UserQuestLog: React.FC<CompletedQuests> = ({ completedQuests }) => {
         </h2>
         <section className="quest-record-display-bkg">
           {completedQuests.map((questRecord: Quest) => (
-            <div className="quest-record">
+            <div key={questRecord.id} className="quest-record">
               <div className="quest-record-info-wrapper">
                 <h2 cy-data="quest-record-title">{questRecord.name}</h2>
                 <p cy-data="quest-record-xp">Exp earned:{questRecord.xp}</p>
