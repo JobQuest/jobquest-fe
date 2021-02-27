@@ -1,4 +1,39 @@
 .homepage {
   height: 80em;
   width: 63em;
+  margin-top: 4.5em;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+  grid-template-areas: "overlap";
+}
+
+.tabs-grid {
+  grid-area: overlap;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 58.9em 3em;
+  grid-template-rows: 7em 10em 10em 10em;
+}
+
+.profile-tab {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  width: 8em;
+}
+
+.quest-log-tab {
+  grid-column-start: 2;
+  grid-row-start: 3;
+  width: 8em;
+}
+
+.quests-tab {
+  grid-column-start: 2;
+  grid-row-start: 4;
+  width: 8em;
+}
+
+.tab {
+  height: 9.7em;
 }
