@@ -10,15 +10,14 @@ const getData = (path: string) => {
   });
 };
 
-const updateData = (path: string, action: string, data: object) => {
-  console.log(data);
+const updateData = (path:string, action: string, data:object) => {
   return fetch(path, {
     method: action,
     headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   }).then((response) => {
     if (response.ok) {
       return response.json();
@@ -37,8 +36,8 @@ export const apiCalls = {
     return updateData(`${baseUrl}/users`, "POST", email);
   },
 
-  getQuests: (userId: string) => {
-    return getData(`${baseUrl}/users/${userId}/quests?completion_status=true`);
+  getQuests: (userId: string, questState: boolean) => {
+    return getData(`${baseUrl}/users/${userId}/quests?completion_status=${questState}`);
   },
 
   // getCurrentQuest: (questId) => {
