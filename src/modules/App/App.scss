@@ -37,3 +37,12 @@ section {
 .component-container {
   @include general-container;
 }
+
+.loader {
+  margin-top: 16em;
+}
+
+.loader-text {
+  color: white;
+  font-size: x-large;
+}
