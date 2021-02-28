@@ -5,7 +5,9 @@
   height: 100%;
   width: 100%;
   display: flex;
+  align-items: center;
   flex-direction: column;
+  grid-area: overlap;
 }
 
 .component-title {
@@ -18,9 +20,11 @@
   flex-direction: column;
   align-items: center;
   height: 70%;
+  width: 50em;
   justify-content: center;
   margin-bottom: 5em;
   text-decoration: none;
+  z-index: 2;
 }
 
 .quest-card-inner-wrapper {
@@ -49,15 +53,15 @@
   color: black;
 
   &__left-side {
-    width: 50%; 
-    display: flex; 
+    width: 50%;
+    display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
   &__right-side {
-    width: 50%; 
-    display: flex; 
+    width: 50%;
+    display: flex;
     flex-direction: column;
     justify-content: center;
   }
@@ -78,6 +82,8 @@
   font-size: 0.7em;
 }
 
-.quest-card-wrapper:hover .quests-card-title, .quests-card-details{
-    font-size: 0.8em;
+.quest-card-wrapper:hover {
+  font-size: 1.1em;
+  height: 14.1em;
+  width: 40.1em;
 }
