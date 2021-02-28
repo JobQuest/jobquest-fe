@@ -14,9 +14,9 @@
 }
 
 .single-quest-details {
-  display: flex; 
-  justify-content: space-between; 
-  margin-top: 2em; 
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2em;
   width: 30em;
   margin-bottom: 1.5em;
 }
@@ -33,7 +33,7 @@
 .encounter-story-container {
   height: 13em;
   width: 30em;
-  display: flex; 
+  display: flex;
   justify-content: space-around;
   background-repeat: no-repeat;
   background-size: contain;
@@ -46,6 +46,7 @@
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  z-index: 2;
 
   &__action-card {
     width: 19em;
