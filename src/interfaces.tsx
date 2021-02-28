@@ -20,6 +20,10 @@ export interface Quest extends idObject {
   progress: number
 }
 
+export interface CompletedQuests {
+  completedQuests: Array<Quest>;
+}
+
 export interface QuestInProgress extends Quest {
   level: number
 }

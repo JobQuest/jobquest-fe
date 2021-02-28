@@ -17,7 +17,7 @@ const App = () => {
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {
-    Promise.resolve(apiCalls.getUser({ email: "olga@example.com" }))
+    Promise.resolve(apiCalls.getUser({ email: "george@example.com" }))
       .then((response) => setUser(response.data.attributes))
       .then((response) => getCompletedQuests());
   };
@@ -35,7 +35,6 @@ const App = () => {
 }
 
   const questCleaner = (badQuests: Array<object>) => {
-    console.log(badQuests);
     return badQuests.map((badQuest) => Object.values(badQuest)[0]);
   };
 

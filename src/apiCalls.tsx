@@ -20,7 +20,6 @@ const updateData = (path: string, action: string, data: object) => {
     body: JSON.stringify(data),
   }).then((response) => {
     if (response.ok) {
-      console.log("hey i am at updateData")
       return response.json();
     } else {
       throw new Error(
@@ -50,7 +49,6 @@ export const apiCalls = {
   },
 
   patchUserQuest: (userId: string, userProgress: object) => {
-    console.log("Hey I am here at patchUserQuest apiCalls:" + " " + userId + userProgress)
     return updateData(`${baseUrl}/users/${userId}/quests`, "PATCH", userProgress);
   }
 };

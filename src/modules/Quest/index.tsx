@@ -66,8 +66,13 @@ const Quest: React.FC<CurrentQuest> = (props) => {
   const getEncounterInfo: typeof getEncounter = async (questId: string, progressLevel: number) => {
     return await Promise.resolve(apiCalls.getQuestEncounter(parseInt(questId), progressLevel))
     .then((response) => {
-      setCurrentEncounter(response.data.attributes)})
-  }
+      if(response.ok) {
+        setCurrentEncounter(response.data.attributes)
+      } else {
+        setCurrentEncounter(null)
+      }
+  })
+}
 
   const completeQuest = () => {
     let lastEncounter = {
