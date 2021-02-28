@@ -1,7 +1,11 @@
-export interface Profile {
+export interface UserProfile {
   username: string 
   email: string
   xp: number
+}
+
+export interface ProfileObject {
+  user: UserProfile;
 }
 
 export interface idObject {

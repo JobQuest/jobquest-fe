@@ -113,7 +113,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     return (
       <section data-cy="single-quest-container" className="page-quest-list">
           <h2 className="component-title">You killed the moster!</h2>
-          <section className="quest-wrapper">
+          <section className="complete-quest">
               <div className="encounter-details__action-card"
                 style={{backgroundImage: `url(`+ `${questCards.cardOne ? cardActions.cardOne[1] : cardActions.cardOne[0]}`+`)`}}
                 onMouseOver={() => setQuestCards({...questCards, cardOne: true})}

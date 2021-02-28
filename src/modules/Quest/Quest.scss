@@ -50,8 +50,8 @@
   z-index: 2;
 
   &__action-card {
-    width: 19em;
-    height: 12em;
+    width: 21em;
+    height: 13.5em;
     cursor: pointer;
     background-size: 100%;
     margin: 2em;
@@ -112,4 +112,14 @@ h3 {
   position: absolute;
   left: 1em;
   top: 0.5em;
+}
+
+.complete-quest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 85%;
+  justify-content: flex-start;
+  text-decoration: none;
+  position: relative;
 }
