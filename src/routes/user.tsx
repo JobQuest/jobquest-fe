@@ -1,7 +1,7 @@
-import Quest from '../modules/Quest'
-import Profile from '../modules/User'
-import UserQuestLog from '../modules/UserQuestLog'
-import QuestsList from '../modules/QuestsList'
+import Quest from "../modules/Quest";
+import Profile from "../modules/User";
+import UserQuestLog from "../modules/UserQuestLog";
+import QuestsList from "../modules/QuestsList";
 
 export default {
   profile: {
@@ -22,5 +22,5 @@ export default {
   currentQuest: {
     path: "/quests/:id",
     component: Quest,
-  }
-}
+  },
+};
