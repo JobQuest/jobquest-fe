@@ -51,11 +51,7 @@ const App = () => {
     return (
       <main className="App">
         <HomePage>
-          <Route
-            exact
-            path={userRoutes.profile.path}
-            render={() => <Profile user={user} />}
-          />
+          <Route path="/" render={() => <Profile user={user} />} />
           {completedQuests && (
             <Route
               exact
@@ -92,10 +88,11 @@ const App = () => {
     return (
       <main className="App">
         <img
+          className="loader"
           src="https://media.giphy.com/media/1yld7nW3oQ2IyRubUm/giphy.gif"
           alt="calming village"
         ></img>
-        <p>Loading</p>
+        <p className="loader-text">Loading...</p>
       </main>
     );
   }
