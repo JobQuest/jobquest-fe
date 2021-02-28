@@ -29,7 +29,7 @@ const updateData = (path: string, action: string, data: object) => {
   });
 };
 
-const baseUrl = "http://job-quest-be.herokuapp.com/api/v1";
+const baseUrl = "https://job-quest-be.herokuapp.com/api/v1";
 
 export const apiCalls = {
   getUser: (email: object) => {
