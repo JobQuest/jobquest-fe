@@ -12,14 +12,12 @@ import questCardSupportiveH from '../../assets/Quest Cards/QuestCard_Supportive_
 type QuestProps = CurrentQuests & ComponentPath
 
 const QuestList: React.FC<QuestProps> = (props) => {
-  const {match, quests} = props
+  const {quests} = props
   const [questTypes, setQuestTypes] = useState<object>({
     active: false,
     passive: false,
     supportive: false
   })
-
-  const [currentQuest, setCurrentQuest] = useState<object>({})
 
   const cardTypes: CardTypeObj  = {
     active: [questCardActive, questCardActiveH],
@@ -34,6 +32,7 @@ const QuestList: React.FC<QuestProps> = (props) => {
       </section>
     )
   } else {
+    console.log(quests)
     return (
       <section data-cy="quests-list-container" className="page-quest-list">
         <h2 className="component-title">Available Quests</h2>
@@ -49,19 +48,19 @@ const QuestList: React.FC<QuestProps> = (props) => {
                 data-cy={`quest-${quest.type}`} 
                 to={`/quests/${quest.id}`}
               >
-              <div className="quest-card-inner-wrapper"> 
-                <h2 className="quests-card-title">{quest.name}</h2>
-                <div className="quest-card-inner-box">
-                  <div className="quest-card-wrapper__left-side">
-                    <p className="quests-card-details">{quest.xp} XP</p>
-                    <p className="quests-card-details">Encounters: {quest.encounter_req}</p>
-                  </div>
-                  <div className="quest-card-wrapper__right-side">
-                    <p className="quests-card-details">Level {quest.level}</p>
-                    <p className="quests-card-details">{quest.type}</p>
+                <div className="quest-card-inner-wrapper"> 
+                  <h2 className="quests-card-title">{quest.name}</h2>
+                  <div className="quest-card-inner-box">
+                    <div className="quest-card-wrapper__left-side">
+                      <p className="quests-card-details">{quest.xp} XP</p>
+                      <p className="quests-card-details">Encounters: {quest.encounter_req}</p>
+                    </div>
+                    <div className="quest-card-wrapper__right-side">
+                      <p className="quests-card-details">Level {quest.level}</p>
+                      <p className="quests-card-details">{quest.type}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
             </Link> 
           )}
         </section>
