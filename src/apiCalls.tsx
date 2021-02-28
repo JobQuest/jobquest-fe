@@ -20,6 +20,7 @@ const updateData = (path: string, action: string, data: object) => {
     body: JSON.stringify(data),
   }).then((response) => {
     if (response.ok) {
+      console.log("hey i am at updateData")
       return response.json();
     } else {
       throw new Error(
@@ -43,13 +44,13 @@ export const apiCalls = {
   },
 
   getQuestEncounter: (questId: number, progressLevel: number) => {
-    console.log(questId, progressLevel);
     return getData(
       `${baseUrl}/quests/${questId}/encounters?progress=${progressLevel}`
     );
   },
 
-  patchUserQuest: (userProgress: object) => {
-    return updateData(`${baseUrl}/users/1/quests`, "PATCH", userProgress);
-  },
+  patchUserQuest: (userId: string, userProgress: object) => {
+    console.log("Hey I am here at patchUserQuest apiCalls:" + " " + userId + userProgress)
+    return updateData(`${baseUrl}/users/${userId}/quests`, "PATCH", userProgress);
+  }
 };

@@ -74,3 +74,8 @@ export interface MenuProps {
 export interface MenuItemProps {
   path: string
 }
+
+export interface Heart {
+  image: object,
+  id: number
+}
