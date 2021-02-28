@@ -8,12 +8,8 @@ import HomePage from "../HomePage";
 import QuestsList from "../QuestsList";
 import userRoutes from "../../routes/user";
 import { Route, Switch, useParams } from "react-router-dom";
-import testData from "../test_assets/mock_data";
 import { QuestInProgress } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
-
-//mock data
-const quests = testData.quests;
 
 const App = () => {
   const [user, setUser] = useState<any | null>(null);
@@ -21,29 +17,27 @@ const App = () => {
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {
-    Promise.resolve(apiCalls.getUser({ email: "olga@example.com" }))
+    Promise.resolve(apiCalls.getUser({ email: "george@example.com" }))
       .then((response) => setUser(response.data.attributes))
       .then((response) => getCompletedQuests());
   };
 
   const getCompletedQuests = () => {
-    Promise.resolve(apiCalls.getQuests("1", true)).then((response) =>
+    Promise.resolve(apiCalls.getQuests("8", true)).then((response) =>
       setCompletedQuests(questCleaner(response.data.attributes.quests))
     );
   };
 
   const getQuestDetails = () => {
-    Promise.resolve(apiCalls.getQuests("3", false)).then((response) =>
-      setAvailableQuests(response.data.attributes.quests)
-    );
-  };
+    Promise.resolve(apiCalls.getQuests("8", false))
+    .then((response) => setAvailableQuests(response.data.attributes.quests.map(quest => Object.values(quest)[0])
+  ))
+}
 
   const questCleaner = (badQuests: Array<object>) => {
-    console.log(badQuests);
     return badQuests.map((badQuest) => Object.values(badQuest)[0]);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getUserInfo(), []);
   useEffect(() => getQuestDetails(), []);
 
@@ -67,7 +61,7 @@ const App = () => {
             render={({ match }) => (
               <Quest
                 getQuestDetails={getQuestDetails}
-                quests={quests}
+                quests={availableQuests}
                 match={match}
               />
             )}
@@ -77,7 +71,7 @@ const App = () => {
               exact
               path={userRoutes.availableQuests.path}
               render={({ match }) => (
-                <QuestsList quests={quests} match={match} />
+                <QuestsList quests={availableQuests} match={match} />
               )}
             />
           )}

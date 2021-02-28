@@ -28,6 +28,7 @@
   height: 85%;
   justify-content: center;
   text-decoration: none;
+  position: relative;
 }
 
 .encounter-story-container {
@@ -49,8 +50,8 @@
   z-index: 2;
 
   &__action-card {
-    width: 19em;
-    height: 12em;
+    width: 21em;
+    height: 13.5em;
     cursor: pointer;
     background-size: 100%;
     margin: 2em;
@@ -82,8 +83,8 @@
   width: 30em;
   height: 20px;
   position: absolute;
-  top: 16em;
-  right: 14em;
+  top: 2em;
+  right: 17em;
   float: right;
 }
 
@@ -101,9 +102,7 @@ h3 {
   height: 180px;
   width: 180px;
   position: absolute;
-  background-position: -155px -145px;
   right: 1em;
-  top: 0.5em;
 }
 
 .img-hero {
@@ -113,4 +112,14 @@ h3 {
   position: absolute;
   left: 1em;
   top: 0.5em;
+}
+
+.complete-quest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 85%;
+  justify-content: flex-start;
+  text-decoration: none;
+  position: relative;
 }

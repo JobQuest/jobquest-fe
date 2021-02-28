@@ -1,20 +1,5 @@
 import "./QuestLog.scss";
-
-interface idObject {
-  id: number;
-}
-
-interface Quest extends idObject {
-  name: string;
-  xp: number;
-  encounter_req: number;
-  type: string;
-  progress: number;
-}
-
-interface CompletedQuests {
-  completedQuests: Array<Quest>;
-}
+import { idObject, Quest, CompletedQuests } from '../../interfaces'
 
 const UserQuestLog: React.FC<CompletedQuests> = ({ completedQuests }) => {
   if (completedQuests) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import "./QuestsList.scss";
-import { CurrentQuests, ComponentPath, CardTypeObj } from '../../interfaces'
+import { CurrentQuests, ComponentPath, CardTypeObj, QuestEncounterFunctoinality } from '../../interfaces'
 import questCardActive from '../../assets/Quest Cards/QuestCard_Active.png'
 import questCardActiveH from '../../assets/Quest Cards/QuestCard_Active_Hover.png'
 import questCardPassive from '../../assets/Quest Cards/QuestCard_Passive.png'
@@ -9,17 +9,16 @@ import questCardPassiveH from '../../assets/Quest Cards/QuestCard_Passive_Hover.
 import questCardSupportive from '../../assets/Quest Cards/QuestCard_Supportive.png'
 import questCardSupportiveH from '../../assets/Quest Cards/QuestCard_Supportive_Hover.png'
 
-type QuestProps = CurrentQuests & ComponentPath
+type QuestProps = CurrentQuests & ComponentPath | QuestEncounterFunctoinality
 
 const QuestList: React.FC<QuestProps> = (props) => {
-  const {match, quests} = props
+  const {quests} = props as CurrentQuests
+  const {getQuestDetails} = props as QuestEncounterFunctoinality
   const [questTypes, setQuestTypes] = useState<object>({
     active: false,
     passive: false,
     supportive: false
   })
-
-  const [currentQuest, setCurrentQuest] = useState<object>({})
 
   const cardTypes: CardTypeObj  = {
     active: [questCardActive, questCardActiveH],
@@ -49,19 +48,19 @@ const QuestList: React.FC<QuestProps> = (props) => {
                 data-cy={`quest-${quest.type}`} 
                 to={`/quests/${quest.id}`}
               >
-              <div className="quest-card-inner-wrapper"> 
-                <h2 className="quests-card-title">{quest.name}</h2>
-                <div className="quest-card-inner-box">
-                  <div className="quest-card-wrapper__left-side">
-                    <p className="quests-card-details">{quest.xp} XP</p>
-                    <p className="quests-card-details">Encounters: {quest.encounter_req}</p>
-                  </div>
-                  <div className="quest-card-wrapper__right-side">
-                    <p className="quests-card-details">Level {quest.level}</p>
-                    <p className="quests-card-details">{quest.type}</p>
+                <div className="quest-card-inner-wrapper"> 
+                  <h2 className="quests-card-title">{quest.name}</h2>
+                  <div className="quest-card-inner-box">
+                    <div className="quest-card-wrapper__left-side">
+                      <p className="quests-card-details">{quest.xp} XP</p>
+                      <p className="quests-card-details">Encounters: {quest.encounter_req}</p>
+                    </div>
+                    <div className="quest-card-wrapper__right-side">
+                      <p className="quests-card-details">Level {quest.level}</p>
+                      <p className="quests-card-details">{quest.type}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
             </Link> 
           )}
         </section>

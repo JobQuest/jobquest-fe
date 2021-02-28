@@ -1,24 +1,7 @@
-// import { promises } from "fs";
-// import { useEffect, useState } from "react";
-// import { apiCalls } from "../../apiCalls";
+import { ProfileObject } from '../../interfaces'
+
 import heroImage from "../../assets/Extras/Hero.png";
 import "./Profile.scss";
-
-interface UserProfile {
-  username: string;
-  email: string;
-  xp: number;
-}
-
-interface ProfileObject {
-  user: UserProfile;
-}
-
-// const userOne: UserProfile = {
-//   username: "Tom",
-//   email: "user@gmail.com",
-//   xp: 1000,
-// };
 
 const Profile: React.FC<ProfileObject> = ({ user }) => {
   return (
