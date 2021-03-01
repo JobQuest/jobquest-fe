@@ -43,7 +43,13 @@ const UserQuestLog: React.FC<QuestLog> = (props) => {
       </section>
     );
   } else {
-    return <h1>Loading...</h1>;
+    return (
+      <section className="page-questlog-loading">
+        <section className="page-questlog-loading">
+          <h1>Loading...</h1>
+        </section>
+      </section>
+    )
   }
 };
 
