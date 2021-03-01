@@ -1,6 +1,6 @@
 import './Quest.scss'
 import { useEffect, useState } from 'react'
-import { QuestInProgress, CurrentQuests, ComponentPath, ActionCards, QuestEncounterFunctoinality, Heart } from '../../interfaces'
+import { QuestInProgress, CurrentQuests, ComponentPath, ActionCards, QuestEncounterFunctoinality, Heart, idObject } from '../../interfaces'
 import { apiCalls } from '../../apiCalls'
 import { useHistory } from 'react-router-dom'
 import HeroIdle from '../../assets/Hero/Hero_Idle.png'
@@ -15,7 +15,8 @@ import user from '../../routes/user'
 
 type CurrentQuest =
   | (ComponentPath & CurrentQuests)
-  | QuestEncounterFunctoinality;
+  | QuestEncounterFunctoinality
+  | idObject
 
 const Quest: React.FC<CurrentQuest> = (props) => {
 
@@ -34,6 +35,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     cardTwo: [ActionCardTwo, ActionCardTwoH]
   } 
   const history = useHistory();
+  const {id} = props as idObject
   const {match} = props as ComponentPath
   const {quests} = props as CurrentQuests
   const {getQuest, getEncounter, getQuestDetails, ...others} = props as QuestEncounterFunctoinality
@@ -88,7 +90,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
       "quest_id": questId,
       "progress": `${userProgress}`
     }
-    apiCalls.patchUserQuest("4", lastEncounter)
+    apiCalls.patchUserQuest(id.toString(), lastEncounter)
     .then((response) => {
       console.log(`Ecnouter reg: ${userQuest?.encounter_req} Progress to complete` + ' ' + lastEncounter.progress)
     setIsQuestCompleted(response.data.attributes.completion_status); 
@@ -106,7 +108,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     console.log(`Current Progress to patch` + userProgress)
     console.log(`Current Encounter to patch` + " " + currentEncounter.progress)
     if(userQuest && userProgress < userQuest.encounter_req) {
-      return await Promise.resolve(apiCalls.patchUserQuest("4", currentEncounter))
+      return await Promise.resolve(apiCalls.patchUserQuest(id.toString(), currentEncounter))
         .then((response) => {
           setUserProgress(userProgress)
           // console.log(`Not completed` + ' ' + response)
@@ -119,7 +121,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
        console.log(`Last Encounter` + currentEncounter.progress)
        console.log(userProgress === userQuest.encounter_req)
 
-      apiCalls.patchUserQuest("4", currentEncounter)
+      apiCalls.patchUserQuest(id.toString(), currentEncounter)
       .then((response) => {
         setIsQuestCompleted(true); 
         console.log(`Last progress response` + ' ' + response.data.attributes.response);

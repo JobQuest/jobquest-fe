@@ -37,6 +37,7 @@ const QuestList: React.FC<QuestProps> = (props) => {
       </section>
     )
   } else {
+    console.log(quests)
     return (
       <section data-cy="quests-list-container" className="page-quest-list">
         <h2 className="component-title">Available Quests</h2>

@@ -11,25 +11,30 @@ import { Route, Switch, useParams } from "react-router-dom";
 import { QuestInProgress } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 
+const userId = {
+  id: "5",
+  email: "curtis@example.com"
+}
+
 const App = () => {
   const [user, setUser] = useState<any | null>(null);
   const [completedQuests, setCompletedQuests] = useState<any | null>(null);
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {
-    Promise.resolve(apiCalls.getUser({ email: "shaunda@example.com" }))
+    Promise.resolve(apiCalls.getUser({ email: userId.email }))
       .then((response) => setUser(response.data.attributes))
       .then((response) => getCompletedQuests());
   };
 
   const getCompletedQuests = () => {
-    Promise.resolve(apiCalls.getQuests("4", true)).then((response) =>
+    Promise.resolve(apiCalls.getQuests(userId.id, true)).then((response) =>
       setCompletedQuests(questCleaner(response.data.attributes.quests))
     );
   };
 
   const getQuestDetails = () => {
-    Promise.resolve(apiCalls.getQuests("4", false))
+    Promise.resolve(apiCalls.getQuests(userId.id, false))
     .then((response) => setAvailableQuests(response.data.attributes.quests.map(quest => Object.values(quest)[0])
   ))
 }
@@ -60,6 +65,7 @@ const App = () => {
             path={userRoutes.currentQuest.path}
             render={({ match }) => (
               <Quest
+                id={parseInt(userId.id)} 
                 getQuestDetails={getQuestDetails}
                 quests={availableQuests}
                 match={match}
