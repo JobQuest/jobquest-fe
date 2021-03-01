@@ -80,7 +80,6 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     .then((response) => {
       if(response) {
         setCurrentEncounter(response.data.attributes)
-        console.log(response.data.attributes)
       } else {
         setCurrentEncounter(null)
         setQuestCards({

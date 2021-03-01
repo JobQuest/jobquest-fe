@@ -3,7 +3,6 @@ import { idObject, Quest, CompletedQuests } from '../../interfaces'
 
 const UserQuestLog: React.FC<CompletedQuests> = ({ completedQuests }) => {
   if (completedQuests) {
-    console.log(completedQuests)
     return (
       <section className="page-questlog">
         <h2 className="quest-log-page-title">
