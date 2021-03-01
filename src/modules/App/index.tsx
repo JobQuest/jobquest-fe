@@ -8,30 +8,38 @@ import HomePage from "../HomePage";
 import QuestsList from "../QuestsList";
 import userRoutes from "../../routes/user";
 import { Route, Switch, useParams } from "react-router-dom";
-import { QuestInProgress } from "../../interfaces";
+import { QuestInProgress, UserProfile } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 
+const userId = {
+  id: "5",
+  email: "curtis@example.com"
+}
+
 const App = () => {
-  const [user, setUser] = useState<any | null>(null);
-  const [completedQuests, setCompletedQuests] = useState<any | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [completedQuests, setCompletedQuests] = useState<QuestInProgress[] | null>(null);
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {
-    Promise.resolve(apiCalls.getUser({ email: "george@example.com" }))
+    Promise.resolve(apiCalls.getUser({ email: userId.email }))
       .then((response) => setUser(response.data.attributes))
       .then((response) => getCompletedQuests());
   };
 
   const getCompletedQuests = () => {
-    Promise.resolve(apiCalls.getQuests("8", true)).then((response) =>
+    Promise.resolve(apiCalls.getQuests(userId.id, true)).then((response) =>
       setCompletedQuests(questCleaner(response.data.attributes.quests))
     );
   };
 
-  const getQuestDetails = () => {
-    Promise.resolve(apiCalls.getQuests("8", false))
-    .then((response) => setAvailableQuests(response.data.attributes.quests.map(quest => Object.values(quest)[0])
-  ))
+  const getQuestDetails = (): Promise<object> => {
+    return Promise.resolve(apiCalls.getQuests(userId.id, false))
+    .then((response) => {
+      let availableQuestsList = response.data.attributes.quests.map(quest => Object.values(quest)[0])
+      setAvailableQuests(availableQuestsList)
+      return availableQuestsList
+    })
 }
 
   const questCleaner = (badQuests: Array<object>) => {
@@ -39,7 +47,7 @@ const App = () => {
   };
 
   useEffect(() => getUserInfo(), []);
-  useEffect(() => getQuestDetails(), []);
+  useEffect(() => {getQuestDetails()}, []);
 
   if (user) {
     return (
@@ -60,8 +68,8 @@ const App = () => {
             path={userRoutes.currentQuest.path}
             render={({ match }) => (
               <Quest
+                id={parseInt(userId.id)} 
                 getQuestDetails={getQuestDetails}
-                quests={availableQuests}
                 match={match}
               />
             )}
@@ -71,7 +79,7 @@ const App = () => {
               exact
               path={userRoutes.availableQuests.path}
               render={({ match }) => (
-                <QuestsList quests={availableQuests} match={match} />
+                <QuestsList getQuestDetails={getQuestDetails} quests={availableQuests} match={match} />
               )}
             />
           )}
