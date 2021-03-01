@@ -1,0 +1,20 @@
+.page-auth {
+  background-image: url("../../assets/Backgrounds/Bkg_NewQuests.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 80em;
+  width: 63em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  grid-area: overlap;
+  position: relative;
+}
+
+.login-title {
+  font-size: 2em;
+  position: absolute;
+  top: 15em;
+  left: 13em;
+}
