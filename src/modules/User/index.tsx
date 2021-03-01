@@ -1,9 +1,10 @@
-import { ProfileObject } from '../../interfaces'
+import { ProfileObject } from "../../interfaces";
 
 import heroImage from "../../assets/Extras/Hero.png";
 import "./Profile.scss";
 
-const Profile: React.FC<ProfileObject> = ({ user }) => {
+const Profile: React.FC<ProfileObject> = ({ user, setActivePage }) => {
+  setActivePage("profile");
   return (
     <section className="page-profile">
       <h1 className="user-page-title">My Profile</h1>

@@ -60,8 +60,11 @@ const App = () => {
   if (user) {
     return (
       <main className="App">
-        <HomePage activePage={activePage} setActivePage={setActivePage}>
-          <Route path="/" render={() => <Profile user={user} />} />
+        <HomePage activePage={activePage}>
+          <Route
+            path="/"
+            render={() => <Profile user={user} setActivePage={setActivePage} />}
+          />
           {completedQuests && (
             <Route
               exact
@@ -77,6 +80,7 @@ const App = () => {
             render={({ match }) => (
               <Quest
                 id={parseInt(userId.id)}
+                setActivePage={setActivePage}
                 getQuestDetails={getQuestDetails}
                 match={match}
               />
@@ -89,6 +93,7 @@ const App = () => {
               render={({ match }) => (
                 <QuestsList
                   getQuestDetails={getQuestDetails}
+                  setActivePage={setActivePage}
                   quests={availableQuests}
                   match={match}
                 />

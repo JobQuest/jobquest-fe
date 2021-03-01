@@ -5,6 +5,7 @@ export interface UserProfile {
 }
 
 export interface ProfileObject {
+  setActivePage: (newActive: string) => void;
   user: UserProfile;
 }
 
@@ -69,7 +70,6 @@ export interface QuestEncounterFunctoinality {
 export interface HomePageProps {
   children?: object;
   activePage: string;
-  setActivePage: (newActive: string) => void;
 }
 
 export interface CardTypeObj {
