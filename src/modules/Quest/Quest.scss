@@ -60,6 +60,7 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    z-index: 9999;
   }
 }
 
@@ -83,8 +84,8 @@
   width: 30em;
   height: 20px;
   position: absolute;
-  top: 2em;
-  right: 17em;
+  top: 4em;
+  right: 1.5em;
   float: right;
 }
 

@@ -11,6 +11,7 @@ const getData = (path: string) => {
 };
 
 const updateData = (path: string, action: string, data: object) => {
+  console.log("here is me in updateData" + " " + path + " " + action + " " + data)
   return fetch(path, {
     method: action,
     headers: {
@@ -49,6 +50,7 @@ export const apiCalls = {
   },
 
   patchUserQuest: (userId: string, userProgress: object) => {
+    console.log("HI i am in a patch api call" + " " + userId + " " + userProgress)
     return updateData(`${baseUrl}/users/${userId}/quests`, "PATCH", userProgress);
   }
 };

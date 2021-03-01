@@ -17,19 +17,19 @@ const App = () => {
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {
-    Promise.resolve(apiCalls.getUser({ email: "george@example.com" }))
+    Promise.resolve(apiCalls.getUser({ email: "shaunda@example.com" }))
       .then((response) => setUser(response.data.attributes))
       .then((response) => getCompletedQuests());
   };
 
   const getCompletedQuests = () => {
-    Promise.resolve(apiCalls.getQuests("8", true)).then((response) =>
+    Promise.resolve(apiCalls.getQuests("4", true)).then((response) =>
       setCompletedQuests(questCleaner(response.data.attributes.quests))
     );
   };
 
   const getQuestDetails = () => {
-    Promise.resolve(apiCalls.getQuests("8", false))
+    Promise.resolve(apiCalls.getQuests("4", false))
     .then((response) => setAvailableQuests(response.data.attributes.quests.map(quest => Object.values(quest)[0])
   ))
 }
@@ -71,7 +71,7 @@ const App = () => {
               exact
               path={userRoutes.availableQuests.path}
               render={({ match }) => (
-                <QuestsList quests={availableQuests} match={match} />
+                <QuestsList getQuestDetails={getQuestDetails} quests={availableQuests} match={match} />
               )}
             />
           )}

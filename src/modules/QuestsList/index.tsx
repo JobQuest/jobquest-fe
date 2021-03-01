@@ -26,6 +26,10 @@ const QuestList: React.FC<QuestProps> = (props) => {
     supportive: [questCardSupportive, questCardSupportiveH]
   } 
 
+  useEffect(() => {
+    getQuestDetails()
+  }, []);
+
   if(!quests.length) {
     return (
       <section data-cy="single-quest-container" className="single-quest-container">

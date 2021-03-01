@@ -11,6 +11,7 @@ import ActionCardOne from '../../assets/Action Cards/ActionCard_1.png'
 import ActionCardOneH from '../../assets/Action Cards/ActionCard_1_Hover.png'
 import ActionCardTwo from '../../assets/Action Cards/ActionCard_2.png'
 import ActionCardTwoH from '../../assets/Action Cards/ActionCard_2_Hover.png'
+import user from '../../routes/user'
 
 type CurrentQuest =
   | (ComponentPath & CurrentQuests)
@@ -42,20 +43,24 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     let newQuest = quests.find(quest => quest.id === parseInt(id))
     if(newQuest) {
       setUserQuest(newQuest)
-      setUserProgress(newQuest.progress)
-      getEncounterInfo(questId, userProgress)
+      setUserProgress(newQuest.progress+1)
+      getEncounterInfo(questId, newQuest.progress)
       getMonsterHealth() 
+      console.log("On load This quest progress to submit" + " " + userProgress)
+      console.log("On load This quest progress" + " " + userQuest?.progress)
     }
   }
 
   const getMonsterHealth = () => {
-    let i = 0;
+    let i = 1;
     let heartsList: Heart[] = []
     if(userQuest) {
-      while (i < userQuest.encounter_req) {
+      while (i <= userQuest.encounter_req) {
+        console.log("encouter" + " "+ i )
+        console.log(typeof userProgress)
         i++;
         heartsList.push({
-          image: <img key={`heart-${i}`} className="monster-health" src={userProgress >= i ? HeartFull : HeartEmpty} alt="heart"/>,
+          image: <img key={`heart-${i}`} className="monster-health" src={userProgress <= i ? HeartFull : HeartEmpty} alt="heart"/>,
           id: i
         })
       }
@@ -66,23 +71,30 @@ const Quest: React.FC<CurrentQuest> = (props) => {
   const getEncounterInfo: typeof getEncounter = async (questId: string, progressLevel: number) => {
     return await Promise.resolve(apiCalls.getQuestEncounter(parseInt(questId), progressLevel))
     .then((response) => {
-      if(response.ok) {
+      if(response) {
         setCurrentEncounter(response.data.attributes)
       } else {
         setCurrentEncounter(null)
+        setQuestCards({
+          cardOne: false,
+          cardTwo: false,
+        })
       }
-  })
-}
+    })
+  }
 
   const completeQuest = () => {
     let lastEncounter = {
       "quest_id": questId,
-      "progress": `${userProgress+1}`
+      "progress": `${userProgress}`
     }
-    apiCalls.patchUserQuest("8", lastEncounter)
+    apiCalls.patchUserQuest("4", lastEncounter)
     .then((response) => {
-      setIsQuestCompleted(response.data.attributes.completion_status); 
-      history.push(`/quests`)
+      console.log(`Ecnouter reg: ${userQuest?.encounter_req} Progress to complete` + ' ' + lastEncounter.progress)
+    setIsQuestCompleted(response.data.attributes.completion_status); 
+    console.log(`Last progress response` + ' ' + response.data.attributes.response);
+    console.log(`Final isCompleted` + ' ' + isQuestCompleted)
+    history.push(`/quests`)
     })
   }
 
@@ -91,30 +103,47 @@ const Quest: React.FC<CurrentQuest> = (props) => {
       "quest_id": questId,
       "progress": `${userProgress}`
     }
+    console.log(`Current Progress to patch` + userProgress)
+    console.log(`Current Encounter to patch` + " " + currentEncounter.progress)
     if(userQuest && userProgress < userQuest.encounter_req) {
-      return await Promise.resolve(apiCalls.patchUserQuest("1", currentEncounter))
-      .then((response) => {
-          setIsQuestCompleted(response.data.attributes.completion_status);
+      return await Promise.resolve(apiCalls.patchUserQuest("4", currentEncounter))
+        .then((response) => {
+          setUserProgress(userProgress)
+          // console.log(`Not completed` + ' ' + response)
+        // setIsQuestCompleted(response.data.attributes.completion_status);
+        console.log(`Not completed` + ' ' + response) 
      })
     }
-    if(userQuest && userProgress === userQuest.encounter_req) {
-      apiCalls.patchUserQuest("7", currentEncounter)
+    if(userQuest && userQuest.progress === userQuest.encounter_req) {
+       console.log(`Last Progress` + userProgress)
+       console.log(`Last Encounter` + currentEncounter.progress)
+       console.log(userProgress === userQuest.encounter_req)
+
+      apiCalls.patchUserQuest("4", currentEncounter)
       .then((response) => {
-        setIsQuestCompleted(response.data.attributes.completion_status); 
+        setIsQuestCompleted(true); 
+        console.log(`Last progress response` + ' ' + response.data.attributes.response);
+        // setUserQuest(null)
         setCurrentEncounter(null)
       })
     }
-  };
+    setQuestCards({
+      cardOne: false,
+      cardTwo: false,
+    })
+  }
 
   useEffect(() => {
     getQuestInfo(questId)
   }, [userQuest]);
 
   useEffect(() => {
-    getEncounterInfo(questId, userProgress)
+    if(userQuest) {
+      getEncounterInfo(questId, userQuest.progress)
+    }
   }, []);
 
-  if (!userQuest || !currentEncounter) {
+  if (!userQuest || !currentEncounter || isQuestCompleted) {
     return (
       <section data-cy="single-quest-container" className="page-quest-list">
           <h2 className="component-title">You killed the moster!</h2>
