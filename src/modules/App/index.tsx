@@ -12,12 +12,12 @@ import { QuestInProgress, UserProfile } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 
 const userId = {
-  id: "7",
+  id: "5",
   email: "curtis@example.com"
 }
 
 const App = () => {
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [completedQuests, setCompletedQuests] = useState<QuestInProgress[] | null>(null);
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
@@ -33,10 +33,13 @@ const App = () => {
     );
   };
 
-  const getQuestDetails = () => {
-    Promise.resolve(apiCalls.getQuests(userId.id, false))
-    .then((response) => setAvailableQuests(response.data.attributes.quests.map(quest => Object.values(quest)[0])
-  ))
+  const getQuestDetails = (): Promise<object> => {
+    return Promise.resolve(apiCalls.getQuests(userId.id, false))
+    .then((response) => {
+      let availableQuestsList = response.data.attributes.quests.map(quest => Object.values(quest)[0])
+      setAvailableQuests(availableQuestsList)
+      return availableQuestsList
+    })
 }
 
   const questCleaner = (badQuests: Array<object>) => {
@@ -44,7 +47,7 @@ const App = () => {
   };
 
   useEffect(() => getUserInfo(), []);
-  useEffect(() => getQuestDetails(), []);
+  useEffect(() => {getQuestDetails()}, []);
 
   if (user) {
     return (
@@ -67,7 +70,6 @@ const App = () => {
               <Quest
                 id={parseInt(userId.id)} 
                 getQuestDetails={getQuestDetails}
-                quests={availableQuests}
                 match={match}
               />
             )}

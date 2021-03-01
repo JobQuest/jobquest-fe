@@ -61,7 +61,9 @@ export interface QuestEncounterFunctoinality {
   completeEncounter: (quest_id: number, progress: number) => void
   getQuest: (quest_id: string) => void
   getEncounter: (questId: string, propgressLevel: number) => void
-  getQuestDetails: () => void
+  getQuestDetails: () => Promise <any>
+  updateMonsterHealth: (newquest: QuestInProgress) => void
+  helperFunction: () => void
 }
 
 export interface CardTypeObj {
@@ -86,4 +88,9 @@ export interface MenuItemProps {
 export interface Heart {
   image: object,
   id: number
+}
+
+export interface ActionCardsCheck {
+  cardOne: boolean,
+  cardTwo: boolean
 }

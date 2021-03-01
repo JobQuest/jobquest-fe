@@ -1,6 +1,15 @@
 import './Quest.scss'
 import { useEffect, useState } from 'react'
-import { QuestInProgress, CurrentQuests, ComponentPath, ActionCards, QuestEncounterFunctoinality, Heart, idObject } from '../../interfaces'
+import { 
+          QuestInProgress, 
+          ComponentPath, 
+          ActionCards, 
+          QuestEncounterFunctoinality, 
+          Heart, 
+          idObject, 
+          Encounter, 
+          ActionCardsCheck 
+        } from '../../interfaces'
 import { apiCalls } from '../../apiCalls'
 import { useHistory } from 'react-router-dom'
 import HeroIdle from '../../assets/Hero/Hero_Idle.png'
@@ -13,57 +22,54 @@ import ActionCardTwo from '../../assets/Action Cards/ActionCard_2.png'
 import ActionCardTwoH from '../../assets/Action Cards/ActionCard_2_Hover.png'
 
 type CurrentQuest =
-  | (ComponentPath & CurrentQuests)
+  | ComponentPath
   | QuestEncounterFunctoinality
   | idObject
 
 const Quest: React.FC<CurrentQuest> = (props) => {
 
-  const [userProgress, setUserProgress] = useState<number>(1)
   const [userQuest, setUserQuest] = useState<QuestInProgress | null>(null)
-  const [currentEncounter, setCurrentEncounter] = useState<any | null>(null)
+  const [currentEncounter, setCurrentEncounter] = useState<Encounter | null>(null)
   const [hearts, setHearts] = useState<Heart[]>([])
   const [isQuestCompleted, setIsQuestCompleted] = useState<boolean>(false)
-  const [questCards, setQuestCards] = useState<any>({
+  const [questCards, setQuestCards] = useState<ActionCardsCheck>({
     cardOne: false,
     cardTwo: false,
   });
-
   const cardActions: ActionCards = {
     cardOne: [ActionCardOne, ActionCardOneH],
     cardTwo: [ActionCardTwo, ActionCardTwoH]
   } 
   const history = useHistory();
+  
   const {id} = props as idObject
   const {match} = props as ComponentPath
-  const {quests} = props as CurrentQuests
-  const {getQuest, getEncounter, getQuestDetails, ...others} = props as QuestEncounterFunctoinality
+  const {getQuest, getEncounter, getQuestDetails, updateMonsterHealth, helperFunction, ...others} = props as QuestEncounterFunctoinality
   const questId = match.params.id;
 
   const getQuestInfo: typeof getQuest = async (id) => {
-    let newQuest = quests.find(quest => quest.id === parseInt(id))
+    const updatedQuests = await getQuestDetails()
+    let newQuest = updatedQuests.find(quest => quest.id === parseInt(id))
     if(newQuest) {
       setUserQuest(newQuest)
-      setUserProgress(newQuest.progress)
       getEncounterInfo(questId, newQuest.progress)
-      getMonsterHealth() 
-      console.log("On load This quest progress to submit" + " " + userProgress)
-      console.log("On load This quest progress" + " " + userQuest?.progress)
+      getMonsterHealth(newQuest) 
+    }
+    if(!newQuest) {
+      setIsQuestCompleted(true)
     }
   }
 
-  const getMonsterHealth = () => {
+  const getMonsterHealth: typeof updateMonsterHealth = (newquest) => {
     let i = 1;
     let heartsList: Heart[] = []
-    if(userQuest) {
-      while (i <= userQuest.encounter_req) {
-        console.log("encouter" + " "+ i )
-        console.log(typeof userProgress)
-        i++;
+    if(newquest) {
+      while (i <= newquest.encounter_req) {
         heartsList.push({
-          image: <img key={`heart-${i}`} className="monster-health" src={userProgress <= i ? HeartFull : HeartEmpty} alt="heart"/>,
+          image: <img key={`heart-${i}`} className="monster-health" src={newquest.progress <= i ? HeartFull : HeartEmpty} alt="heart"/>,
           id: i
         })
+        i++;
       }
       setHearts(heartsList)
     }
@@ -74,6 +80,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     .then((response) => {
       if(response) {
         setCurrentEncounter(response.data.attributes)
+        console.log(response.data.attributes)
       } else {
         setCurrentEncounter(null)
         setQuestCards({
@@ -84,105 +91,37 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     })
   }
 
-  // const completeQuest = () => {
-  //   let lastEncounter = {
-  //     "quest_id": questId,
-  //     "progress": `${userProgress}`
-  //   }
-  //   apiCalls.patchUserQuest(id.toString(), lastEncounter)
-  //   .then((response) => {
-  //     console.log(`Ecnouter reg: ${userQuest?.encounter_req} Progress to complete` + ' ' + lastEncounter.progress)
-  //   setIsQuestCompleted(response.data.attributes.completion_status); 
-  //   console.log(`Last progress response` + ' ' + response.data.attributes.response);
-  //   console.log(`Final isCompleted` + ' ' + isQuestCompleted)
-  //   history.push(`/quests`)
-  //   })
-  // }
-
-  const completeQuest = () => {
-    // let lastEncounter = {
-    //   "quest_id": questId,
-    //   "progress": `${userProgress}`
-    // }
-    // apiCalls.patchUserQuest(id.toString(), lastEncounter)
-    // .then((response) => {
-    //   console.log(`Ecnouter reg: ${userQuest?.encounter_req} Progress to complete` + ' ' + lastEncounter.progress)
-    // setIsQuestCompleted(response.data.attributes.completion_status); 
-    // console.log(`Last progress response` + ' ' + response.data.attributes.response);
-    // console.log(`Final isCompleted` + ' ' + isQuestCompleted)
+  const completeQuest: typeof helperFunction = () => {
     history.push(`/quests`)
-    // })
   }
 
-  const switchProgressLevel = async () => {
-    let currentEncounter = {
-      "quest_id": questId,
-      "progress": `${userProgress + 1}`
-    }
+  const switchProgressLevel: typeof helperFunction = async () => {
+    if(userQuest) {
+      let currentEncounter = {
+        "quest_id": questId,
+        "progress": `${userQuest.progress + 1}`
+      }
 
-    apiCalls.patchUserQuest(id.toString(), currentEncounter)
-        .then((response) => {
-          console.log(`Submitted progress` + ' ' + currentEncounter.progress)
-          console.log("Patch response " + response.data.attributes.completion_status)
-        setIsQuestCompleted(response.data.attributes.completion_status);
-        console.log("Complete status after patch " + isQuestCompleted)
-        if(isQuestCompleted) {
-          getEncounterInfo(questId, userProgress+1)
+    await apiCalls.patchUserQuest(id.toString(), currentEncounter)
+      .then((response) => {
+        let completionStatus = response.data.attributes.completion_status
+        if(!completionStatus) {
+          getQuestInfo(questId)
+          getQuestDetails()
         } else {
           setCurrentEncounter(null)
         }
-    })
-
-    setQuestCards({
-      cardOne: false,
-      cardTwo: false,
-    })
+      })
+      setQuestCards({
+        cardOne: false,
+        cardTwo: false,
+      })
+    }
   }
-
-  // const switchProgressLevel = async () => {
-  //   let currentEncounter = {
-  //     "quest_id": questId,
-  //     "progress": `${userProgress}`
-  //   }
-  //   console.log(`Current Progress to patch` + userProgress)
-  //   console.log(`Current Encounter to patch` + " " + currentEncounter.progress)
-  //   if(userQuest && userProgress < userQuest.encounter_req) {
-  //     return await Promise.resolve(apiCalls.patchUserQuest(id.toString(), currentEncounter))
-  //       .then((response) => {
-  //         setUserProgress(userProgress)
-  //         // console.log(`Not completed` + ' ' + response)
-  //       // setIsQuestCompleted(response.data.attributes.completion_status);
-  //       console.log(`Not completed` + ' ' + response) 
-  //    })
-  //   }
-  //   if(userQuest && userQuest.progress === userQuest.encounter_req) {
-  //      console.log(`Last Progress` + userProgress)
-  //      console.log(`Last Encounter` + currentEncounter.progress)
-  //      console.log(userProgress === userQuest.encounter_req)
-
-  //     apiCalls.patchUserQuest(id.toString(), currentEncounter)
-  //     .then((response) => {
-  //       setIsQuestCompleted(true); 
-  //       console.log(`Last progress response` + ' ' + response.data.attributes.response);
-  //       // setUserQuest(null)
-  //       setCurrentEncounter(null)
-  //     })
-  //   }
-  //   setQuestCards({
-  //     cardOne: false,
-  //     cardTwo: false,
-  //   })
-  // }
 
   useEffect(() => {
     getQuestInfo(questId)
-  }, [userQuest]);
-
-  useEffect(() => {
-    if(userQuest) {
-      getEncounterInfo(questId, userQuest.progress)
-    }
-  }, []);
+  }, [isQuestCompleted]);
 
   if (!userQuest || !currentEncounter || isQuestCompleted) {
     return (
@@ -219,7 +158,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
           </div>
           <div data-cy="quest-details" className="single-quest-details">
             <h3 className="single-quest-details__title">
-              Level {userQuest.level}
+              Level {userQuest.level}-{userQuest.progress}
             </h3>
             <h3 className="single-quest-details__title">{userQuest.xp} XP</h3>
           </div>
