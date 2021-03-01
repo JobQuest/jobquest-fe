@@ -8,17 +8,17 @@ import HomePage from "../HomePage";
 import QuestsList from "../QuestsList";
 import userRoutes from "../../routes/user";
 import { Route, Switch, useParams } from "react-router-dom";
-import { QuestInProgress } from "../../interfaces";
+import { QuestInProgress, UserProfile } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 
 const userId = {
-  id: "5",
+  id: "7",
   email: "curtis@example.com"
 }
 
 const App = () => {
   const [user, setUser] = useState<any | null>(null);
-  const [completedQuests, setCompletedQuests] = useState<any | null>(null);
+  const [completedQuests, setCompletedQuests] = useState<QuestInProgress[] | null>(null);
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {

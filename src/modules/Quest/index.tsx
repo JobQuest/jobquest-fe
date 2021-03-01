@@ -11,7 +11,6 @@ import ActionCardOne from '../../assets/Action Cards/ActionCard_1.png'
 import ActionCardOneH from '../../assets/Action Cards/ActionCard_1_Hover.png'
 import ActionCardTwo from '../../assets/Action Cards/ActionCard_2.png'
 import ActionCardTwoH from '../../assets/Action Cards/ActionCard_2_Hover.png'
-import user from '../../routes/user'
 
 type CurrentQuest =
   | (ComponentPath & CurrentQuests)
@@ -24,7 +23,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
   const [userQuest, setUserQuest] = useState<QuestInProgress | null>(null)
   const [currentEncounter, setCurrentEncounter] = useState<any | null>(null)
   const [hearts, setHearts] = useState<Heart[]>([])
-  const [isQuestCompleted, setIsQuestCompleted] = useState<boolean | false>(false)
+  const [isQuestCompleted, setIsQuestCompleted] = useState<boolean>(false)
   const [questCards, setQuestCards] = useState<any>({
     cardOne: false,
     cardTwo: false,
@@ -45,7 +44,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     let newQuest = quests.find(quest => quest.id === parseInt(id))
     if(newQuest) {
       setUserQuest(newQuest)
-      setUserProgress(newQuest.progress+1)
+      setUserProgress(newQuest.progress)
       getEncounterInfo(questId, newQuest.progress)
       getMonsterHealth() 
       console.log("On load This quest progress to submit" + " " + userProgress)
@@ -85,55 +84,95 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     })
   }
 
+  // const completeQuest = () => {
+  //   let lastEncounter = {
+  //     "quest_id": questId,
+  //     "progress": `${userProgress}`
+  //   }
+  //   apiCalls.patchUserQuest(id.toString(), lastEncounter)
+  //   .then((response) => {
+  //     console.log(`Ecnouter reg: ${userQuest?.encounter_req} Progress to complete` + ' ' + lastEncounter.progress)
+  //   setIsQuestCompleted(response.data.attributes.completion_status); 
+  //   console.log(`Last progress response` + ' ' + response.data.attributes.response);
+  //   console.log(`Final isCompleted` + ' ' + isQuestCompleted)
+  //   history.push(`/quests`)
+  //   })
+  // }
+
   const completeQuest = () => {
-    let lastEncounter = {
-      "quest_id": questId,
-      "progress": `${userProgress}`
-    }
-    apiCalls.patchUserQuest(id.toString(), lastEncounter)
-    .then((response) => {
-      console.log(`Ecnouter reg: ${userQuest?.encounter_req} Progress to complete` + ' ' + lastEncounter.progress)
-    setIsQuestCompleted(response.data.attributes.completion_status); 
-    console.log(`Last progress response` + ' ' + response.data.attributes.response);
-    console.log(`Final isCompleted` + ' ' + isQuestCompleted)
+    // let lastEncounter = {
+    //   "quest_id": questId,
+    //   "progress": `${userProgress}`
+    // }
+    // apiCalls.patchUserQuest(id.toString(), lastEncounter)
+    // .then((response) => {
+    //   console.log(`Ecnouter reg: ${userQuest?.encounter_req} Progress to complete` + ' ' + lastEncounter.progress)
+    // setIsQuestCompleted(response.data.attributes.completion_status); 
+    // console.log(`Last progress response` + ' ' + response.data.attributes.response);
+    // console.log(`Final isCompleted` + ' ' + isQuestCompleted)
     history.push(`/quests`)
-    })
+    // })
   }
 
   const switchProgressLevel = async () => {
     let currentEncounter = {
       "quest_id": questId,
-      "progress": `${userProgress}`
+      "progress": `${userProgress + 1}`
     }
-    console.log(`Current Progress to patch` + userProgress)
-    console.log(`Current Encounter to patch` + " " + currentEncounter.progress)
-    if(userQuest && userProgress < userQuest.encounter_req) {
-      return await Promise.resolve(apiCalls.patchUserQuest(id.toString(), currentEncounter))
-        .then((response) => {
-          setUserProgress(userProgress)
-          // console.log(`Not completed` + ' ' + response)
-        // setIsQuestCompleted(response.data.attributes.completion_status);
-        console.log(`Not completed` + ' ' + response) 
-     })
-    }
-    if(userQuest && userQuest.progress === userQuest.encounter_req) {
-       console.log(`Last Progress` + userProgress)
-       console.log(`Last Encounter` + currentEncounter.progress)
-       console.log(userProgress === userQuest.encounter_req)
 
-      apiCalls.patchUserQuest(id.toString(), currentEncounter)
-      .then((response) => {
-        setIsQuestCompleted(true); 
-        console.log(`Last progress response` + ' ' + response.data.attributes.response);
-        // setUserQuest(null)
-        setCurrentEncounter(null)
-      })
-    }
+    apiCalls.patchUserQuest(id.toString(), currentEncounter)
+        .then((response) => {
+          console.log(`Submitted progress` + ' ' + currentEncounter.progress)
+          console.log("Patch response " + response.data.attributes.completion_status)
+        setIsQuestCompleted(response.data.attributes.completion_status);
+        console.log("Complete status after patch " + isQuestCompleted)
+        if(isQuestCompleted) {
+          getEncounterInfo(questId, userProgress+1)
+        } else {
+          setCurrentEncounter(null)
+        }
+    })
+
     setQuestCards({
       cardOne: false,
       cardTwo: false,
     })
   }
+
+  // const switchProgressLevel = async () => {
+  //   let currentEncounter = {
+  //     "quest_id": questId,
+  //     "progress": `${userProgress}`
+  //   }
+  //   console.log(`Current Progress to patch` + userProgress)
+  //   console.log(`Current Encounter to patch` + " " + currentEncounter.progress)
+  //   if(userQuest && userProgress < userQuest.encounter_req) {
+  //     return await Promise.resolve(apiCalls.patchUserQuest(id.toString(), currentEncounter))
+  //       .then((response) => {
+  //         setUserProgress(userProgress)
+  //         // console.log(`Not completed` + ' ' + response)
+  //       // setIsQuestCompleted(response.data.attributes.completion_status);
+  //       console.log(`Not completed` + ' ' + response) 
+  //    })
+  //   }
+  //   if(userQuest && userQuest.progress === userQuest.encounter_req) {
+  //      console.log(`Last Progress` + userProgress)
+  //      console.log(`Last Encounter` + currentEncounter.progress)
+  //      console.log(userProgress === userQuest.encounter_req)
+
+  //     apiCalls.patchUserQuest(id.toString(), currentEncounter)
+  //     .then((response) => {
+  //       setIsQuestCompleted(true); 
+  //       console.log(`Last progress response` + ' ' + response.data.attributes.response);
+  //       // setUserQuest(null)
+  //       setCurrentEncounter(null)
+  //     })
+  //   }
+  //   setQuestCards({
+  //     cardOne: false,
+  //     cardTwo: false,
+  //   })
+  // }
 
   useEffect(() => {
     getQuestInfo(questId)
