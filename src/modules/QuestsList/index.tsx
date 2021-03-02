@@ -29,6 +29,8 @@ const QuestList: React.FC<QuestProps> = (props) => {
     supportive: false,
   });
 
+  setActivePage("quests");
+
   const findQuestByType = (type: string) => {
     if (quests) {
       return quests.find((quest) => quest.type === type);
