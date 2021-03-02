@@ -26,6 +26,7 @@
   flex-direction: column;
   align-items: center;
   height: 85%;
+  width: 30em;
   justify-content: center;
   text-decoration: none;
   position: relative;
@@ -42,40 +43,41 @@
 }
 
 .encounter-details {
-  height: 34em;
+  height: 35em;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   z-index: 2;
 
   &__action-card {
-    width: 21em;
-    height: 13.5em;
+    width: 19em;
+    height: 31em;
     cursor: pointer;
     background-size: 100%;
-    margin: 2em;
+    margin: 1em;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
-    z-index: 9999;
+    align-items: center;
+    z-index: 3;
   }
 }
 
-.encounter-details__action-card:hover .action-desc {
-  font-size: 0.3em;
+.encounter-details__action-card:hover {
+  width: 20em;
+  height: 32em;
 }
 .action-desc {
-  width: 85%;
-  padding: 3.5em 3.5em;
-  font-size: 0.4em;
+  width: 12em;
+  padding: 4em 4em;
+  font-size: 1em;
   display: flex;
   justify-content: center;
   align-content: center;
   text-align: center;
-  line-height: 4em;
+  // line-height: 4em;
   height: 92%;
   flex-wrap: wrap;
 }
