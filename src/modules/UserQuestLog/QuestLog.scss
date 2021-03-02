@@ -8,14 +8,14 @@
   background-image: url("../../assets/Backgrounds/Bkg_QuestLog.png");
   background-repeat: no-repeat;
   background-size: 100%;
-  height: 100%;
+  height: 80em;
   width: 100%;
   grid-area: overlap;
 }
 
 .quest-record {
-  height: 8em;
   width: 70%;
+  background-color: #dbb180;
   display: flex;
   flex-direction: column;
   margin-top: 1em;
@@ -29,18 +29,20 @@
   width: 60%;
   background-color: #c59258;
   overflow: scroll;
+  z-index: 2;
 }
 
 .quest-record-info-wrapper {
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
 .quest-log-page-title {
   font-size: xx-large;
   margin-top: 1.5em;
-  text-align: center;
+  // text-align: center;
 }
 
 .quest-record-error {

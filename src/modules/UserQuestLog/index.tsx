@@ -1,7 +1,17 @@
 import "./QuestLog.scss";
-import { idObject, Quest, CompletedQuests } from '../../interfaces'
+import {
+  idObject,
+  Quest,
+  CompletedQuests,
+  QuestEncounterFunctoinality,
+} from "../../interfaces";
 
-const UserQuestLog: React.FC<CompletedQuests> = ({ completedQuests }) => {
+type QuestLog = CompletedQuests | QuestEncounterFunctoinality;
+
+const UserQuestLog: React.FC<QuestLog> = (props) => {
+  const { setActivePage } = props as QuestEncounterFunctoinality;
+  const { completedQuests } = props as CompletedQuests;
+  setActivePage("quest-log");
   if (completedQuests) {
     return (
       <section className="page-questlog">
