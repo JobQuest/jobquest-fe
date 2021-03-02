@@ -63,17 +63,24 @@ const App = () => {
   useEffect(() => {
     getQuestDetails();
   }, []);
-
+  if (user) {
+    const newUser = {
+      email: user.email,
+      name: user.nickname
+    }
+  }
+    // run post request function where we setCurrentUser to a database create user
+    //if current user exists, have a conditional rendering for the app itself
   if (availableQuests) {
     return (
       <main className="App">
         <Switch>
           <Route exact path="/" component={Auth} />
           {isAuthenticated &&
-            <HomePage activePage={activePage}>
+            <HomePage>
             <Route
-              path={userRoutes.profile.path}
-              render={() => <Profile currentUser={user} setActivePage={setActivePage} />}
+              exact path={userRoutes.profile.path}
+              render={() => <Profile currentUser={user}/>}
             />
             {completedQuests && (
               <Route

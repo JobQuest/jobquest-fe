@@ -25,8 +25,6 @@ const Profile: React.FC<UserProfile> = (props) => {
 
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [userMetadata, setUserMetadata] = useState(null);
-  console.log(user)
-  console.log(isAuthenticated)
 
   useEffect(() => {
     const getUserMetadata = async () => {
@@ -37,7 +35,6 @@ const Profile: React.FC<UserProfile> = (props) => {
           audience: `https://${domain}/api/v2/`,
           scope: "read:current_user",
         });
-        console.log(accessToken)
         const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
   
         const metadataResponse = await fetch(userDetailsByIdUrl, {
@@ -57,11 +54,12 @@ const Profile: React.FC<UserProfile> = (props) => {
     getUserMetadata();
   }, [getAccessTokenSilently]);
 
-  
+  if(user) {
+    console.log("Hi i am a new user")
+  }
   if (isLoading) {
     return <div>Loading ...</div>;
   } else {
-  
   return (
     <>
     {isAuthenticated && (
