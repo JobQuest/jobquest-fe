@@ -12,7 +12,7 @@ import { QuestInProgress, UserProfile } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 
 const userId = {
-  id: "5",
+  id: "7",
   email: "curtis@example.com",
 };
 
@@ -89,7 +89,6 @@ const App = () => {
               />
             )}
           />
-          {!!availableQuests.length && (
             <Route
               exact
               path={userRoutes.availableQuests.path}
@@ -102,7 +101,6 @@ const App = () => {
                 />
               )}
             />
-          )}
         </HomePage>
       </main>
     );
