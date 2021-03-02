@@ -4,8 +4,17 @@ export interface UserProfile {
   xp: number;
 }
 
+export interface CurrentProfile {
+  name?: string 
+  email?: string
+  picture?: string
+}
+
+export interface CurrentProfileObject {
+  currentUser: CurrentProfile;
+}
 export interface ProfileObject {
-  user: UserProfile;
+  currentUser: UserProfile;
 }
 
 export interface idObject {
@@ -21,7 +30,7 @@ export interface Quest extends idObject {
 }
 
 export interface CompletedQuests {
-  completedQuests: Array<Quest>;
+  completedQuests?: Array<Quest>;
 }
 
 export interface QuestInProgress extends Quest {

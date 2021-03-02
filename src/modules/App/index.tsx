@@ -8,8 +8,10 @@ import HomePage from "../HomePage";
 import QuestsList from "../QuestsList";
 import userRoutes from "../../routes/user";
 import { Route, Switch, useParams } from "react-router-dom";
-import { QuestInProgress, UserProfile } from "../../interfaces";
+import { QuestInProgress, UserProfile, CurrentProfileObject } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
+import Auth from '../Auth';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const userId = {
   id: "5",
@@ -21,6 +23,8 @@ const App = () => {
   const [completedQuests, setCompletedQuests] = useState<
     QuestInProgress[] | null
   >(null);
+
+  // const { user, isAuthenticated, isLoading } = useAuth0();
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {
@@ -60,35 +64,41 @@ const App = () => {
     getQuestDetails();
   }, []);
 
-  if (user) {
+  if (availableQuests) {
     return (
       <main className="App">
-        <HomePage>
-          <Route path="/" render={() => <Profile user={user} />} />
-          {completedQuests && (
+        <Switch>
+          <Route exact path="/" component={Auth} />
+          {isAuthenticated &&
+            <HomePage activePage={activePage}>
             <Route
+              path={userRoutes.profile.path}
+              render={() => <Profile user={user}/>}
+            />
+            {completedQuests && (
+              <Route
+                exact
+                path={userRoutes.userQuestLog.path}
+                component={() => (
+                  <UserQuestLog
+                    getCompletedQuests={getCompletedQuests}
+                    completedQuests={completedQuests}
+                  />
+                )}
+              />
+            )}
+              <Route
               exact
-              path={userRoutes.userQuestLog.path}
-              component={() => (
-                <UserQuestLog
-                  getCompletedQuests={getCompletedQuests}
-                  completedQuests={completedQuests}
+              path={userRoutes.currentQuest.path}
+              render={({ match }) => (
+                <Quest
+                  id={parseInt(userId.id)}
+                  getQuestDetails={getQuestDetails}
+                  match={match}
                 />
               )}
             />
-          )}
-          <Route
-            exact
-            path={userRoutes.currentQuest.path}
-            render={({ match }) => (
-              <Quest
-                id={parseInt(userId.id)}
-                getQuestDetails={getQuestDetails}
-                match={match}
-              />
-            )}
-          />
-          <Route
+            <Route
             exact
             path={userRoutes.availableQuests.path}
             render={({ match }) => (
@@ -100,6 +110,8 @@ const App = () => {
             )}
           />
         </HomePage>
+      }
+        </Switch>
       </main>
     );
   } else {
