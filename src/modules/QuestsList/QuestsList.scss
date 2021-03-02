@@ -41,6 +41,29 @@
   }
 }
 
+.quest-card-inner-wrapper-completed {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 25em;
+  align-content: center;
+  margin: 2em 12em 2em 4em;
+}
+
+.quest-card-wrapper-completed {
+  height: 14em;
+  width: 40em;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-top: 2em;
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-decoration: none;
+  color: black;
+}
+
 .quest-card-wrapper {
   height: 14em;
   width: 40em;

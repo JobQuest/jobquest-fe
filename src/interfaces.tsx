@@ -100,3 +100,31 @@ export interface ActionCardsCheck {
   cardOne: boolean;
   cardTwo: boolean;
 }
+
+export interface SpriteImg {
+  path: string
+}
+
+export interface AnimationStep {
+  step: number
+}
+
+export interface LastFrame {
+  lastFrame: number
+}
+
+export interface AnimationSpeed {
+  speed: number
+}
+
+export interface SpriteW {
+  width: number
+}
+
+export interface SpriteH {
+  height: number
+}
+
+export interface StyleClass {
+  styleClass: string
+}

@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Menu from "../Common/Menu";
-import MenuItem from "../Common/MenuItem";
 import userRoutes from "../../routes/user";
 import ActiveProfileTab from "../../assets/Tabs/Tab_UserProfile_Active.png";
 import ActiveQuestsTab from "../../assets/Tabs/Tab_NewQuests_Active.png";
@@ -12,7 +10,9 @@ import QuestLogTab from "../../assets/Tabs/Tab_QuestLog_Inactive.png";
 import { HomePageProps } from "../../interfaces";
 import "./HomePage.scss";
 
+
 const HomePage: React.FC<HomePageProps> = ({ activePage, children }) => {
+ 
   return (
     <section className="homepage">
       <section className="tabs-grid">

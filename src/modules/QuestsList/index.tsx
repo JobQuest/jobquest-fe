@@ -29,8 +29,6 @@ const QuestList: React.FC<QuestProps> = (props) => {
     supportive: false,
   });
 
-  setActivePage("quests");
-
   const findQuestByType = (type: string) => {
     if (quests) {
       return quests.find((quest) => quest.type === type);
@@ -101,18 +99,19 @@ const QuestList: React.FC<QuestProps> = (props) => {
     } else if (quest === null || quest === undefined) {
       return (
         <section
-          style={{ backgroundImage: `url(` + `${cardTypes[type]}` + `)` }}
-          className="quest-card-wrapper"
+          style={{ backgroundImage: `url(` + `${cardTypes[type][0]}` + `)`,
+          justifyContent: "center" 
+        }}
+          className="quest-card-wrapper-completed"
           data-cy={`quest-${type}`}
+          key={`quest-${type}`}
         >
-          <div className="quest-card-inner-wrapper">
+          <div className="quest-card-inner-wrapper-completed">
             <h2 className="quests-card-title">{type} quests are completed</h2>
             <div className="quest-card-inner-box">
-              <div className="quest-card-wrapper__left-side">
                 <p className="quests-card-details">
                   Please wait for the next update
                 </p>
-              </div>
             </div>
           </div>
         </section>
@@ -126,11 +125,13 @@ const QuestList: React.FC<QuestProps> = (props) => {
 
   if (!quests.length) {
     return (
-      <section
-        data-cy="single-quest-container"
-        className="single-quest-container"
-      >
-        <h2 className="component-title">Sorry, but quests are unavailable</h2>
+      <section data-cy="quests-list-container" className="page-quest-list">
+        <h2 className="component-title">You completed all Quests!</h2>
+        <section className="quests-list-wrapper">
+          {questTypesNames.map((name) => {
+            return displayQuestCard(name, availbaleListOfQuests[name]);
+          })}
+        </section>
       </section>
     );
   } else {

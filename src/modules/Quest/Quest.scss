@@ -104,15 +104,17 @@ h3 {
   width: 180px;
   position: absolute;
   right: 1em;
+  transition: all 1s ease-in-out;
+  animation: ani 1.7s infinite;
 }
 
 .img-hero {
   height: 180px;
   width: 180px;
-  background-position: -155px -145px;
+  background-position: -155px -188px;
   position: absolute;
-  left: 1em;
-  top: 0.5em;
+  left: -7.5em;
+  top: -3.5em;
 }
 
 .complete-quest {
@@ -123,4 +125,16 @@ h3 {
   justify-content: flex-start;
   text-decoration: none;
   position: relative;
+}
+
+@keyframes ani {
+  0% {
+    right: 1em;
+  }
+  50% {
+    right: 1.5em;
+  }
+  100% {
+    right: 1em;
+  }
 }
