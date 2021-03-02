@@ -12,7 +12,7 @@ import { QuestInProgress, UserProfile } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 
 const userId = {
-  id: "7",
+  id: "1",
   email: "curtis@example.com",
 };
 

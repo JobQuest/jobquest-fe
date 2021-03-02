@@ -10,7 +10,9 @@ import QuestLogTab from "../../assets/Tabs/Tab_QuestLog_Inactive.png";
 import { HomePageProps } from "../../interfaces";
 import "./HomePage.scss";
 
+
 const HomePage: React.FC<HomePageProps> = ({ activePage, children }) => {
+ 
   return (
     <section className="homepage">
       <section className="tabs-grid">

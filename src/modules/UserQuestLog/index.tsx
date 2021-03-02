@@ -11,7 +11,6 @@ type QuestLog = CompletedQuests | QuestEncounterFunctoinality;
 const UserQuestLog: React.FC<QuestLog> = (props) => {
   const { setActivePage } = props as QuestEncounterFunctoinality;
   const { completedQuests } = props as CompletedQuests;
-  // setActivePage("quest-log");
 
   if (completedQuests) {
     return (
