@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Menu from "../Common/Menu";
-import MenuItem from "../Common/MenuItem";
 import userRoutes from "../../routes/user";
 import ActiveProfileTab from "../../assets/Tabs/Tab_UserProfile_Active.png";
 import ActiveQuestsTab from "../../assets/Tabs/Tab_NewQuests_Active.png";
