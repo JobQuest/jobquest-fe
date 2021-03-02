@@ -12,7 +12,7 @@ import {
         } from '../../interfaces'
 import { apiCalls } from '../../apiCalls'
 import { useHistory } from 'react-router-dom'
-import HeroIdle from '../../assets/Hero/Hero_Idle.png'
+import SpriteAni from '../Common/SpriteAnimation'
 import HeartEmpty from '../../assets/Extras/Heart_Empty.png'
 import HeartFull from '../../assets/Extras/Heart_Full.png'
 import ActionStage from '../../assets/Extras/ActionStage.png'
@@ -20,6 +20,7 @@ import ActionCardOne from '../../assets/Action Cards/ActionCard_1.png'
 import ActionCardOneH from '../../assets/Action Cards/ActionCard_1_Hover.png'
 import ActionCardTwo from '../../assets/Action Cards/ActionCard_2.png'
 import ActionCardTwoH from '../../assets/Action Cards/ActionCard_2_Hover.png'
+import HeroAttackOne from "../../assets/Hero/Hero_Attack_1.png";
 
 type CurrentQuest =
   | ComponentPath
@@ -152,7 +153,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
             className="encounter-story-container"
             style={{backgroundImage: `url(`+ `${ActionStage}`+`)`}} 
             >
-            <div className="img-hero" style={{backgroundImage: `url(`+ `${HeroIdle}`+`)`}}></div>
+            <SpriteAni styleClass="img-hero" path={HeroAttackOne} step={480} lastFrame={-3840} speed={700} width={480} height={230} />
             <img className="img-monster" src={currentEncounter.monster_image} alt="monster-pic"/> 
           </div>
           <div data-cy="quest-details" className="single-quest-details">
