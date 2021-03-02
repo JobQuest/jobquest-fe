@@ -31,12 +31,21 @@ const updateData = (path: string, action: string, data: object) => {
 
 const baseUrl = "https://job-quest-be.herokuapp.com/api/v1";
 
+interface UserInfo {
+  "email": string
+  "username"?: string
+}
+
 export const apiCalls = {
-  getUser: (email: object) => {
-    return updateData(`${baseUrl}/users`, "POST", email);
+  // getUser: (email: object) => {
+  //   return updateData(`${baseUrl}/users`, "POST", email);
+  // },
+
+  getUser: (userinfo: UserInfo) => {
+    return updateData(`${baseUrl}/users`, "POST", userinfo);
   },
 
-  getQuests: (userId: string, questState: boolean) => {
+  getQuests: (userId: number, questState: boolean) => {
     return getData(
       `${baseUrl}/users/${userId}/quests?completion_status=${questState}`
     );
@@ -48,7 +57,7 @@ export const apiCalls = {
     );
   },
 
-  patchUserQuest: (userId: string, userProgress: object) => {
+  patchUserQuest: (userId: number, userProgress: object) => {
     return updateData(`${baseUrl}/users/${userId}/quests`, "PATCH", userProgress);
   }
 };
