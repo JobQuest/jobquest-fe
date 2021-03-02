@@ -65,12 +65,12 @@ export interface QuestEncounterFunctoinality {
   updateMonsterHealth: (newquest: QuestInProgress) => void;
   helperFunction: () => void;
   setActivePage: (newActive: string) => void;
+  getCompletedQuests: () => void;
 }
 
-export interface HomePageProps {
-  children?: object;
-  activePage: string;
-}
+// export interface HomePageProps {
+//   children?: object;
+// }
 
 export interface CardTypeObj {
   active: string[];

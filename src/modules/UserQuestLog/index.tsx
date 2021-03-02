@@ -1,4 +1,5 @@
 import "./QuestLog.scss";
+import { useEffect } from "react";
 import {
   idObject,
   Quest,
@@ -9,9 +10,9 @@ import {
 type QuestLog = CompletedQuests | QuestEncounterFunctoinality;
 
 const UserQuestLog: React.FC<QuestLog> = (props) => {
-  const { setActivePage } = props as QuestEncounterFunctoinality;
+  const { getCompletedQuests } = props as QuestEncounterFunctoinality;
   const { completedQuests } = props as CompletedQuests;
-
+  useEffect(() => getCompletedQuests());
   if (completedQuests) {
     return (
       <section className="page-questlog">

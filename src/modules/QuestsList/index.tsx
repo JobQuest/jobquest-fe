@@ -19,10 +19,7 @@ type QuestProps = (CurrentQuests & ComponentPath) | QuestEncounterFunctoinality;
 
 const QuestList: React.FC<QuestProps> = (props) => {
   const { quests } = props as CurrentQuests;
-  const {
-    getQuestDetails,
-    setActivePage,
-  } = props as QuestEncounterFunctoinality;
+  const { getQuestDetails } = props as QuestEncounterFunctoinality;
   const [questTypes, setQuestTypes] = useState<object>({
     active: false,
     passive: false,

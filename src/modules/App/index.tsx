@@ -22,7 +22,6 @@ const App = () => {
     QuestInProgress[] | null
   >(null);
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
-  const [activePage, setActivePage] = useState<string>("profile");
 
   const getUserInfo = () => {
     Promise.resolve(apiCalls.getUser({ email: userId.email }))
@@ -60,18 +59,15 @@ const App = () => {
   if (user) {
     return (
       <main className="App">
-        <HomePage activePage={activePage}>
-          <Route
-            path="/"
-            render={() => <Profile user={user} setActivePage={setActivePage} />}
-          />
+        <HomePage>
+          <Route path="/" render={() => <Profile user={user} />} />
           {completedQuests && (
             <Route
               exact
               path={userRoutes.userQuestLog.path}
               component={() => (
                 <UserQuestLog
-                  setActivePage={setActivePage}
+                  getCompletedQuests={getCompletedQuests}
                   completedQuests={completedQuests}
                 />
               )}
@@ -83,24 +79,22 @@ const App = () => {
             render={({ match }) => (
               <Quest
                 id={parseInt(userId.id)}
-                setActivePage={setActivePage}
                 getQuestDetails={getQuestDetails}
                 match={match}
               />
             )}
           />
-            <Route
-              exact
-              path={userRoutes.availableQuests.path}
-              render={({ match }) => (
-                <QuestsList
-                  getQuestDetails={getQuestDetails}
-                  setActivePage={setActivePage}
-                  quests={availableQuests}
-                  match={match}
-                />
-              )}
-            />
+          <Route
+            exact
+            path={userRoutes.availableQuests.path}
+            render={({ match }) => (
+              <QuestsList
+                getQuestDetails={getQuestDetails}
+                quests={availableQuests}
+                match={match}
+              />
+            )}
+          />
         </HomePage>
       </main>
     );
