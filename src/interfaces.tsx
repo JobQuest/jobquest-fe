@@ -77,10 +77,6 @@ export interface QuestEncounterFunctoinality {
   getCompletedQuests: () => void;
 }
 
-// export interface HomePageProps {
-//   children?: object;
-// }
-
 export interface CardTypeObj {
   active: string[];
   passive: string[];

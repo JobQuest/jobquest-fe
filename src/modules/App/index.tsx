@@ -80,7 +80,7 @@ const App = () => {
             <HomePage>
             <Route
               exact path={userRoutes.profile.path}
-              render={() => <Profile currentUser={user}/>}
+              render={() => <Profile currentUser={user} />}
             />
             {completedQuests && (
               <Route

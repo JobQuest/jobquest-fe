@@ -20,8 +20,6 @@ type UserProfile = ProfileObject | QuestEncounterFunctoinality;
 
 const Profile: React.FC<UserProfile> = (props) => {
   const { currentUser } = props as ProfileObject;
-  const { setActivePage, ...others } = props as QuestEncounterFunctoinality;
-  setActivePage("profile");
 
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [userMetadata, setUserMetadata] = useState(null);
