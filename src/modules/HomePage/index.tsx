@@ -16,36 +16,29 @@ const HomePage: React.FC<HomePageProps> = ({ activePage, children }) => {
   return (
     <section className="homepage">
       <section className="tabs-grid">
-        {activePage === "profile" && (
-          <Link className="profile-tab" to={userRoutes.profile.path}>
-            <img className="tab" src={ActiveProfileTab} alt="" />
-          </Link>
-        )}
-        {activePage !== "profile" && (
-          <Link className="profile-tab" to={userRoutes.profile.path}>
-            <img className="tab" src={ProfileTab} alt="" />
-          </Link>
-        )}
-        {activePage === "quests" && (
-          <Link className="quests-tab" to={userRoutes.availableQuests.path}>
-            <img className="tab" src={ActiveQuestsTab} alt="" />
-          </Link>
-        )}
-        {activePage !== "quests" && (
-          <Link className="quests-tab" to={userRoutes.availableQuests.path}>
-            <img className="tab" src={QuestsTab} alt="" />
-          </Link>
-        )}
-        {activePage === "quest-log" && (
-          <Link className="quest-log-tab" to={userRoutes.userQuestLog.path}>
-            <img className="tab" src={ActiveQuestLogTab} alt="" />
-          </Link>
-        )}
-        {activePage !== "quest-log" && (
-          <Link className="quest-log-tab" to={userRoutes.userQuestLog.path}>
-            <img className="tab" src={QuestLogTab} alt="" />
-          </Link>
-        )}
+        <Link className="profile-tab" to={userRoutes.profile.path}>
+          <img
+            className="tab"
+            src={activePage === "profile" ? ActiveProfileTab : ProfileTab}
+            alt=""
+          />
+        </Link>
+
+        <Link className="quests-tab" to={userRoutes.availableQuests.path}>
+          <img
+            className="tab"
+            src={activePage === "quests" ? ActiveQuestsTab : QuestsTab}
+            alt=""
+          />
+        </Link>
+
+        <Link className="quest-log-tab" to={userRoutes.userQuestLog.path}>
+          <img
+            className="tab"
+            src={activePage === "quest-log" ? ActiveQuestLogTab : QuestLogTab}
+            alt=""
+          />
+        </Link>
       </section>
       {children}
     </section>
