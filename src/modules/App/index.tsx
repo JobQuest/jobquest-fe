@@ -12,7 +12,7 @@ import { QuestInProgress, UserProfile } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 
 const userId = {
-  id: "1",
+  id: "4",
   email: "curtis@example.com",
 };
 
@@ -22,7 +22,6 @@ const App = () => {
     QuestInProgress[] | null
   >(null);
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
-  const [activePage, setActivePage] = useState<string>("profile");
 
   const getUserInfo = () => {
     Promise.resolve(apiCalls.getUser({ email: userId.email }))
@@ -30,9 +29,13 @@ const App = () => {
       .then((response) => getCompletedQuests());
   };
 
-  const getCompletedQuests = () => {
-    Promise.resolve(apiCalls.getQuests(userId.id, true)).then((response) =>
-      setCompletedQuests(questCleaner(response.data.attributes.quests))
+  const getCompletedQuests = (): Promise<any[]> => {
+    return Promise.resolve(apiCalls.getQuests(userId.id, true)).then(
+      (response) => {
+        let cleanedQuests = questCleaner(response.data.attributes.quests);
+        setCompletedQuests(cleanedQuests);
+        return cleanedQuests;
+      }
     );
   };
 
@@ -60,18 +63,15 @@ const App = () => {
   if (user) {
     return (
       <main className="App">
-        <HomePage activePage={activePage}>
-          <Route
-            path="/"
-            render={() => <Profile user={user} setActivePage={setActivePage} />}
-          />
+        <HomePage>
+          <Route path="/" render={() => <Profile user={user} />} />
           {completedQuests && (
             <Route
               exact
               path={userRoutes.userQuestLog.path}
               component={() => (
                 <UserQuestLog
-                  setActivePage={setActivePage}
+                  getCompletedQuests={getCompletedQuests}
                   completedQuests={completedQuests}
                 />
               )}
@@ -83,24 +83,22 @@ const App = () => {
             render={({ match }) => (
               <Quest
                 id={parseInt(userId.id)}
-                setActivePage={setActivePage}
                 getQuestDetails={getQuestDetails}
                 match={match}
               />
             )}
           />
-            <Route
-              exact
-              path={userRoutes.availableQuests.path}
-              render={({ match }) => (
-                <QuestsList
-                  getQuestDetails={getQuestDetails}
-                  setActivePage={setActivePage}
-                  quests={availableQuests}
-                  match={match}
-                />
-              )}
-            />
+          <Route
+            exact
+            path={userRoutes.availableQuests.path}
+            render={({ match }) => (
+              <QuestsList
+                getQuestDetails={getQuestDetails}
+                quests={availableQuests}
+                match={match}
+              />
+            )}
+          />
         </HomePage>
       </main>
     );
