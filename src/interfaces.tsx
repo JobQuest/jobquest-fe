@@ -5,7 +5,6 @@ export interface UserProfile {
 }
 
 export interface ProfileObject {
-  setActivePage: (newActive: string) => void;
   user: UserProfile;
 }
 
@@ -65,6 +64,7 @@ export interface QuestEncounterFunctoinality {
   getQuestDetails: () => Promise<any>;
   updateMonsterHealth: (newquest: QuestInProgress) => void;
   helperFunction: () => void;
+  setActivePage: (newActive: string) => void;
 }
 
 export interface HomePageProps {

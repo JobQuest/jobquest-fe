@@ -1,9 +1,13 @@
-import { ProfileObject } from "../../interfaces";
+import { ProfileObject, QuestEncounterFunctoinality } from "../../interfaces";
 
 import heroImage from "../../assets/Extras/Hero.png";
 import "./Profile.scss";
 
-const Profile: React.FC<ProfileObject> = ({ user, setActivePage }) => {
+type UserProfile = ProfileObject | QuestEncounterFunctoinality;
+
+const Profile: React.FC<UserProfile> = (props) => {
+  const { user } = props as ProfileObject;
+  const { setActivePage, ...others } = props as QuestEncounterFunctoinality;
   setActivePage("profile");
   return (
     <section className="page-profile">

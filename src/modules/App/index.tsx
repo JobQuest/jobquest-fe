@@ -70,7 +70,10 @@ const App = () => {
               exact
               path={userRoutes.userQuestLog.path}
               component={() => (
-                <UserQuestLog completedQuests={completedQuests} />
+                <UserQuestLog
+                  setActivePage={setActivePage}
+                  completedQuests={completedQuests}
+                />
               )}
             />
           )}
