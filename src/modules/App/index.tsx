@@ -12,7 +12,7 @@ import { QuestInProgress, UserProfile } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 
 const userId = {
-  id: "1",
+  id: "4",
   email: "curtis@example.com",
 };
 
@@ -29,9 +29,13 @@ const App = () => {
       .then((response) => getCompletedQuests());
   };
 
-  const getCompletedQuests = () => {
-    Promise.resolve(apiCalls.getQuests(userId.id, true)).then((response) =>
-      setCompletedQuests(questCleaner(response.data.attributes.quests))
+  const getCompletedQuests = (): Promise<any[]> => {
+    return Promise.resolve(apiCalls.getQuests(userId.id, true)).then(
+      (response) => {
+        let cleanedQuests = questCleaner(response.data.attributes.quests);
+        setCompletedQuests(cleanedQuests);
+        return cleanedQuests;
+      }
     );
   };
 
