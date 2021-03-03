@@ -15,7 +15,11 @@ const HomePage: React.FC = ({ children }) => {
   return (
     <section className="homepage">
       <section className="tabs-grid">
-        <Link className="profile-tab" to={userRoutes.profile.path}>
+        <Link
+          className="profile-tab"
+          aria-label="My profile"
+          to={userRoutes.profile.path}
+        >
           <img
             className="tab"
             src={
@@ -25,7 +29,11 @@ const HomePage: React.FC = ({ children }) => {
           />
         </Link>
 
-        <Link className="quests-tab" to={userRoutes.availableQuests.path}>
+        <Link
+          className="quests-tab"
+          aria-label="Quest list"
+          to={userRoutes.availableQuests.path}
+        >
           <img
             className="tab"
             src={history.pathname === "/quests" ? ActiveQuestsTab : QuestsTab}
@@ -33,7 +41,11 @@ const HomePage: React.FC = ({ children }) => {
           />
         </Link>
 
-        <Link className="quest-log-tab" to={userRoutes.userQuestLog.path}>
+        <Link
+          className="quest-log-tab"
+          aria-label="Quest log"
+          to={userRoutes.userQuestLog.path}
+        >
           <img
             className="tab"
             src={

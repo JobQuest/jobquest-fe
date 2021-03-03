@@ -96,9 +96,10 @@ const QuestList: React.FC<QuestProps> = (props) => {
     } else if (quest === null || quest === undefined) {
       return (
         <section
-          style={{ backgroundImage: `url(` + `${cardTypes[type][0]}` + `)`,
-          justifyContent: "center" 
-        }}
+          style={{
+            backgroundImage: `url(` + `${cardTypes[type][0]}` + `)`,
+            justifyContent: "center",
+          }}
           className="quest-card-wrapper-completed"
           data-cy={`quest-${type}`}
           key={`quest-${type}`}
@@ -106,9 +107,9 @@ const QuestList: React.FC<QuestProps> = (props) => {
           <div className="quest-card-inner-wrapper-completed">
             <h2 className="quests-card-title">{type} quests are completed</h2>
             <div className="quest-card-inner-box">
-                <p className="quests-card-details">
-                  Please wait for the next update
-                </p>
+              <p className="quests-card-details">
+                Please wait for the next update
+              </p>
             </div>
           </div>
         </section>
@@ -134,7 +135,14 @@ const QuestList: React.FC<QuestProps> = (props) => {
   } else {
     return (
       <section data-cy="quests-list-container" className="page-quest-list">
-        <h2 className="component-title">Available Quests</h2>
+        <h2 className="component-title">
+          Available <br /> Quests
+        </h2>
+        <p className="instructional-text">
+          Choose a quest from the list below! The symbol on the right of the
+          quest card dictates the type of job search actions you must complete
+          to make progress on your quest.
+        </p>
         <section className="quests-list-wrapper">
           {questTypesNames.map((name) => {
             return displayQuestCard(name, availbaleListOfQuests[name]);

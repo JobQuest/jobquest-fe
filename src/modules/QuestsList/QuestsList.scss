@@ -8,18 +8,27 @@
   align-items: center;
   flex-direction: column;
   grid-area: overlap;
+  color: #322b28;
 }
 
 .component-title {
-  margin-top: 4em;
-  font-size: 1.5em;
+  margin-top: 1.55em;
+  margin-right: 0.6em;
+  font-size: 1.9em;
+  max-width: 11em;
+}
+
+.instructional-text {
+  width: 32em;
+  line-height: 1.2em;
 }
 
 .quests-list-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 70%;
+  margin-right: 0.9em;
+  height: 50em;
   width: 50em;
   justify-content: center;
   margin-bottom: 5em;
@@ -61,7 +70,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   text-decoration: none;
-  color: black;
+  color: #322b28;
 }
 
 .quest-card-wrapper {
@@ -73,7 +82,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   text-decoration: none;
-  color: black;
+  color: #322b28;
 
   &__left-side {
     width: 50%;

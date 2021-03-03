@@ -34,12 +34,10 @@ const UserQuestLog: React.FC<QuestLog> = (props) => {
               </div>
             ))}
           {!completedQuests[0] && (
-            <div className="quest-record-info-wrapper">
-              <p className="quest-record-error">
-                Records of your completed quests will display here. Go complete
-                some quests!
-              </p>
-            </div>
+            <p className="quest-record-error">
+              Records of your completed quests will display here. Go complete
+              some quests!
+            </p>
           )}
         </section>
       </section>

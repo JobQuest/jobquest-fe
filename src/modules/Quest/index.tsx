@@ -181,7 +181,10 @@ const Quest: React.FC<CurrentQuest> = (props) => {
   } else {
     return (
       <section data-cy="single-quest-container" className="page-quest-list">
-        <h2 className="component-title">{userQuest.name}</h2>
+        <h2 className="component-title">
+          Quest: <br /> <br />
+          {userQuest.name}
+        </h2>
         <section className="quest-wrapper">
           <div className="monster-health-container">
             {hearts.map((img) => img.image)}
@@ -268,6 +271,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
               )}
             </div>
           </div>
+          <p>Complete either task above to progress!</p>
         </section>
       </section>
     );
