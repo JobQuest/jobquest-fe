@@ -19,17 +19,17 @@ const userId = {
 };
 
 const App = () => {
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [completedQuests, setCompletedQuests] = useState<
     QuestInProgress[] | null
   >(null);
 
-  // const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {
     Promise.resolve(apiCalls.getUser({ email: userId.email }))
-      .then((response) => setUser(response.data.attributes))
+      .then((response) => setCurrentUser(response.data.attributes))
       .then((response) => getCompletedQuests());
   };
 
@@ -73,7 +73,7 @@ const App = () => {
             <HomePage activePage={activePage}>
             <Route
               path={userRoutes.profile.path}
-              render={() => <Profile user={user}/>}
+              render={() => <Profile currentUser={user} setActivePage={setActivePage} />}
             />
             {completedQuests && (
               <Route
