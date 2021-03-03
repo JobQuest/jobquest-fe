@@ -6,6 +6,7 @@
   background-size: cover;
   height: 100%;
   width: 100%;
+  color: #322b28;
 }
 
 .single-quest-container {
@@ -16,16 +17,16 @@
 .single-quest-details {
   display: flex;
   justify-content: space-between;
-  margin-top: 2em;
+  margin-top: 0.5em;
   width: 30em;
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
 }
 
 .quest-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 85%;
+  height: 58em;
   width: 30em;
   justify-content: center;
   text-decoration: none;
@@ -43,7 +44,7 @@
 }
 
 .encounter-details {
-  height: 35em;
+  height: 32em;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -70,6 +71,7 @@
   height: 32em;
 }
 .action-desc {
+  color: #322b28;
   width: 12em;
   padding: 4em 4em;
   font-size: 1em;
