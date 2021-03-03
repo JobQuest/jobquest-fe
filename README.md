@@ -4,10 +4,11 @@ To view the production site, please visit the [JobQuest link](https://job-quest-
 
 To view the other components of the application please visit the [Github Project Organization](https://github.com/JobQuest).
 
+### [JobQuest](https://job-quest-fe.herokuapp.com/)
 
-### [Working](https://shawntru.github.io/Rotten-Tomatillos/)
+### [Link To Our FE Repo](https://github.com/JobQuest/jobquest-fe)
 
-### [Link To Our Repo](https://github.com/Shawntru/Rotten-Tomatillos)
+### [Link To Our BE Repo](https://github.com/JobQuest/jobquest-be)
 
 ---
 
@@ -26,9 +27,6 @@ To view the other components of the application please visit the [Github Project
 
 ---
 
-Rancid Tomatillos is a movie rating and information site where a user can get trailers and info for new and upcoming films, which are pulled from a heroku API.
-
-It was created as a Module 3 project in the Turing Front End Engineering course.
 
 ## Features
 
@@ -38,31 +36,23 @@ It was created as a Module 3 project in the Turing Front End Engineering course.
 
 ---
 
-- JavaScript (ES6)
-- TypeScript
-- HTML
-- CSS/Scss/Sass
 - React
+- React hooks
+- TypeScript
+- CSS/Sass
 - Router
 - JSX
 - Cypress
+- Auth0
 
 ## Challenges
 
 ---
 
-- Working with custom made assets
-- Learning a new language
-- Working with states of React components
-- Implementing HTML and JavaScript logic in React
 
 ## Wins
 
 ---
-
-- Creating a responsive website with multiple features.
-- Working with a full-stack team
-- Deploying to Heroku with Continuous Intrigration with Travis CI
 
 ## ScreenShots and Demos
 
@@ -77,37 +67,7 @@ It was created as a Module 3 project in the Turing Front End Engineering course.
 <details>
   <summary>**Under the Hood**</summary>
 
-Homepage:
 
-Homepage is a landing page for users. 
-
-For displaying trailers we used [react-player](https://www.npmjs.com/package/react-player) component:
-
-```JavaScript
-<ReactPlayer
-  data-testid={`${this.state.movieTrailer}`}
-  className="react-player"
-  url={`https:www.https://www.youtube.com/watch?v=${this.state.movieTrailer}`}
-  width="100%"
-  height="100%"
-  controls={false}
-  muted={true}
-  playing={true}
-  loop={true}
-  config={{
-    youtube: {
-      playerVars: {
-        disablekb: 1,
-        fs: 0,
-        iv_load_policy: 3,
-        playlist: `${this.state.movieTrailer}`,
-        modestbranding: 1,
-      },
-    },
-  }}
-/>
-
-```
 </details>
 
 ---
