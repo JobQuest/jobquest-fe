@@ -75,6 +75,7 @@ export interface QuestEncounterFunctoinality {
   helperFunction: () => void;
   setActivePage: (newActive: string) => void;
   getCompletedQuests: () => void;
+  getUserInfo: () => void;
 }
 
 export interface CardTypeObj {
