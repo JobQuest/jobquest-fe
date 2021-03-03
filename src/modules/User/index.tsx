@@ -22,7 +22,7 @@ const Profile: React.FC<UserProfile> = (props) => {
   return (
     <>
     {isAuthenticated && (
-    <section className="page-profile">
+    <section data-cy="profile-container" className="page-profile">
       <h1 className="user-page-title">My Profile</h1>
       <SpriteAni
         styleClass="profile-hero"
@@ -36,8 +36,8 @@ const Profile: React.FC<UserProfile> = (props) => {
       <h1 data-cy="username" className="user-page-title">
         {currentUser.username}
       </h1>
-      <h2 className="user-xp">Current XP: {currentUser.xp}</h2>
-      <h3 className="user-email">E-mail: {currentUser.email}</h3>
+      <h2 data-cy="current-xp" className="user-xp">Current XP: {currentUser.xp}</h2>
+      <h3 data-cy="current-email" className="user-email">E-mail: {currentUser.email}</h3>
       <LogoutButton/>
     </section>
     )}

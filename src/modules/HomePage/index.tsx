@@ -13,9 +13,10 @@ const HomePage: React.FC = ({ children }) => {
   const history = useLocation();
 
   return (
-    <section className="homepage">
+    <section data-cy="homepage-container" className="homepage">
       <section className="tabs-grid">
         <Link
+          data-cy="profile-tab"
           className="profile-tab"
           aria-label="My profile"
           to={userRoutes.profile.path}
@@ -30,6 +31,7 @@ const HomePage: React.FC = ({ children }) => {
         </Link>
 
         <Link
+          data-cy="quests-tab"
           className="quests-tab"
           aria-label="Quest list"
           to={userRoutes.availableQuests.path}
@@ -42,6 +44,7 @@ const HomePage: React.FC = ({ children }) => {
         </Link>
 
         <Link
+          data-cy="questslog-tab"
           className="quest-log-tab"
           aria-label="Quest log"
           to={userRoutes.userQuestLog.path}
