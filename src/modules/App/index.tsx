@@ -8,7 +8,7 @@ import HomePage from "../HomePage";
 import QuestsList from "../QuestsList";
 import userRoutes from "../../routes/user";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { QuestInProgress, UserProfile, CurrentProfileObject } from "../../interfaces";
+import { QuestInProgress, UserProfile } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 import Auth from '../Auth';
 import { useAuth0 } from "@auth0/auth0-react";
