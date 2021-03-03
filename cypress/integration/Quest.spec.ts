@@ -1,25 +1,59 @@
+import { createYield } from "typescript";
+
 describe("Testing the single event details page", () => {
-  beforeEach(() => {
-    cy.visit("http://localhost:3000/user/quests/1");
+  type Url = string
+
+  it("Users should be able to log in",() => {
+    const url: Url = 'http://localhost:3000/'
+    cy.visit(url)
+    cy.get("[data-cy=login-button]")
+      .click()
+      .get("[name=username]")
+      .type('greatsample44@gmail.com')
+      .get("[name=password]")
+      .type('greatSample44Password!')
+      .get("[name=action]")
+      .click()
+  })
+
+  it("Should display a single quest upon clicking on a quest card", () => {
+    cy.get("[data-cy=quests-tab]")
+      .click()
+      .url()
+      .should("include", "/quests");
+    
+    cy.get("[data-cy=quest-active")
+      .should("contain", "Smash the Eye Monster")
+      .click()
+      .url()
+      .should("include", "/quests/");
+
+    cy.get("[data-cy=single-quest-container]")
+      .should("be.visible")
+      .get(".monster-health-container")
+        .should("be.visible")
+      .get("[data-cy=encounter-story-container]")
+        .should("be.visible")
+      .get(".img-hero")
+        .should("be.visible")
+      .get(".img-monster")
+        .should("be.visible")
+      .get("[data-cy=quest-details]")
+        .should("be.visible")
+      .get(".single-quest-details__title")
+        .should("be.visible")
+        .and("have.length", 2)
+      .get("[data-cy=action-cards-container]")
+        .should("be.visible")
+      .get(".encounter-details__action-card")
+        .should("have.length", 2)
   });
 
-  it("shows learn link", function () {
-    cy.get("[data-cy=single-quest-container")
-      .should("be.visible")
-      .and("contain", "Slay the Wildabeast");
-
-    cy.get('[alt="heart"]').should("be.visible");
-
-    cy.get("[data-cy=encounter-story-container").should("be.visible");
-
-    cy.get("[data-cy=quest-details]")
-      .should("be.visible")
-      .and("contain", "Level 1")
-      .and("contain", "200 XP");
-
-    cy.get("[data-cy=action-cards-container]")
-      .should("be.visible")
-      .and("contain", "Apply to 2 Job")
-      .and("contain", "Attend A Networking Event");
+  it("Users can log out", () => {
+    cy.get("[data-cy=profile-tab]")
+      .click()
+      .get('[data-cy=logout-button]')
+      .should("contain", "Log Out")
+      .click();
   });
 });

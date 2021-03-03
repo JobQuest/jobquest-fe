@@ -10,15 +10,15 @@ const Auth = () => {
     return <div>Loading ...</div>;
   }
 
-  return (
-    <section className="page-auth">
-      <div>{!isAuthenticated ? <LoginButton /> : <LogoutButton />}</div>
-      <h1 className="welcome-text">
-        Start Your <br />
-        Journey Here!
-      </h1>
-    </section>
-  );
+return (
+  <section data-cy="auth-page-login" className="page-auth">
+    <div>{!isAuthenticated ? <LoginButton /> : <LogoutButton />}</div>
+    <h1 className="welcome-text">
+      Start Your <br />
+      Journey Here!
+    </h1>
+  </section>
+);
 };
 
 export default React.memo(Auth);
