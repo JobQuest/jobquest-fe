@@ -14,30 +14,32 @@ import Auth from '../Auth';
 import { useAuth0 } from "@auth0/auth0-react";
 
 const App = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [userId, setUserId] = useState<number | null>(null)
   const [completedQuests, setCompletedQuests] = useState<
     QuestInProgress[] | null
   >(null);
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {
-    Promise.resolve(apiCalls.getUser(
-      { email: user.email,
-        username: user.username
-       }))
-      .then((response) => {
-        setUserId(response.data.id)
-        setCurrentUser(response.data.attributes)
-      })
-      .then((response) => getCompletedQuests());
-  };
+    if(user) {
+      return Promise.resolve(apiCalls.getUser(
+        { email: user.email,
+          username: user.username
+        }))
+        .then((response) => {
+          setUserId(response.data.id)
+          setCurrentUser(response.data.attributes)
+        })
+    };
+  }
 
-  const getCompletedQuests = () => {
+  const getCompletedQuests = async () => {
     if(userId) {
-      Promise.resolve(apiCalls.getQuests(userId, true)).then((response) =>
+      await Promise.resolve(apiCalls.getQuests(userId, true)).then((response) =>
       setCompletedQuests(questCleaner(response.data.attributes.quests))
     );
     }
@@ -74,40 +76,45 @@ const App = () => {
   };
 
   useEffect(() => {
-   if(isAuthenticated && user.email_verified) { 
+   if(user) { 
      getUserInfo() 
+     getCompletedQuests();
     } else { 
       returnUnverifiedEmailBlock()
     }
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     getQuestDetails();
   }, []);
 
+  useEffect(() => {
+    if(currentUser) {
+      getCompletedQuests();
+    }
+  }, [currentUser]);
+
   if (availableQuests) {
     return (
       <main className="App">
         <Switch>
-          <Route exact path="/" component={Auth} />
           {currentUser && userId &&
             <HomePage>
             <Route
               exact path={userRoutes.profile.path}
               render={() => <Profile currentUser={currentUser} />}
             />
-            {completedQuests && (
+            {completedQuests &&
               <Route
                 exact
                 path={userRoutes.userQuestLog.path}
-                component={() => (
+                render={() => (
                   <UserQuestLog
                     getCompletedQuests={getCompletedQuests}
                     completedQuests={completedQuests}
                   />
                 )}
-              />
-            )}
+              />}
               <Route
               exact
               path={userRoutes.currentQuest.path}
@@ -132,6 +139,7 @@ const App = () => {
           />
         </HomePage>
       }
+      <Route exact path="/" component={Auth} />
         </Switch>
       </main>
     );
