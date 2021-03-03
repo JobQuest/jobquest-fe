@@ -39,6 +39,8 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     cardTwo: false,
   });
   const [buttonIsPressed, setButtonIsPressed] = useState<boolean>(false);
+  const [switchingProgress, setSwitchingProgress] = useState<boolean>(false);
+
   const cardActions: ActionCards = {
     cardOne: [ActionCardOne, ActionCardOneH],
     cardTwo: [ActionCardTwo, ActionCardTwoH],
@@ -119,6 +121,11 @@ const Quest: React.FC<CurrentQuest> = (props) => {
   };
 
   const switchProgressLevel: typeof helperFunction = async () => {
+    if(switchingProgress) {
+      return 
+    }
+    await setSwitchingProgress(true)
+
     if (userQuest) {
       let currentEncounter = {
         quest_id: questId,
@@ -134,7 +141,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
         } else {
           setCurrentEncounter(null)
         }
-      })
+      }).finally(() => setSwitchingProgress(false))
       setQuestCards({
         cardOne: false,
         cardTwo: false,
