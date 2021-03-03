@@ -12,9 +12,11 @@ type QuestLog = CompletedQuests | QuestEncounterFunctoinality;
 const UserQuestLog: React.FC<QuestLog> = (props) => {
   const { getCompletedQuests } = props as QuestEncounterFunctoinality;
   const { completedQuests } = props as CompletedQuests;
+ 
   useEffect(() => {
     getCompletedQuests();
-  }, [completedQuests]);
+  }, []);
+ 
   if (completedQuests) {
     return (
       <section className="page-questlog">
@@ -43,7 +45,13 @@ const UserQuestLog: React.FC<QuestLog> = (props) => {
       </section>
     );
   } else {
-    return <h1>Loading...</h1>;
+    return (
+      <section className="page-questlog-loading">
+        <section className="page-questlog-loading">
+          <h1>Loading...</h1>
+        </section>
+      </section>
+    )
   }
 };
 

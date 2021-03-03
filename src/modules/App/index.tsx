@@ -8,87 +8,125 @@ import HomePage from "../HomePage";
 import QuestsList from "../QuestsList";
 import userRoutes from "../../routes/user";
 import { Route, Switch, useParams } from "react-router-dom";
-import { QuestInProgress, UserProfile } from "../../interfaces";
+import { QuestInProgress, UserProfile, CurrentProfileObject } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
-
-const userId = {
-  id: "5",
-  email: "curtis@example.com",
-};
+import Auth from '../Auth';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const App = () => {
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+  const [userId, setUserId] = useState<number | null>(null)
   const [completedQuests, setCompletedQuests] = useState<
     QuestInProgress[] | null
   >(null);
+
   const [availableQuests, setAvailableQuests] = useState<QuestInProgress[]>([]);
 
   const getUserInfo = () => {
-    Promise.resolve(apiCalls.getUser({ email: userId.email }))
-      .then((response) => setUser(response.data.attributes))
-      .then((response) => getCompletedQuests());
+    if(user) {
+      return Promise.resolve(apiCalls.getUser(
+        { email: user.email,
+          username: user.username
+        }))
+        .then((response) => {
+          setUserId(response.data.id)
+          setCurrentUser(response.data.attributes)
+        })
+    };
+  }
+
+  const getCompletedQuests = async () => {
+    if(userId) {
+      await Promise.resolve(apiCalls.getQuests(userId, true)).then((response) =>
+      setCompletedQuests(questCleaner(response.data.attributes.quests))
+    );
+    }
   };
 
-  const getCompletedQuests = (): Promise<any[]> => {
-    return Promise.resolve(apiCalls.getQuests(userId.id, true)).then(
-      (response) => {
-        let cleanedQuests = questCleaner(response.data.attributes.quests);
-        setCompletedQuests(cleanedQuests);
-        return cleanedQuests;
-      }
-    );
+  const getQuestDetails = (): Promise<object> | null => {
+    if(userId) {
+      return Promise.resolve(apiCalls.getQuests(userId, false)).then(
+        (response) => {
+          let availableQuestsList = response.data.attributes.quests.map(
+            (quest) => Object.values(quest)[0]
+          );
+          setAvailableQuests(availableQuestsList);
+          return availableQuestsList;
+        }
+      );
+    } else {
+      return null
+    }
   };
 
-  const getQuestDetails = (): Promise<object> => {
-    return Promise.resolve(apiCalls.getQuests(userId.id, false)).then(
-      (response) => {
-        let availableQuestsList = response.data.attributes.quests.map(
-          (quest) => Object.values(quest)[0]
-        );
-        setAvailableQuests(availableQuestsList);
-        return availableQuestsList;
-      }
-    );
-  };
+  const returnUnverifiedEmailBlock = () => {
+    return(
+      <main className="App">
+        <section data-cy="single-quest-container" className="page-quest-list">
+          <h2 className="component-title">Please verify your email!</h2>
+          </section>
+        </main>
+    )
+  }
 
   const questCleaner = (badQuests: Array<object>) => {
     return badQuests.map((badQuest) => Object.values(badQuest)[0]);
   };
 
-  useEffect(() => getUserInfo(), []);
+  useEffect(() => {
+   if(user) { 
+     getUserInfo() 
+     getCompletedQuests();
+    } else { 
+      returnUnverifiedEmailBlock()
+    }
+  }, [isLoading]);
+
   useEffect(() => {
     getQuestDetails();
   }, []);
 
-  if (user) {
+  useEffect(() => {
+    if(currentUser) {
+      getCompletedQuests();
+    }
+  }, [currentUser]);
+
+  if (availableQuests) {
     return (
       <main className="App">
-        <HomePage>
-          <Route path="/" render={() => <Profile user={user} />} />
-          {completedQuests && (
+        <Switch>
+          {currentUser && userId &&
+            <HomePage>
             <Route
+              exact path={userRoutes.profile.path}
+              render={() => <Profile currentUser={currentUser} />}
+            />
+            {completedQuests &&
+              <Route
+                exact
+                path={userRoutes.userQuestLog.path}
+                render={() => (
+                  <UserQuestLog
+                    getCompletedQuests={getCompletedQuests}
+                    completedQuests={completedQuests}
+                  />
+                )}
+              />}
+              <Route
               exact
-              path={userRoutes.userQuestLog.path}
-              component={() => (
-                <UserQuestLog
-                  getCompletedQuests={getCompletedQuests}
-                  completedQuests={completedQuests}
+              path={userRoutes.currentQuest.path}
+              render={({ match }) => (
+                <Quest
+                  id={userId}
+                  getQuestDetails={getQuestDetails}
+                  match={match}
                 />
               )}
             />
-          )}
-          <Route
-            exact
-            path={userRoutes.currentQuest.path}
-            render={({ match }) => (
-              <Quest
-                id={parseInt(userId.id)}
-                getQuestDetails={getQuestDetails}
-                match={match}
-              />
-            )}
-          />
-          <Route
+            <Route
             exact
             path={userRoutes.availableQuests.path}
             render={({ match }) => (
@@ -100,6 +138,9 @@ const App = () => {
             )}
           />
         </HomePage>
+      }
+      <Route exact path="/" component={Auth} />
+        </Switch>
       </main>
     );
   } else {

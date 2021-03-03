@@ -4,8 +4,17 @@ export interface UserProfile {
   xp: number;
 }
 
+export interface CurrentProfile {
+  name?: string 
+  email?: string
+  picture?: string
+}
+
+export interface CurrentProfileObject {
+  currentUser: CurrentProfile;
+}
 export interface ProfileObject {
-  user: UserProfile;
+  currentUser: UserProfile;
 }
 
 export interface idObject {
@@ -21,7 +30,7 @@ export interface Quest extends idObject {
 }
 
 export interface CompletedQuests {
-  completedQuests: Array<Quest>;
+  completedQuests?: Array<Quest>;
 }
 
 export interface QuestInProgress extends Quest {
@@ -61,16 +70,13 @@ export interface QuestEncounterFunctoinality {
   completeEncounter: (quest_id: number, progress: number) => void;
   getQuest: (quest_id: string) => void;
   getEncounter: (questId: string, propgressLevel: number) => void;
-  getQuestDetails: () => Promise<any>;
+  getQuestDetails: () => Promise<any> | null;
   updateMonsterHealth: (newquest: QuestInProgress) => void;
   helperFunction: () => void;
   setActivePage: (newActive: string) => void;
   getCompletedQuests: () => void;
+  getUserInfo: () => void;
 }
-
-// export interface HomePageProps {
-//   children?: object;
-// }
 
 export interface CardTypeObj {
   active: string[];

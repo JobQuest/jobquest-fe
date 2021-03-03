@@ -39,6 +39,8 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     cardTwo: false,
   });
   const [buttonIsPressed, setButtonIsPressed] = useState<boolean>(false);
+  const [switchingProgress, setSwitchingProgress] = useState<boolean>(false);
+
   const cardActions: ActionCards = {
     cardOne: [ActionCardOne, ActionCardOneH],
     cardTwo: [ActionCardTwo, ActionCardTwoH],
@@ -119,23 +121,27 @@ const Quest: React.FC<CurrentQuest> = (props) => {
   };
 
   const switchProgressLevel: typeof helperFunction = async () => {
+    if(switchingProgress) {
+      return 
+    }
+    await setSwitchingProgress(true)
+
     if (userQuest) {
       let currentEncounter = {
         quest_id: questId,
         progress: `${userQuest.progress + 1}`,
       };
 
-      await apiCalls
-        .patchUserQuest(id.toString(), currentEncounter)
-        .then((response) => {
-          let completionStatus = response.data.attributes.completion_status;
-          if (!completionStatus) {
-            getQuestInfo(questId);
-            getQuestDetails();
-          } else {
-            setCurrentEncounter(null);
-          }
-        });
+    await apiCalls.patchUserQuest(id, currentEncounter)
+      .then((response) => {
+        let completionStatus = response.data.attributes.completion_status
+        if(!completionStatus) {
+          getQuestInfo(questId)
+          getQuestDetails()
+        } else {
+          setCurrentEncounter(null)
+        }
+      }).finally(() => setSwitchingProgress(false))
       setQuestCards({
         cardOne: false,
         cardTwo: false,
