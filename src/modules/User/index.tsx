@@ -4,57 +4,16 @@ import {useState, useEffect} from 'react'
 import SpriteAni from '../Common/SpriteAnimation'
 import hero from "../../assets/Hero/Hero_Idle.png";
 import "./Profile.scss";
-
-const LogoutButton = () => {
-  const {
-    logout
-  } = useAuth0();
-  return (
-    <div className="logout-button" style={{cursor: "pointer", zIndex: 99}} onClick={() => logout({ returnTo: window.location.origin + "/" })}>
-      Log Out
-    </div>
-  );
-};
+import LogoutButton from '../Common/LogoutButton'
 
 type UserProfile = ProfileObject | QuestEncounterFunctoinality;
 
 const Profile: React.FC<UserProfile> = (props) => {
-  const { currentUser } = props as ProfileObject;
-
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-  const [userMetadata, setUserMetadata] = useState(null);
 
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = "dev-dsbofkr3.us.auth0.com";
-  
-      try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://${domain}/api/v2/`,
-          scope: "read:current_user",
-        });
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-  
-        const metadataResponse = await fetch(userDetailsByIdUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-  
-        const { user_metadata } = await metadataResponse.json();
-  
-        setUserMetadata(user_metadata);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-  
-    getUserMetadata();
-  }, [getAccessTokenSilently]);
+  const { currentUser } = props as ProfileObject;
+  const { getUserInfo } = props as QuestEncounterFunctoinality;
 
-  if(user) {
-    console.log(currentUser)
-  }
   if (isLoading) {
     return <div>Loading ...</div>;
   } else {
@@ -75,8 +34,8 @@ const Profile: React.FC<UserProfile> = (props) => {
       <h1 data-cy="username" className="user-page-title">
         {currentUser.username}
       </h1>
-      <h2 className="user-xp">Current EXP:{user.xp}</h2>
-      <h3 className="user-email">E-mail:{user.email}</h3>
+      <h2 className="user-xp">Current XP: {currentUser.xp}</h2>
+      <h3 className="user-email">E-mail: {currentUser.email}</h3>
       <LogoutButton/>
     </section>
     )}
