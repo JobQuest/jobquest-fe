@@ -23,11 +23,11 @@ describe("User Profile Page", () => {
 
     cy.get("[data-cy=homepage-container]")
       .get("[data-cy=profile-tab]")
-      .should("be.visible")
+        .should("be.visible")
       .get("[data-cy=quests-tab]")
-      .should("be.visible")
+        .should("be.visible")
       .get("[data-cy=questslog-tab]")
-      .should("be.visible");
+        .should("be.visible");
   });
 
   it("Should display a profile page", () => {
@@ -45,17 +45,17 @@ describe("User Profile Page", () => {
   it("Should redirect user to a different pages by clicking on nav tabs", () => {
 
     cy.get("[data-cy=quests-tab]")
-      .click()
-      .url()
-      .should("include", "/quests")
+        .click()
+        .url()
+        .should("include", "/quests")
       .get("[data-cy=questslog-tab]")
-      .click()
-      .url()
-      .should("include", "/quests-log")
+        .click()
+        .url()
+        .should("include", "/quests-log")
       .get("[data-cy=profile-tab]")
-      .click()
-      .url()
-      .should("include", "/profile");
+        .click()
+        .url()
+        .should("include", "/profile");
   });
 
   it("Should not display info from other elements", () => {
