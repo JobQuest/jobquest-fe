@@ -102,7 +102,7 @@ const App = () => {
             <HomePage>
             <Route
               exact path={userRoutes.profile.path}
-              render={() => <Profile currentUser={currentUser} />}
+              render={() => <Profile getUserInfo={getUserInfo} currentUser={currentUser} />}
             />
             {completedQuests &&
               <Route

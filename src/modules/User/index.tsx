@@ -14,6 +14,8 @@ const Profile: React.FC<UserProfile> = (props) => {
   const { currentUser } = props as ProfileObject;
   const { getUserInfo } = props as QuestEncounterFunctoinality;
 
+  useEffect(() => getUserInfo(), [])
+
   if (isLoading) {
     return <div>Loading ...</div>;
   } else {
