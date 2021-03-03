@@ -11,12 +11,11 @@ const Auth = () => {
   }
 
   return (
-    <section className="page-auth">
-      <div>{!isAuthenticated ? <LoginButton /> : <LogoutButton />}</div>
-      <h1 className="welcome-text">
-        Start Your <br />
-        Journey Here!
-      </h1>
+    <section data-cy="auth-page-login" className="page-auth">
+      <h1>Start Your Journey Here!</h1>
+      <div>
+      {!isAuthenticated ? <LoginButton /> : <LogoutButton />}
+      </div>
     </section>
   );
 };
