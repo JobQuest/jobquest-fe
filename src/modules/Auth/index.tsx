@@ -1,22 +1,9 @@
 import React from 'react'
 import './Auth.scss'
-import { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
+import LoginButton from '../Common/LoginButton'
+import LogoutButton from '../Common/LogoutButton'
 
-export const LoginButton = () => {
-  const { loginWithRedirect } = useAuth0();
-  return (<div onClick={() => loginWithRedirect()}><h1 className="login-title">Log In</h1></div>)
-}
-
-export const LogoutButton = () => {
-  const { logout } = useAuth0();
-  console.log("hey i am out")
-  return (
-    <div onClick={() => logout({ returnTo: window.location.origin + "/" })}>
-      Log Out
-    </div>
-  );
-};
 
 const Auth = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -26,7 +13,10 @@ const Auth = () => {
 
   return (
     <section className="page-auth">
+      <h1>Start Your Journey Here!</h1>
+      <div>
       {!isAuthenticated ? <LoginButton /> : <LogoutButton />}
+      </div>
     </section>
   );
 };
