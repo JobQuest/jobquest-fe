@@ -53,7 +53,7 @@ const Profile: React.FC<UserProfile> = (props) => {
   }, [getAccessTokenSilently]);
 
   if(user) {
-    console.log("Hi i am a new user")
+    console.log(currentUser)
   }
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -73,7 +73,7 @@ const Profile: React.FC<UserProfile> = (props) => {
         height={188}
       />
       <h1 data-cy="username" className="user-page-title">
-        {user.name}
+        {currentUser.username}
       </h1>
       <h2 className="user-xp">Current EXP:{user.xp}</h2>
       <h3 className="user-email">E-mail:{user.email}</h3>

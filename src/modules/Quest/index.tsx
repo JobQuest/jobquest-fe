@@ -125,17 +125,16 @@ const Quest: React.FC<CurrentQuest> = (props) => {
         progress: `${userQuest.progress + 1}`,
       };
 
-      await apiCalls
-        .patchUserQuest(id.toString(), currentEncounter)
-        .then((response) => {
-          let completionStatus = response.data.attributes.completion_status;
-          if (!completionStatus) {
-            getQuestInfo(questId);
-            getQuestDetails();
-          } else {
-            setCurrentEncounter(null);
-          }
-        });
+    await apiCalls.patchUserQuest(id, currentEncounter)
+      .then((response) => {
+        let completionStatus = response.data.attributes.completion_status
+        if(!completionStatus) {
+          getQuestInfo(questId)
+          getQuestDetails()
+        } else {
+          setCurrentEncounter(null)
+        }
+      })
       setQuestCards({
         cardOne: false,
         cardTwo: false,

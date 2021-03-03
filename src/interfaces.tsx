@@ -70,7 +70,7 @@ export interface QuestEncounterFunctoinality {
   completeEncounter: (quest_id: number, progress: number) => void;
   getQuest: (quest_id: string) => void;
   getEncounter: (questId: string, propgressLevel: number) => void;
-  getQuestDetails: () => Promise<any>;
+  getQuestDetails: () => Promise<any> | null;
   updateMonsterHealth: (newquest: QuestInProgress) => void;
   helperFunction: () => void;
   setActivePage: (newActive: string) => void;
