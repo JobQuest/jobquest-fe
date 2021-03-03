@@ -19,19 +19,19 @@ const UserQuestLog: React.FC<QuestLog> = (props) => {
  
   if (completedQuests) {
     return (
-      <section className="page-questlog">
+      <section data-cy="quests-log-container" className="page-questlog">
         <h2 className="quest-log-page-title">
           My Quest <br />
           Log
         </h2>
-        <section className="quest-record-display-bkg">
+        <section data-cy="quests-log-wrapper" className="quest-record-display-bkg">
           {completedQuests[0] &&
             completedQuests.map((questRecord: Quest) => (
-              <div key={questRecord.id} className="quest-record">
+              <div data-cy="completed-quest-card" key={questRecord.id} className="quest-record">
                 <div className="quest-record-info-wrapper">
-                  <h2 cy-data="quest-record-title">{questRecord.name}</h2>
-                  <p cy-data="quest-record-xp">Exp earned:{questRecord.xp}</p>
-                  <p cy-data="quest-record-type">Type:{questRecord.type}</p>
+                  <h2 data-cy="quest-record-title">{questRecord.name}</h2>
+                  <p data-cy="quest-record-xp">Exp earned:{questRecord.xp}</p>
+                  <p data-cy="quest-record-type">Type:{questRecord.type}</p>
                 </div>
               </div>
             ))}
