@@ -25,7 +25,7 @@ import RedButton from "../../assets/Extras/Red_Button.png";
 import RedButtonPressed from "../../assets/Extras/Red_Button_Pressed.png";
 import Trophy from "../../assets/Extras/Trophy.png";
 
-type CurrentQuest = ComponentPath | QuestEncounterFunctoinality | idObject;
+type CurrentQuest = QuestInProgress | ComponentPath | QuestEncounterFunctoinality | idObject;
 
 const Quest: React.FC<CurrentQuest> = (props) => {
   const [userQuest, setUserQuest] = useState<QuestInProgress | null>(null);
@@ -140,6 +140,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
           getQuestDetails()
         } else {
           setCurrentEncounter(null)
+          setIsQuestCompleted(true)
         }
       }).finally(() => setSwitchingProgress(false))
       setQuestCards({
@@ -153,7 +154,8 @@ const Quest: React.FC<CurrentQuest> = (props) => {
     getQuestInfo(questId);
   }, [isQuestCompleted]);
 
-  if (!userQuest || !currentEncounter || isQuestCompleted) {
+
+  if (isQuestCompleted && !currentEncounter) {
     return (
       <section data-cy="single-quest-container" className="page-quest-list">
         <h2 className="component-title">
@@ -184,7 +186,7 @@ const Quest: React.FC<CurrentQuest> = (props) => {
         </section>
       </section>
     );
-  } else {
+  } else if(userQuest && currentEncounter) {
     return (
       <section data-cy="single-quest-container" className="page-quest-list">
         <h2 className="component-title">
@@ -278,6 +280,20 @@ const Quest: React.FC<CurrentQuest> = (props) => {
             </div>
           </div>
           <p>Complete either task above to progress!</p>
+        </section>
+      </section>
+    );
+  } else {
+    return (
+      <section data-cy="single-quest-container" className="page-quest-list">
+        <h2 className="component-title">
+          Please
+          <br /> wait!
+        </h2>
+        <section className="complete-quest">
+          <p className="complete-quest__completion-desc">
+            ...Loading
+          </p>
         </section>
       </section>
     );

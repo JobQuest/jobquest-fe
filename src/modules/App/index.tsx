@@ -7,8 +7,8 @@ import UserQuestLog from "../UserQuestLog";
 import HomePage from "../HomePage";
 import QuestsList from "../QuestsList";
 import userRoutes from "../../routes/user";
-import { Route, Switch, useParams } from "react-router-dom";
-import { QuestInProgress, UserProfile, CurrentProfileObject } from "../../interfaces";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { QuestInProgress, UserProfile } from "../../interfaces";
 import { apiCalls } from "../../apiCalls";
 import Auth from '../Auth';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -94,52 +94,60 @@ const App = () => {
     }
   }, [currentUser]);
 
-  if (availableQuests) {
+  if (!isLoading) {
     return (
       <main className="App">
         <Switch>
           {currentUser && userId &&
             <HomePage>
-            <Route
-              exact path={userRoutes.profile.path}
-              render={() => <Profile getUserInfo={getUserInfo} currentUser={currentUser} />}
-            />
-            {completedQuests &&
+              <Route
+                exact path={userRoutes.profile.path}
+                render={() => <Profile getUserInfo={getUserInfo} currentUser={currentUser} />}
+              />
+              {completedQuests &&
+                <Route
+                  exact
+                  path={userRoutes.userQuestLog.path}
+                  render={() => (
+                    <UserQuestLog
+                      getCompletedQuests={getCompletedQuests}
+                      completedQuests={completedQuests}
+                    />
+                  )}
+                />
+              }
               <Route
                 exact
-                path={userRoutes.userQuestLog.path}
-                render={() => (
-                  <UserQuestLog
-                    getCompletedQuests={getCompletedQuests}
-                    completedQuests={completedQuests}
+                path={userRoutes.currentQuest.path}
+                render={({ match }) => (
+                  <Quest
+                    id={userId}
+                    getQuestDetails={getQuestDetails}
+                    match={match}
                   />
                 )}
-              />}
-              <Route
-              exact
-              path={userRoutes.currentQuest.path}
-              render={({ match }) => (
-                <Quest
-                  id={userId}
-                  getQuestDetails={getQuestDetails}
-                  match={match}
-                />
-              )}
-            />
-            <Route
-            exact
-            path={userRoutes.availableQuests.path}
-            render={({ match }) => (
-              <QuestsList
-                getQuestDetails={getQuestDetails}
-                quests={availableQuests}
-                match={match}
               />
+              <Route
+                exact
+                path={userRoutes.availableQuests.path}
+                render={({ match }) => (
+                  <QuestsList
+                    getQuestDetails={getQuestDetails}
+                    quests={availableQuests}
+                    match={match}
+                  />
+                )}
+              />
+            </HomePage>
+         }
+            <Route exact path="/" render={() => (
+              isAuthenticated ? (
+                <Redirect to="/profile"/>
+              ) : (
+                <Auth/>
+              )
             )}
-          />
-        </HomePage>
-      }
-      <Route exact path="/" component={Auth} />
+            />
         </Switch>
       </main>
     );
