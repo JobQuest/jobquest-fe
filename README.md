@@ -1,14 +1,26 @@
-# JobQuest
+<br />
+<p align="center">
+  <a href="https://job-quest-fe.herokuapp.com/">
+    <img src="https://i.imgur.com/UMSbZc5.png" alt="JobQuest Logo" width="200" height="220">
+  </a>
 
-To view the production site, please visit the [JobQuest link](https://job-quest-fe.herokuapp.com).
+  <h3 align="center">JobQuest</h3>
 
-To view the other components of the application please visit the [Github Project Organization](https://github.com/JobQuest).
-
-### [JobQuest](https://job-quest-fe.herokuapp.com/)
-
-### [Link To Our FE Repo](https://github.com/JobQuest/jobquest-fe)
-
-### [Link To Our BE Repo](https://github.com/JobQuest/jobquest-be)
+  <p align="center">
+    A web app to gamify the job search!
+    <br />
+    <a href="https://job-quest-fe.herokuapp.com"><strong>View production site!</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/JobQuest/jobquest-be">Back-end repo</a>
+    ·
+    <br />
+    <a href="https://github.com/JobQuest/jobquest-fe">Front-end repo</a>
+    ·
+    <a href="https://github.com/JobQuest">Project organization</a>
+    ·
+  </p>
+</p>
 
 ---
 
@@ -24,6 +36,11 @@ To view the other components of the application please visit the [Github Project
 - [Credits](#credits)
 
 ## Project Overview
+
+JobQuest is a text-based RPG-style campaign that aids in the job search process, while making it fun! A user can login or create an account to track their progress through different quests to defeat fantastical monsters. There are 3 types of quests: active, passive, and supportive. Active quests require you to perform actions such as *apply for a job* or *send out a resume* in order to conquer the beast. Passive quests will have you doing things like *update your resume* and *research potential companies* in order to triumph over evil. For supportive quests, you will be helping out friends (Guild-mates coming soon!) by completing such activities as *host a mock interview* for them or *review their solution to a coding challenge*. Once you complete an action outside the game, you will then select that option to deal damage to your demon. With each new quest level, the creatures you battle will become stronger, and therefore will be tougher to defeat. By completing every quest, you shall have taken the necessary steps to obtaining a job**.
+Good luck on your journey through JobQuest!
+
+** Disclaimer: The creators of JobQuest do not in any way guarantee employment by completing this game, and thinking so is down right silly of you.
 
 ---
 
@@ -49,24 +66,42 @@ To view the other components of the application please visit the [Github Project
 
 ---
 
+- This was our first project using typescript. We had previously only used untyped languages. The more complicated the project became, the more careful we had to get with strict typing and variables. Ultimately it was a good experience, and building up modular 'type' objects turned out to be fun, despite the early frustration
+- Continuous integration with TravisCI proved to be a big blocker for the front-end. We were hoping to get better practoce with it, but we ended up having to prioritise other things, making changes locally and manually deploying to heroku often.
+- Our testing software, Cypress, gave us some trouble after our authentication feature was implemented, since the authentication process routed to another website, which broke some tests. We were able to get the tests back up and running after research, but it was a stressful bug.
+
 
 ## Wins
 
 ---
 
+- The planning process might have been our strongest point. The entire team brainstormed and planned and re-planned through the first several days of the project, making sure to build out wireframes and schemas, and not to leave anyone out. The idea for the app ended up getting almost completely re-worked near the end of the planning phases, and the extra effort up front helped us to make a better product in the end.
+- This was the first project any of us had completed where our back-end was under development at the same time as the front end. We had to make sure that our communication was strong and clear, since often changes to one meant big changes for the other. There were lots of bugs at first, but we were able to communicate clearly and get everything fixed up, even through some discomfort
+- We had a strong desire for the look of the app to be pixelated, but we still wanted to maintain a familiar, modern website structure. Because of this, we had to custom design a lot of the assets from scratch. The process of going from the wireframe to the actual production assets was tricky, and required a lot if trial and error, but the team was very collaborative, and we were able to focus in on only the most important parts of the site. In the end we made something beautiful and unique. 
+
+
 ## ScreenShots and Demos
 
 ---
+
+#### Login Authentication
+
+![Login gif](https://i.imgur.com/aYRS9DM.gif)
+
+#### Persistant progress & Exp gain
+
+![Progress and Exp](https://i.imgur.com/1dp7K6k.gif)
 
 ### Homepage
 
 ---
 
+<img width="800" align="center" alt="Screen Shot 2021-03-03 at 6 19 26 PM" src="https://user-images.githubusercontent.com/36242106/109895775-0a2d5080-7c4d-11eb-871d-0158745f005c.png">
 
 
 <details>
-  <summary>**Under the Hood**</summary>
-
+  <summary>Details</summary>
+  Upon visiting the website for the first time, the user will be presented with a small message and a 'login' button. Clicking the login button will route the user to an Auth0 login screen. From this point on, when users visit the website, they will see the profile page, unless they click the 'logout' button on the profile page.
 
 </details>
 
@@ -76,10 +111,41 @@ To view the other components of the application please visit the [Github Project
 
 ---
 
+<img width="800" align="center" alt="Screen Shot 2021-03-03 at 6 15 34 PM" src="https://user-images.githubusercontent.com/36242106/109896126-a9524800-7c4d-11eb-8c6d-5c26d371daef.png">
 
 <details>
-  <summary>**Under the Hood**</summary>
+  <summary>Details</summary>
+  On the profile page, the user can see a simple animated character avitar, which represents them for the game. The user can check their current Exp level, their email, and a logout button. The tabs on the right will allow them to navigate to the other pages.
 
+</details>
+
+---
+
+### Quests Page
+
+---
+
+<img width="800" align="center" alt="Screen Shot 2021-03-03 at 6 15 45 PM" src="https://user-images.githubusercontent.com/36242106/109896326-f7ffe200-7c4d-11eb-804a-9764943ce27f.png">
+
+
+<details>
+  <summary>Details</summary>
+  On the quests page, the user can choose what quest they want to embark on. There are three main 'types' of quests, active, passive, and supportive. THe user's more current progress in each types will be shown on the card. The quest types describe the type of actions the user will be required to complete in order to damage the monsters which block their way.
+
+</details>
+
+---
+
+### Active Quest Page
+
+---
+
+<img width="800" align="center" alt="Screen Shot 2021-03-03 at 6 16 15 PM" src="https://user-images.githubusercontent.com/36242106/109897250-a9534780-7c4f-11eb-967f-289b72a90ad8.png">
+
+
+<details>
+  <summary>Details</summary>
+  On the active quest page, the user sees the monster they are facing. The monster's health is represented by hearts above the monster. Below the fight panel, the user can see two action cards. THe user needs to complete one of the two actions described on the cards in order to make progress against the monster. Once the user has completed the action, they click it, and the encounter is progressed. Once the monster's hearts reach zero, the user will see the 'victory' page. The quests exp is added to the user's current exp, and a log of the quest can be seen in the quest log tab.
 
 </details>
 
@@ -91,8 +157,10 @@ To view the other components of the application please visit the [Github Project
 
 Future additions to include:
 
-- Create Guilds
-- Create a Leaderboard
+- Create Guilds where users can see and share their progress with other users
+- Increase the detail of quest log to show the specific actions that a user has completed
+- Add a 'proof' step to the encounter so a user must submit some form of evidence that the action was completed
+- Create a Leaderboard where users and guilds can compete
 - Add Chat functionality with other Users
 
 ## Credits
@@ -188,3 +256,5 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
